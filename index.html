@@ -1,0 +1,2557 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="version" content="1.0">
+<meta name="description" content="펌프로 붙임딱지를 붙인 풍선을 불며 줄자로 거리를 재고, 풍선 모형으로 외부 은하가 멀어지는 까닭과 중심 없는 우주 팽창, 대폭발 이후 우주의 과거를 알아보는 중학교 과학 가상실험실">
+<meta property="og:title" content="송쌤과학 가상실험실 | 우주 팽창">
+<meta property="og:description" content="풍선을 불면 붙임딱지는 그대로인데 거리만 늘어난다 — 풍선 모형으로 우주가 팽창하고 있음을 설명해요">
+<meta name="theme-color" id="metaTheme" content="#101b28">
+<title>송쌤과학 가상실험실 | 우주 팽창</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d1421'/%3E%3Cpath d='M32 7c11 0 18 8.5 18 19.5C50 39 41 49 32 49S14 39 14 26.5C14 15.5 21 7 32 7Z' fill='%237b61ff'/%3E%3Cpath d='M29 49l-2 6h10l-2-6' fill='%237b61ff'/%3E%3Ccircle cx='25' cy='23' r='4.2' fill='%23ffb347'/%3E%3Ccircle cx='39' cy='20' r='4.2' fill='%23ffb347'/%3E%3Ccircle cx='36' cy='35' r='4.2' fill='%23ffb347'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script>(function(){try{var t=localStorage.getItem('ssv-theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<style>
+/* ① 테마와 무관한 토큰 */
+:root{
+  --font-ui:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --font-title:var(--font-ui);
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;
+  --r-1:6px;--r-2:10px;--r-3:16px;--r-full:999px;       /* 작은 컨트롤 6 · 버튼·입력 10 · 패널·장면 16 · 상태 알약 full */
+  --control-h:34px;--icon-size:18px;
+  --dur-fast:140ms;--dur-ui:260ms;--dur-ui-out:180ms;--dur-layout:360ms;
+  --ease-out:cubic-bezier(.2,0,0,1);--ease-in:cubic-bezier(.4,0,1,1);--lift:8px;
+  --top-h:56px;--rail-w:84px;--panel-w:clamp(380px,31vw,450px);
+  --light-angle:215deg;                                  /* 주 광원: 왼쪽 위 (UI 그림자는 아래로, 풍선 반사는 왼쪽 위) */
+  --brand-pink:#FFB7B2;--brand-ink:#3b1d1b;
+  --yt-red:#ff0033;--yt-play:#ffffff;--ig-1:#feda75;--ig-2:#fa7e1e;--ig-3:#d62976;--ig-4:#4f5bd5;
+  /* 장면(실험대·우주): 두 테마 모두 어두운 채로 남으므로 테마와 무관한 토큰만 쓴다 (§11-8) */
+  --st-bg-0:#070b13;--st-bg-1:#0d1421;--st-text-1:#e9eef5;--st-text-2:#b4c1cf;--st-line:#3a4a63;--st-accent:#7fe0cf;--st-chip-bg:#0a1220;--st-chip-line:#3a4a63;--st-white:#ffffff;--st-shadow:#000000;
+  --st-wall-0:#111a27;--st-wall-1:#0a1019;--st-table-back:#141c27;--st-table-top:#1d2632;--st-table-front:#0c1118;--st-table-edge:#2f3b4c;
+  --st-rubber-hi:#ddd3ff;--st-rubber:#7b61ff;--st-rubber-lo:#35208f;--st-rubber-rim:#291873;--st-rubber-thin:#c7baff;--st-rubber-neck:#1e1158;
+  --st-sticker:#ffb347;--st-sticker-rim:#ffd79c;--st-sticker-edge:#b8741a;--st-sticker-ink:#2a1a05;
+  --st-tape:#f3eee2;--st-tape-edge:#b9ae94;--st-tape-ink:#23262d;--st-tape-tip:#c9d1da;--st-read:#ff5d73;
+  --st-grid:#6fe0cf;--st-pen:#1a0f33;
+  --st-pump-hi:#ffe68a;--st-pump:#f0c02a;--st-pump-lo:#a97a07;--st-pump-cap:#c9950c;--st-pump-ink:#4a3500;--st-grip:#262b33;--st-grip-lift:#39414d;--st-grip-ridge:#4a525e;
+  --st-metal-hi:#dfe5ec;--st-metal-mid:#8d98a5;--st-metal-lo:#3b4450;
+  --st-space-0:#03060d;--st-space-1:#0c1628;--st-gx-core:#fff4d6;--st-gx-arm:#b8c7ff;--st-gx-halo:#7d95ff;--st-gx-ell:#ffd49a;--st-gx-bar:#ffe3b0;
+  --st-bang:#fff1c9;--st-bang-glow:#ff9d4d;--st-trail:#c9d4e2;
+  --st-dough-hi:#f7e2bb;--st-dough:#e3bc82;--st-crust:#a8652a;--st-raisin:#3a1c2a;--st-raisin-hi:#8a5870;--st-tray:#6f7a87;--st-tray-top:#a9b3bf;
+}
+/* ② 테마 토큰 — 두 블록은 같은 목록, 값만 다르다 (시리즈 참고 팔레트 · UI 크롬) */
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --surface-0:#0b131d;--surface-1:#101b28;--surface-2:#182636;
+  --text-1:#e8eff5;--text-2:#b0c0cf;--text-3:#8ea2b4;--line-1:#223445;--line-2:#34495d;
+  --accent:#6fd3c1;--accent-strong:#9be7d9;--accent-soft:#163a3b;--on-accent:#08131c;--focus:#9be7d9;--scrim:#02070dcc;
+  --danger:#ff9d8a;--danger-soft:#3b2322;--ok:#7ed7a0;--ok-soft:#1d3b32;--warn:#ffcf5c;--warn-soft:#3f3822;
+  --data-1:#E69F00;--data-2:#56B4E9;--data-3:#2fbf92;--data-4:#CC79A7;--data-now:#e8eff5;
+  --shadow-color:215 45% 3%;
+  --shadow-1:0 0 #0000;
+  --shadow-2:0 12px 32px -12px hsl(var(--shadow-color) / .6);
+  --shadow-3:0 24px 64px -16px hsl(var(--shadow-color) / .7);
+  --edge-hi:inset 0 1px 0 hsl(0 0% 100% / .06);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --surface-0:#edf1f4;--surface-1:#fbfcfd;--surface-2:#e3eaf0;
+  --text-1:#132a3b;--text-2:#44596b;--text-3:#566b7e;--line-1:#d3dde5;--line-2:#b2c3d0;
+  --accent:#0f6b60;--accent-strong:#0a5148;--accent-soft:#d5eeea;--on-accent:#ffffff;--focus:#0a5148;--scrim:#0b1a2680;
+  --danger:#b3261e;--danger-soft:#fbe3df;--ok:#1d7a47;--ok-soft:#d8f0e2;--warn:#8a5a00;--warn-soft:#fff2c8;
+  --data-1:#B07400;--data-2:#0072B2;--data-3:#007A5A;--data-4:#A6508A;--data-now:#132a3b;
+  --shadow-color:210 30% 22%;
+  --shadow-1:0 1px 2px hsl(var(--shadow-color) / .08);
+  --shadow-2:0 1px 2px hsl(var(--shadow-color) / .06),0 10px 28px -10px hsl(var(--shadow-color) / .22);
+  --shadow-3:0 2px 6px hsl(var(--shadow-color) / .08),0 24px 56px -16px hsl(var(--shadow-color) / .30);
+  --edge-hi:0 0 #0000;
+}
+/* ③ 기본 마감 */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;accent-color:var(--accent)}
+body{margin:0;background:var(--surface-0);color:var(--text-1);font:400 15px/1.65 var(--font-ui);font-synthesis:none;word-break:keep-all;overflow-wrap:break-word}
+:root[data-theme="dark"] body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+p,li,figcaption{text-wrap:pretty}
+button,input,select,textarea{font:inherit;color:inherit}
+input,select,textarea{font-size:max(16px,1em)}
+button,a,[role="button"]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+::selection{background:color-mix(in oklab,var(--accent) 30%,transparent)}
+input,textarea{caret-color:var(--accent)}
+*{scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.scroll{overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.num{font-variant-numeric:tabular-nums}
+.unit{white-space:nowrap}
+img,canvas,video{display:block;max-width:100%}
+[hidden]{display:none!important}
+dialog:not([open]){display:none}
+[popover]:not(:popover-open){display:none}
+.sr-only{position:absolute;left:0;top:0;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:8px;top:-60px;z-index:90;padding:8px 12px;border-radius:var(--r-1);background:var(--accent);color:var(--on-accent);text-decoration:none;font-weight:600}
+.skip:focus{top:8px}
+kbd{font:600 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;border:1px solid var(--line-2);border-bottom-width:2px;border-radius:5px;padding:3px 5px;color:var(--text-1);background:var(--surface-0)}
+svg.ic{width:var(--icon-size);height:var(--icon-size);fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.muted{color:var(--text-2)}.small{font-size:13px}
+.sub{color:var(--text-2)}
+.warn-t{color:var(--warn);font-weight:600}
+:root[data-theme="light"] .warn-t{color:var(--warn)}
+
+/* 상단 막대 */
+body{height:100dvh;display:grid;grid-template-rows:var(--top-h) minmax(0,1fr);overflow:hidden}
+.topbar{position:relative;z-index:30;height:var(--top-h);display:flex;align-items:center;gap:12px;padding:0 12px 0 16px;background:var(--surface-1);border-bottom:1px solid var(--line-1)}
+.brand{display:flex;align-items:center;gap:8px;white-space:nowrap;flex:none}
+.brandmark{width:27px;height:27px;border-radius:var(--r-2);background:var(--brand-pink);color:var(--brand-ink);display:grid;place-items:center;flex:none}
+.brandmark svg.ic{width:17px;height:17px;stroke-width:2}
+.word{font:700 13px/1 var(--font-ui);color:var(--text-1)}
+.vdiv{width:1px;height:15px;background:var(--line-2);flex:none}
+.social{position:relative;width:34px;height:34px;display:grid;place-items:center;border-radius:var(--r-1);color:var(--text-2);text-decoration:none}
+.social::before{content:'';position:absolute;inset:-5px}
+.social svg{width:21px;height:21px}
+.social .yt-body{fill:currentColor}.social .yt-play{fill:var(--surface-1)}
+.social .ig-line{fill:none;stroke:currentColor;stroke-width:2}.social .ig-dot{fill:currentColor}
+.social:is(:hover,:focus-visible) .yt-body{fill:var(--yt-red)}.social:is(:hover,:focus-visible) .yt-play{fill:var(--yt-play)}
+.social:is(:hover,:focus-visible) .ig-line{stroke:url(#ig-grad)}.social:is(:hover,:focus-visible) .ig-dot{fill:var(--ig-3)}
+.top-title{display:flex;align-items:center;gap:10px;min-width:0;font:700 15px/1.2 var(--font-ui);color:var(--text-1)}
+.top-title .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.top-title .std{font:600 12px/1 var(--font-ui);color:var(--text-2);white-space:nowrap}
+.utilities{margin-left:auto;display:flex;align-items:center;gap:2px;flex:none}
+.hsep{width:1px;height:20px;background:var(--line-1);margin:0 4px}
+.icon-btn{position:relative;width:36px;height:36px;display:grid;place-items:center;border:0;border-radius:var(--r-2);background:transparent;color:var(--text-2);cursor:pointer;transition:background var(--dur-fast),color var(--dur-fast),transform var(--dur-fast)}
+.icon-btn::before{content:'';position:absolute;inset:-4px}
+.icon-btn svg.ic{width:20px;height:20px}
+.icon-btn:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.icon-btn:hover,.social:hover{background:var(--surface-2);color:var(--text-1)}}
+
+/* 앱 골격: 좌측 레일 + 본문 */
+.appbody{display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);min-height:0}
+.rail{display:flex;flex-direction:column;gap:4px;padding:12px 8px;background:var(--surface-1);border-right:1px solid var(--line-1);overflow-y:auto}
+.rail button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:68px;padding:8px 2px;border:0;border-radius:var(--r-2);background:transparent;color:var(--text-2);font:600 12px/1.25 var(--font-ui);text-align:center;cursor:pointer}
+.rail button svg.ic{width:23px;height:23px;stroke-width:1.7}
+.rail button .s{display:none}
+.rail button[aria-current="page"]{background:var(--surface-2);color:var(--text-1);font-weight:800}
+.rail button[aria-current="page"]::after{content:'';position:absolute;left:-8px;top:16px;bottom:16px;width:3px;border-radius:0 3px 3px 0;background:var(--accent)}
+@media (hover:hover) and (pointer:fine){.rail button:hover{color:var(--text-1)}}
+main{position:relative;overflow:auto;padding:12px 16px 14px;min-width:0;min-height:0;outline:none}
+
+/* 실험 화면 */
+.lab{display:grid;grid-template-rows:auto minmax(0,1fr);gap:10px;height:100%;min-height:0}
+.lab-head{display:flex;align-items:center;gap:6px 14px;min-height:34px;flex-wrap:wrap}
+.lab-head h1{font:800 18px/1.3 var(--font-title);letter-spacing:-.02em}
+.goal{margin:0;font-size:13px;line-height:1.45;color:var(--text-2);font-weight:500}
+.head-seg{margin-left:auto}
+.lab-grid{display:grid;grid-template-columns:minmax(0,1fr) var(--panel-w);gap:14px;min-height:0}
+.bench{display:flex;flex-direction:column;min-height:0;min-width:0;border:1px solid var(--line-1);border-radius:var(--r-3);background:var(--surface-1);overflow:hidden}
+.bench-head{display:flex;align-items:center;gap:8px;padding:7px 8px 7px 10px;border-bottom:1px solid var(--line-1);background:var(--surface-1)}
+.bh-tools{display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-width:0;flex:1}
+.bh-k{font:600 13px/1 var(--font-ui);color:var(--text-2);margin-right:2px}
+.bh-sep{width:1px;height:20px;background:var(--line-1);margin:0 4px}
+.stage{position:relative;flex:1;min-height:0;background:var(--st-bg-1);touch-action:pan-y}
+.stage>svg{position:absolute;inset:0;width:100%;height:100%}
+.status{margin:0;padding:10px 14px;min-height:60px;border-top:1px solid var(--line-1);background:var(--surface-1);font-size:15px;line-height:1.55;color:var(--text-1)}
+.status b{font-weight:800}
+.panel{display:flex;flex-direction:column;min-height:0;min-width:0;border:1px solid var(--line-1);border-radius:var(--r-3);background:var(--surface-1);overflow:hidden}
+.panel-scroll{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 14px 14px;display:flex;flex-direction:column}
+.panel-foot{border-top:1px solid var(--line-1);padding:8px 10px;background:var(--surface-1);display:flex;gap:6px;flex-wrap:wrap}
+.pg{flex:none}
+.pg+.pg{margin-top:12px;padding-top:12px;border-top:1px solid var(--line-1)}
+.pg-title{font:700 13px/1.3 var(--font-ui);color:var(--text-2);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.pg-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.pg-row .pg-title{margin:0}
+.pg-k{display:block;font:600 12px/1.3 var(--font-ui);color:var(--text-2);margin-bottom:5px}
+.count,.pill{font:700 12px/1 var(--font-ui);color:var(--text-2);padding:3px 7px;border:1px solid var(--line-2);border-radius:var(--r-full)}
+.help{margin:6px 0 0;font-size:13px;line-height:1.6;color:var(--text-2)}
+.empty{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--text-2)}
+.shutter{position:absolute;inset:0;background:var(--st-text-1);opacity:0;pointer-events:none;animation:shutter .32s ease-out;z-index:8}
+@keyframes shutter{0%{opacity:.5}100%{opacity:0}}
+
+/* 컨트롤 */
+.tool{position:relative;display:inline-flex;align-items:center;gap:6px;height:var(--control-h);padding:0 11px;border:1px solid var(--line-2);border-radius:var(--r-1);background:var(--surface-1);color:var(--text-1);font:600 13px/1 var(--font-ui);white-space:nowrap;cursor:pointer;transition:background var(--dur-fast),border-color var(--dur-fast),transform var(--dur-fast)}
+.tool::before{content:'';position:absolute;inset:-5px -2px}
+.tool svg.ic{width:17px;height:17px}
+.tool[aria-pressed="true"]{background:var(--surface-2);border-color:var(--text-2);font-weight:800}
+.tool[aria-pressed="true"] svg.ic{color:var(--accent)}
+.tool.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:800}
+.tool.ghost{border-color:transparent;background:transparent;color:var(--text-2)}
+.tool.save{margin-left:auto;border-color:transparent;background:transparent;color:var(--text-2);flex:none}
+.tool:disabled{opacity:.45;cursor:not-allowed}
+.tool[aria-busy="true"]{opacity:.6;cursor:progress}
+.tool:active:not(:disabled){transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.tool:hover:not(:disabled):not(.primary){background:var(--surface-2);color:var(--text-1)}.tool.primary:hover{filter:brightness(1.06)}}
+.seg{display:inline-flex;gap:2px;padding:2px;border:1px solid var(--line-2);border-radius:var(--r-2);background:var(--surface-0)}
+.seg button{position:relative;min-height:30px;padding:0 10px;border:0;border-radius:7px;background:transparent;color:var(--text-2);font:600 13px/1 var(--font-ui);white-space:nowrap;cursor:pointer}
+.seg button::before{content:'';position:absolute;inset:-6px -1px}
+.seg button small{font-weight:500;font-size:12px;color:inherit;opacity:.85;margin-left:2px}
+.seg button[aria-pressed="true"]{background:var(--surface-1);color:var(--text-1);font-weight:800;box-shadow:var(--shadow-1),inset 0 -2px 0 var(--accent)}
+.seg button:disabled{opacity:.4;cursor:not-allowed}
+.seg.tiny button{min-height:28px;padding:0 8px;font-size:12px}
+.chips{display:flex;gap:4px;flex-wrap:wrap}
+.chip{position:relative;min-width:44px;height:30px;padding:0 9px;border:1px solid var(--line-2);border-radius:var(--r-full);background:transparent;color:var(--text-1);font:700 13px/1 var(--font-ui);font-variant-numeric:tabular-nums;cursor:pointer;transition:background var(--dur-fast),border-color var(--dur-fast)}
+.chip::before{content:'';position:absolute;inset:-7px -1px}
+.chip .u{font-weight:500;font-size:12px;color:var(--text-2);margin-left:2px}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--text-1)}
+@media (hover:hover) and (pointer:fine){.chip:hover{background:var(--surface-2)}}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:0 13px;border:1px solid var(--line-2);border-radius:var(--r-2);background:var(--surface-1);color:var(--text-1);font:600 13px/1.2 var(--font-ui);white-space:nowrap;cursor:pointer;text-decoration:none;transition:background var(--dur-fast),transform var(--dur-fast)}
+.btn::before{content:'';position:absolute;inset:-3px 0}
+.btn svg.ic{width:17px;height:17px}
+.btn.primary{min-height:42px;background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:800}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--text-2)}
+.btn.small{min-height:34px;padding:0 10px}
+.btn.small::before{inset:-5px 0}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:active:not(:disabled){transform:scale(.98)}
+@media (hover:hover) and (pointer:fine){.btn:hover:not(:disabled):not(.primary){background:var(--surface-2);color:var(--text-1)}.btn.primary:hover:not(:disabled){filter:brightness(1.06)}}
+.mini-tog{position:relative;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 9px;border:1px solid var(--line-2);border-radius:var(--r-full);background:transparent;color:var(--text-2);font:600 12px/1 var(--font-ui);cursor:pointer}
+.mini-tog::before{content:'';position:absolute;inset:-8px -2px}
+.mini-tog svg.ic{width:15px;height:15px}
+.mini-tog[aria-pressed="true"]{border-color:var(--accent);color:var(--text-1);background:var(--accent-soft)}
+.xbtn{position:relative;width:28px;height:28px;display:inline-grid;place-items:center;border:0;border-radius:var(--r-1);background:transparent;color:var(--text-2);cursor:pointer}
+.xbtn::before{content:'';position:absolute;inset:-8px -2px}
+.xbtn svg.ic{width:15px;height:15px}
+.xbtn.big{width:36px;height:36px;border:1px solid var(--line-2)}
+.xbtn.big::before{inset:-4px}
+@media (hover:hover) and (pointer:fine){.xbtn:hover{background:var(--surface-2);color:var(--text-1)}}
+.linkbtn{position:relative;display:inline-flex;align-items:center;gap:4px;min-height:30px;padding:0 6px;border:0;border-radius:var(--r-1);background:transparent;color:var(--text-2);font:600 12px/1 var(--font-ui);cursor:pointer}
+.linkbtn::before{content:'';position:absolute;inset:-7px -2px}
+.linkbtn svg.ic{width:15px;height:15px}
+.linkbtn:disabled{opacity:.4;cursor:not-allowed}
+input[type=range]{width:100%;min-height:30px;cursor:pointer}
+
+/* 측정 칸 */
+.cond{display:flex;gap:12px;flex-wrap:wrap}
+.cond-cell{display:flex;flex-direction:column}
+.cond-cell.wide{flex:1}
+.meas{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.read{display:flex;flex-direction:column;min-width:0}
+.read-k{font:600 13px/1.3 var(--font-ui);color:var(--text-2)}
+.read-k b{color:var(--text-1);font-weight:800}
+.read-big{display:flex;align-items:baseline;gap:6px}
+.read-big b{font:800 28px/1.1 var(--font-ui);letter-spacing:-.01em;min-width:3.4ch}
+.read-u{font:600 15px/1 var(--font-ui);color:var(--text-2)}
+.steady{display:inline-flex;align-items:center;gap:4px;font:700 12px/1 var(--font-ui);color:var(--ok)}
+.steady svg.ic{width:14px;height:14px}
+.expo{display:inline-flex;align-items:center;gap:8px;margin-left:4px;font:600 13px/1 var(--font-ui);color:var(--text-2)}
+.expo input{width:150px}
+.dist-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:8px}
+.dist .chips{margin-top:2px}
+.meas .cond-cell{align-items:flex-end}
+.read-k .steady{margin:0 0 0 6px;vertical-align:middle}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper input{width:72px;height:36px;padding:0 8px;border:1px solid var(--line-2);border-radius:var(--r-1);background:var(--surface-0);text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.stepper .u{font-size:13px;color:var(--text-2)}
+.recs{display:flex;flex-direction:column;flex:1 1 auto;min-height:112px}
+.lab-camera .recs{min-height:90px}.lab-camera .rec-wrap{min-height:66px}
+.rec-wrap{flex:1 1 0;min-height:96px;overflow:auto}
+.rec{width:100%;border-collapse:collapse;font-size:13px}
+.rec th{position:sticky;top:0;background:var(--surface-1);padding:4px 6px;border-bottom:1px solid var(--line-2);font:600 12px/1.3 var(--font-ui);color:var(--text-2);text-align:left;white-space:nowrap;z-index:1}
+.rec th.num,.rec td.num{text-align:right}
+.rec td{padding:5px 6px;border-bottom:1px solid var(--line-1);font-variant-numeric:tabular-nums;vertical-align:middle;white-space:nowrap}
+.rec td b{font-weight:800}
+.rec tr.fresh td{background:var(--accent-soft);transition:background 1.2s}
+.rec .x{width:32px;padding:0;text-align:right}
+.rec .muted{color:var(--text-2)}
+.ctag{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-2)}
+.ctag .mk{width:9px;height:9px;border-radius:50%;background:var(--data-1)}
+.ctag .mk.s2{background:var(--data-2);border-radius:1px}.ctag .mk.s3{background:var(--data-3);border-radius:0;clip-path:polygon(50% 0,100% 100%,0 100%)}.ctag .mk.s4{background:var(--data-4);border-radius:0;transform:rotate(45deg) scale(.85)}
+.flag{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;background:var(--danger);color:var(--surface-1);font:800 11px/1 var(--font-ui)}
+.flag.soft{background:var(--surface-2);color:var(--text-2);border:1px solid var(--line-2)}
+.graph .g-svg{width:100%;height:auto;display:block}
+.g-grid{stroke:var(--line-1);stroke-width:1}
+.g-axis{stroke:var(--text-2);stroke-width:1.2}
+.g-yt,.g-xt{font:500 11px var(--font-ui);fill:var(--text-2);font-variant-numeric:tabular-nums}
+.g-yt{text-anchor:end}.g-xt{text-anchor:middle}
+.g-lab{font:600 11px var(--font-ui);fill:var(--text-2);text-anchor:middle}
+.g-lab.start{text-anchor:start}
+.g-pt{stroke:var(--surface-1);stroke-width:1.5}
+.g-pt.s1{fill:var(--data-1)}.g-pt.s2{fill:var(--data-2)}.g-pt.s3{fill:var(--data-3)}.g-pt.s4{fill:var(--data-4)}
+.g-curve{fill:none;stroke-width:1.8;stroke-dasharray:5 4;opacity:.9}
+.g-curve.s1{stroke:var(--data-1)}.g-curve.s2{stroke:var(--data-2)}.g-curve.s3{stroke:var(--data-3)}.g-curve.s4{stroke:var(--data-4)}
+.g-now{stroke:var(--text-2);stroke-width:1;stroke-dasharray:2 3}
+.g-now-pt{fill:none;stroke:var(--data-now);stroke-width:2}
+.legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:4px;font:500 12px/1.4 var(--font-ui);color:var(--text-2)}
+.lg{display:inline-flex;align-items:center;gap:5px}
+.lg svg{width:14px;height:14px;overflow:visible}
+.lg svg[viewBox^="0"]{width:18px;height:8px}
+.lg.muted{font-style:normal}
+
+/* ── 장면 SVG 공통 ── */
+.scene-svg text,.stage-fig text{font-family:var(--font-ui)}
+svg text[text-anchor="start"]{text-anchor:start}svg text[text-anchor="end"]{text-anchor:end}svg text[text-anchor="middle"]{text-anchor:middle}
+.scene-svg .hit,.stage-fig .hit{fill:transparent}
+.focus-ring{fill:none;stroke:var(--st-accent);stroke-width:2.5;stroke-dasharray:6 4;opacity:0;pointer-events:none}
+g:focus-visible>.focus-ring{opacity:1}
+g:focus{outline:none}
+.st-white{stop-color:var(--st-white)}.st-metal-hi{stop-color:var(--st-metal-hi)}.st-metal-mid{stop-color:var(--st-metal-mid)}.st-metal-lo{stop-color:var(--st-metal-lo)}
+.st-wall-0{stop-color:var(--st-wall-0)}.st-wall-1{stop-color:var(--st-wall-1)}.st-table-back{stop-color:var(--st-table-back)}.st-table-top{stop-color:var(--st-table-top)}
+.st-rub-hi{stop-color:var(--st-rubber-hi)}.st-rub{stop-color:var(--st-rubber)}.st-rub-lo{stop-color:var(--st-rubber-lo)}
+.st-pump-hi{stop-color:var(--st-pump-hi)}.st-pump{stop-color:var(--st-pump)}.st-pump-lo{stop-color:var(--st-pump-lo)}
+.st-space-0{stop-color:var(--st-space-0)}.st-space-1{stop-color:var(--st-space-1)}.st-gx-core{stop-color:var(--st-gx-core)}.st-gx-halo{stop-color:var(--st-gx-halo)}.st-gx-ell{stop-color:var(--st-gx-ell)}
+.st-bang{stop-color:var(--st-bang)}.st-bang-glow{stop-color:var(--st-bang-glow)}.st-dough-hi{stop-color:var(--st-dough-hi)}.st-dough{stop-color:var(--st-dough)}
+.shadow{fill:var(--st-shadow);opacity:.42}
+/* 실험대 */
+.tbl-front{fill:var(--st-table-front)}
+.tbl-edge{fill:none;stroke:var(--st-table-edge);stroke-width:2}
+.pump-cap{fill:var(--st-pump-cap)}
+.pump-shine{fill:none;stroke:var(--st-pump-hi);stroke-width:3;stroke-linecap:round;opacity:.75}
+.pump-lbl{font-size:max(12px,calc(var(--px,1) * 12px));font-weight:800;fill:var(--st-pump-ink);text-anchor:middle;letter-spacing:.02em}
+.pump-rod{fill:var(--st-metal-mid)}
+.pump-grip{fill:var(--st-grip)}
+.pump-ridge{fill:none;stroke:var(--st-grip-ridge);stroke-width:2;stroke-linecap:round}
+.grip-g{cursor:grab;touch-action:none}
+.grip-g.lift{cursor:grabbing}
+.grip-g.lift .pump-grip{fill:var(--st-grip-lift)}
+.dragging{cursor:grabbing}
+.rub-thin{fill:var(--st-rubber-thin);pointer-events:none}
+.st-neck{stop-color:var(--st-rubber-neck)}
+.rub-lip{fill:var(--st-rubber-lo);stroke:var(--st-rubber-rim);stroke-width:1}
+.rub-knot{fill:var(--st-rubber-lo);stroke:var(--st-rubber-rim);stroke-width:1}
+.rub-rim{fill:none;stroke:var(--st-rubber-rim);stroke-width:1.2;opacity:.85}
+.rub-spec{pointer-events:none}
+.mgrid{fill:none;stroke:var(--st-grid);opacity:.66;stroke-linecap:round;stroke-linejoin:round}
+.air{fill:none;stroke:var(--st-white);stroke-width:1.6;opacity:.85;stroke-linecap:round;stroke-linejoin:round}
+.stk-body{fill:var(--st-sticker);stroke:var(--st-sticker-edge);stroke-width:.8}
+.stk-rim{fill:none;stroke:var(--st-sticker-rim);stroke-width:.8;opacity:.6}
+.stk-hi{fill:none;stroke:var(--st-white);stroke-width:1.6;stroke-linecap:round;opacity:.55}
+.stk-n{font-size:12.5px;font-weight:800;fill:var(--st-sticker-ink);text-anchor:middle}
+.stk-ring{fill:none;stroke:var(--st-tape);stroke-width:2.4}
+.stk.pend .stk-ring{stroke-dasharray:4 3}
+.stk-hit{cursor:pointer;outline:none}
+.tape{fill:var(--st-tape);stroke:var(--st-tape-edge);stroke-width:.6}
+.tape-tip{fill:var(--st-tape-tip)}
+.tape-tick{fill:none;stroke:var(--st-tape-ink)}
+.tape-num{font-weight:700;fill:var(--st-tape-ink);text-anchor:middle;font-variant-numeric:tabular-nums}
+.tape-lead{fill:none;stroke:var(--st-tape);stroke-dasharray:3 2.5;opacity:.9}
+.tape-read{fill:none;stroke:var(--st-read);stroke-linecap:round}
+.spoke{fill:none;stroke:var(--st-tape);stroke-linecap:round;opacity:.95}
+.pill-lead{fill:none;stroke:var(--st-tape);opacity:.7}
+.spill rect{fill:var(--st-chip-bg);stroke:var(--st-chip-line);stroke-width:1}
+.spill text{fill:var(--st-text-1);font-weight:800;text-anchor:middle;font-variant-numeric:tabular-nums}
+.spill.tag rect{stroke:var(--st-tape);stroke-width:1.4}
+.spill.spk rect{fill:var(--st-tape);stroke:none}
+.spill.spk text{fill:var(--st-tape-ink)}
+.spill.ref rect{stroke:var(--st-accent);stroke-width:1.6}
+.spill.mw rect{stroke:var(--st-gx-arm)}
+.spill.val rect{stroke:var(--st-text-2)}
+.dim-l{fill:none;stroke:var(--st-text-2)}
+.dim-t{font-weight:700;fill:var(--st-text-1);text-anchor:middle;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:var(--st-wall-0);stroke-width:calc(var(--px,1) * 4px);stroke-linejoin:round}
+.lg-t{font-weight:800;fill:var(--st-text-1)}
+.lg-s{font-weight:500;fill:var(--st-text-2)}
+.lg-stk{fill:var(--st-sticker)}.lg-stk-n{font-weight:800;fill:var(--st-sticker-ink);text-anchor:middle}
+.lg-tape{fill:var(--st-tape)}.lg-tick{stroke:var(--st-tape-ink);stroke-width:1.2}
+.lg-grid{fill:none;stroke:var(--st-grid);stroke-width:1.6}
+.coach rect{fill:var(--st-accent)}
+.coach text{font-weight:800;fill:var(--st-bg-0)}
+/* 우주 */
+.gx-arm{fill:none;stroke:var(--st-gx-arm);stroke-width:3.2;stroke-linecap:round;opacity:.26}
+.gx-bar{fill:var(--st-gx-bar)}
+.gx-l use{cursor:pointer}
+.cgrid{fill:none;stroke:var(--st-grid);stroke-width:1.1;opacity:.26}
+.trail{fill:none;stroke:var(--st-trail);stroke-width:1.8;opacity:.9}
+.trail-head{fill:var(--st-trail)}
+.trail-o{fill:none;stroke:var(--st-trail);stroke-width:1.2;stroke-dasharray:2 2;opacity:.75}
+.ref-ring{fill:none;stroke:var(--st-accent);stroke-width:2.4;stroke-dasharray:5 4}
+.tag-ring{fill:none;stroke:var(--st-tape);stroke-width:2}
+.h-big{font-size:max(26px,calc(var(--px,1) * 17px));font-weight:800;fill:var(--st-text-1);paint-order:stroke;stroke:var(--st-space-0);stroke-width:5px;stroke-linejoin:round}
+.h-sub{font-size:max(17px,calc(var(--px,1) * 13px));font-weight:600;fill:var(--st-text-2);font-variant-numeric:tabular-nums;paint-order:stroke;stroke:var(--st-space-0);stroke-width:4px;stroke-linejoin:round}
+.h-big.small{font-size:19px}.h-sub.small{font-size:14px}
+.fig-note{font-size:max(14px,calc(var(--px,1) * 11px));font-weight:500;fill:var(--st-text-2);paint-order:stroke;stroke:var(--st-space-0);stroke-width:4px;stroke-linejoin:round}
+.uni-disc{fill:var(--st-space-1)}
+.uni-rim{fill:none;stroke:var(--st-line);stroke-width:1.5}
+.gx-n{font-size:max(15px,calc(var(--px,1) * 12px));font-weight:800;fill:var(--st-text-1);paint-order:stroke;stroke:var(--st-space-0);stroke-width:3px}
+.fig-h{font-size:max(20px,calc(var(--px,1) * 14px));font-weight:800;fill:var(--st-text-1);text-anchor:middle}
+.map-l{font-size:max(16px,calc(var(--px,1) * 12px));font-weight:700;fill:var(--st-text-1);text-anchor:end}
+.map-r{font-size:max(16px,calc(var(--px,1) * 12px));font-weight:700;fill:var(--st-text-1);text-anchor:start}
+.map-a{fill:none;stroke:var(--st-text-2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.t-axis{stroke:var(--st-text-2);stroke-width:2}
+.t-head{fill:var(--st-text-2)}
+.t-tick{stroke:var(--st-text-2);stroke-width:1.6}
+.t-lab{font-size:max(15px,calc(var(--px,1) * 11.5px));font-weight:600;fill:var(--st-text-2);text-anchor:middle}
+.t-cap{font-size:max(15px,calc(var(--px,1) * 11.5px));font-weight:700;fill:var(--st-text-2);text-anchor:middle}
+.h-ghost{fill:none;stroke:var(--st-text-2);stroke-width:1.4;stroke-dasharray:4 4;opacity:.55}
+.h-gdot{fill:var(--st-text-2);opacity:.4}
+.h-now{fill:var(--st-space-1)}
+.h-rim{fill:none;stroke:var(--st-accent);stroke-width:2}
+.h-mark{fill:var(--st-accent)}
+/* 건포도 빵 */
+.dough{stroke:none}
+.crust{fill:none;stroke:var(--st-crust);stroke-width:5;stroke-linecap:round}
+.raisin{fill:var(--st-raisin)}
+.raisin-hi{fill:var(--st-raisin-hi);opacity:.7}
+.raisin-k{font-size:15px;font-weight:800;fill:var(--st-sticker-ink);text-anchor:middle;paint-order:stroke;stroke:var(--st-dough-hi);stroke-width:3px;stroke-linejoin:round}
+.tray{fill:var(--st-tray)}.tray-top{fill:var(--st-tray-top)}
+.bm-line{fill:none;stroke:var(--st-sticker-ink);stroke-width:1.6}
+.spoke.dark{stroke:var(--st-sticker-ink);stroke-width:1;stroke-dasharray:3 3;opacity:.6}
+/* 문항·원리 카드 그림 */
+.stage-fig{display:block;width:100%;height:auto}
+.fig-bg{fill:var(--st-bg-1)}
+.fig-t{font-size:20px;font-weight:800;fill:var(--st-text-1)}
+.fig-s{font-size:16px;font-weight:600;fill:var(--st-text-2);text-anchor:middle}
+.stage-fig .lead{fill:none;stroke:var(--st-text-2);stroke-width:1.4}
+.pen-dot{fill:var(--st-pen)}
+.fig-div{stroke:var(--st-line);stroke-width:1.5}
+.hist-fig .t-lab,.hist-fig .t-cap{font-size:26px}
+.hist-fig .fig-note{font-size:22px}
+
+/* 붙임딱지 번호 배지(장면의 붙임딱지와 같은 얼굴) */
+.nb{display:inline-grid;place-items:center;width:1.45em;height:1.45em;margin:0 1px;border-radius:50%;background:var(--st-sticker);box-shadow:inset 0 0 0 1px var(--st-sticker-edge);color:var(--st-sticker-ink);font-weight:800;font-size:.82em;line-height:1;font-variant-numeric:tabular-nums;vertical-align:.08em}
+.nbp{white-space:nowrap}
+.chip.nbchip{font-size:14px}
+.read-k .nb{font-size:12px}
+/* 풍선 실험 측정 칸 */
+.lab-bench .meas{align-items:flex-end}
+.lab-bench .pg+.pg{margin-top:10px;padding-top:10px}
+.lab-bench .read-big b{min-width:3.2ch}
+.all-list{margin:10px 0 0;padding:8px 10px;border-radius:var(--r-2);background:var(--surface-2);font-size:13px;line-height:1.8;color:var(--text-2)}
+.all-list .k{font-weight:700;color:var(--text-1);margin-right:4px}
+.all-list .it{display:inline-block;margin-right:10px;white-space:nowrap}
+.all-list b{color:var(--text-1);font-weight:800}
+.chip.wide{padding:0 11px}
+.rng-row{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px}
+.proc{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:4px;font-size:13px;line-height:1.4;color:var(--text-2)}
+.proc li{display:flex;align-items:center;gap:8px}
+.pk{width:20px;height:20px;flex:none;display:grid;place-items:center;border:1.5px solid var(--line-2);border-radius:50%;font:700 11px/1 var(--font-ui);font-variant-numeric:tabular-nums}
+.pk svg.ic{width:13px;height:13px;stroke-width:2.4}
+.proc li.ok{color:var(--text-1)}
+.proc li.ok .pk{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.lab-bench .recs{flex:1 1 auto;display:flex;flex-direction:column;min-height:150px}
+.lab-bench .rec-wrap{flex:1 1 0;min-height:80px;overflow:auto}
+.rec caption{caption-side:top}
+.rec th[scope="row"]{font-weight:800;color:var(--text-1);font-size:13px}
+.rec td.fresh{background:var(--accent-soft);transition:background 1.2s}
+.rec td.chg b{font-weight:800}
+.rec td.chg small{font-size:12px;color:var(--text-2)}
+.unit-note{margin:6px 0 0;font-size:12px;line-height:1.5;color:var(--text-2)}
+.found{margin:8px 0 0;display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:var(--r-2);font-size:13px;line-height:1.6}
+.found:empty{display:none}
+.found svg.ic{flex:none;color:var(--warn);margin-top:2px}
+.found b{font-weight:800}
+.found.pop{animation:pop 1.2s var(--ease-out)}
+@keyframes pop{0%{background:var(--warn-soft)}100%{background:transparent}}
+.seg button svg.ic{width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+/* 우주 팽창 단계 */
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.step{position:relative}
+.step:not(:last-child)::before{content:'';position:absolute;left:21px;top:36px;bottom:-8px;width:2px;background:var(--line-1)}
+.step.done::before{background:var(--ok)}
+.step-h{position:relative;display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:6px 8px;border:0;border-radius:var(--r-2);background:transparent;color:var(--text-2);font:600 15px/1.3 var(--font-ui);text-align:left;cursor:pointer}
+.step .sn{width:28px;height:28px;flex:none;display:grid;place-items:center;border:1.5px solid var(--line-2);border-radius:50%;background:var(--surface-1);font:800 13px/1 var(--font-ui)}
+.step .sn svg.ic{width:15px;height:15px;stroke-width:2.4}
+.step.done .sn{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.step.cur .step-h{color:var(--text-1);font-weight:800}
+.step.cur .sn{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+@media (hover:hover) and (pointer:fine){.step-h:hover{background:var(--surface-2);color:var(--text-1)}}
+.step-b{padding:2px 6px 12px 46px}
+.step-b p{margin:0 0 8px;font-size:15px;line-height:1.7;max-width:40ch}
+.step-b b{font-weight:800}
+.step-b .ask{font-weight:700;color:var(--text-1)}
+.step-b .chips{margin:4px 0 10px}
+.keypt{display:flex;gap:6px;align-items:flex-start;padding:8px 10px;border-radius:var(--r-2);background:var(--accent-soft);color:var(--text-1);font-weight:700;font-size:13px!important;line-height:1.5!important}
+.keypt svg.ic{flex:none;width:16px;height:16px;color:var(--accent);margin-top:1px}
+.panel-foot .grow{flex:1}
+.panel-foot{align-items:center}
+.rng-inline{display:flex;align-items:center;gap:10px;flex:1;min-width:220px}
+.rng-inline input{flex:1;min-width:120px}
+.rng-inline output{min-width:4.5ch;font:800 15px/1 var(--font-ui);text-align:right;white-space:nowrap}
+.rng-inline.wide output{min-width:11ch}
+
+/* 문제 화면 공통 */
+.quiz{height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-gutter:stable;margin:-12px -16px -14px;position:relative}
+.quiz-in{max-width:1240px;margin:0 auto;padding:20px 20px 48px}
+.quiz-in.narrow{max-width:820px}
+.qz-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.qz-head h1{font:800 clamp(22px,2.2vw,26px)/1.2 var(--font-ui);letter-spacing:-.03em}
+.qz-head p{margin:6px 0 0;color:var(--text-2);font-size:15px}
+.qz-score{display:flex;align-items:baseline;gap:6px;font:600 13px/1 var(--font-ui);color:var(--text-2)}
+.qz-score b{font:800 28px/1 var(--font-ui);color:var(--text-1)}
+.qdots{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px}
+.qdot{position:relative;width:32px;height:32px;border:1px solid var(--line-2);border-radius:var(--r-full);background:transparent;color:var(--text-2);font:700 12px/1 var(--font-ui);font-variant-numeric:tabular-nums;cursor:pointer}
+.qdot::before{content:'';position:absolute;inset:-6px -2px}
+.qdot.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--text-1)}
+.qdot.bad{background:var(--danger-soft);border-color:var(--danger);color:var(--text-1);border-style:dashed}
+.qdot.cur{outline:2px solid var(--accent);outline-offset:1px;color:var(--text-1)}
+.qz-card{padding:20px 22px;border:1px solid var(--line-1);border-radius:var(--r-3);background:var(--surface-1)}
+.qz-k{margin:0 0 8px;font:600 13px/1.3 var(--font-ui);color:var(--text-2);display:flex;align-items:center;gap:8px}
+.qtag{padding:3px 8px;border-radius:var(--r-1);background:var(--surface-2);color:var(--text-1);font:700 12px/1.3 var(--font-ui)}
+.qz-q{font:700 18px/1.55 var(--font-ui);margin:0 0 12px}
+.qz-fig{margin:4px 0 14px;max-width:520px}
+.qgraph,.qcells{width:100%;height:auto}
+.qcells{max-width:300px}
+.fc-lit{fill:var(--warn)}
+:root[data-theme="light"] .fc-lit{fill:var(--data-1)}
+.fc-grid{stroke:var(--text-1);stroke-width:1;opacity:.55;fill:none}
+.fc-edge{fill:none;stroke:var(--text-2);stroke-width:1.5}
+.fc-t{font:600 12px var(--font-ui);fill:var(--text-2);text-anchor:middle}
+.g-pt-t{font:700 11px var(--font-ui);fill:var(--text-1)}
+.qtable{border-collapse:collapse;font-size:15px;min-width:320px}
+.qtable caption{caption-side:top;text-align:left;font:600 13px/1.4 var(--font-ui);color:var(--text-2);padding-bottom:6px}
+.qz-fig .stage-fig{border-radius:var(--r-2);max-width:520px}
+.qtable th,.qtable td{padding:6px 14px;border:1px solid var(--line-2);text-align:center}
+.qtable thead th{background:var(--surface-2);font:700 13px/1.3 var(--font-ui);color:var(--text-2)}
+.qtable tbody th{font-weight:800}
+.qtable td{font-weight:700;font-variant-numeric:tabular-nums}
+.opts{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.opt{position:relative;width:100%;display:flex;align-items:center;gap:10px;min-height:48px;padding:8px 12px;border:1px solid var(--line-2);border-radius:var(--r-2);background:var(--surface-0);color:var(--text-1);font:500 15px/1.5 var(--font-ui);text-align:left;cursor:pointer;transition:background var(--dur-fast),border-color var(--dur-fast)}
+.opt .on{flex:none;width:26px;height:26px;display:grid;place-items:center;border:1.5px solid var(--line-2);border-radius:50%;font:800 13px/1 var(--font-ui);color:var(--text-2);font-variant-numeric:tabular-nums}
+.opt.right .on{border-color:var(--ok);color:var(--ok)}.opt.wrong .on{border-color:var(--danger);color:var(--danger)}
+.opt .ot{flex:1}
+.opt .om{flex:none;display:inline-flex;align-items:center;gap:4px;font:800 13px/1 var(--font-ui)}
+.opt .om svg.ic{width:16px;height:16px}
+.opt.right{border-color:var(--ok);background:var(--ok-soft);border-width:2px;padding:7px 11px}
+.opt.right .om{color:var(--ok)}
+.opt.wrong{border-color:var(--danger);background:var(--danger-soft);border-style:dashed}
+.opt.wrong .om{color:var(--danger)}
+.opt.dim{opacity:.6}
+.opt[aria-disabled="true"]{cursor:default}
+@media (hover:hover) and (pointer:fine){.opt:not([aria-disabled="true"]):hover{border-color:var(--accent);background:var(--surface-2)}}
+.qz-fb{margin-top:12px;padding:12px 14px;border-radius:var(--r-2);border-left:4px solid var(--ok);background:var(--ok-soft)}
+.qz-fb.bad{border-left-color:var(--danger);background:var(--danger-soft)}
+.qz-fb p{margin:0;font-size:15px;line-height:1.65}
+.qz-fb .fb-h{font-weight:800;margin-bottom:2px}
+.qz-acts{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.qz-acts .grow{flex:1}
+.result .res-big{font:800 clamp(22px,2.4vw,28px)/1.3 var(--font-ui);margin:0 0 6px}
+.res-line{margin:0 0 14px;color:var(--text-2)}
+.wrong-list{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.qz-foot{margin:14px 0 0}
+.textlink{display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--text-2);font:600 13px/1 var(--font-ui);text-decoration:none}
+.textlink svg{width:20px;height:20px}
+.textlink .yt-body{fill:currentColor}.textlink .yt-play{fill:var(--surface-1)}
+.textlink:is(:hover,:focus-visible){color:var(--text-1)}
+.textlink:is(:hover,:focus-visible) .yt-body{fill:var(--yt-red)}.textlink:is(:hover,:focus-visible) .yt-play{fill:var(--yt-play)}
+/* 탐구 질문 */
+.prog{display:flex;align-items:center;gap:10px;font:600 13px/1 var(--font-ui);color:var(--text-2)}
+.prog .dots{display:flex;gap:4px}
+.prog .dots i{width:18px;height:6px;border-radius:var(--r-full);background:var(--line-2)}
+.prog .dots i.done{background:var(--accent)}
+.policy{margin:0 0 14px;padding:10px 14px;border-radius:var(--r-2);background:var(--surface-1);border:1px solid var(--line-1);font:500 13px/1.6 var(--font-ui)}
+.policy p{margin:0}.policy .save-note{color:var(--text-2);margin-top:2px}
+.qlist{display:grid;gap:12px}
+.qcard{border:1px solid var(--line-1);border-radius:var(--r-3);background:var(--surface-1)}
+.qcard summary{list-style:none;display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 16px;cursor:pointer;border-radius:var(--r-3)}
+.qcard summary::-webkit-details-marker{display:none}
+.qcard .qn{width:28px;height:28px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--surface-2);font:800 13px/1 var(--font-ui)}
+.qcard .qt{font:700 15px/1.4 var(--font-ui);min-width:0}
+.badges{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto;justify-content:flex-end}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:var(--r-full);border:1px solid var(--line-2);font:600 12px/1.2 var(--font-ui);color:var(--text-2);white-space:nowrap}
+.badge svg.ic{width:13px;height:13px}
+.badge.ok{color:var(--ok);border-color:currentColor}
+.badge.lock{background:var(--ok-soft);color:var(--text-1);border-color:transparent}
+.badge.rev{background:var(--accent-soft);color:var(--text-1);border-color:transparent}
+.badge.hint{background:var(--warn-soft);color:var(--text-1);border-color:transparent}
+.chev{color:var(--text-2);transition:transform var(--dur-fast) var(--ease-out)}
+.qcard[open] .chev{transform:rotate(90deg)}
+@media (hover:hover) and (pointer:fine){.qcard summary:hover{background:var(--surface-2)}}
+.qbody{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;padding:0 16px 18px;align-items:start}
+figure.mini{margin:0;position:sticky;top:8px;border:1px solid var(--line-1);border-radius:var(--r-2);background:var(--st-bg-1);overflow:hidden}
+.mini figcaption{display:flex;flex-wrap:wrap;align-items:baseline;gap:3px 8px;padding:8px 12px;border-bottom:1px solid var(--line-1);background:var(--surface-1);font:500 13px/1.5 var(--font-ui)}
+.mini figcaption .tag{padding:2px 7px;border-radius:var(--r-1);background:var(--accent-soft);color:var(--text-1);font:700 12px/1.3 var(--font-ui)}
+.mini figcaption b{font-weight:800}
+.mini figcaption .how{color:var(--text-2);flex-basis:100%}
+.mini-stage{position:relative;width:100%;height:clamp(230px,44dvh,340px);touch-action:pan-y;user-select:none;-webkit-user-select:none;background:var(--st-bg-1)}
+.mini-ctl .mrng{flex:1;min-width:140px}
+.mini-ctl .mk{font:600 12px/1 var(--font-ui);color:var(--text-2)}
+.mini-stage>svg{position:absolute;inset:0;width:100%;height:100%}
+.mini-result{margin:0;padding:8px 12px;min-height:46px;border-top:1px solid var(--line-1);background:var(--surface-1);font:500 13px/1.55 var(--font-ui);font-variant-numeric:tabular-nums}
+.mini-result b{font-weight:800}
+.mini-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:8px 12px;border-top:1px solid var(--line-1);background:var(--surface-1)}
+.qq{margin:0 0 8px;font:700 18px/1.55 var(--font-ui)}
+.qtext .qtable{margin:0 0 8px}
+.qsrc{margin:0 0 14px;font:400 13px/1.5 var(--font-ui);color:var(--text-2)}
+.alabel{display:block;margin-bottom:6px;font:600 13px/1.3 var(--font-ui);color:var(--text-2)}
+.qtext textarea{width:100%;min-height:120px;padding:10px 12px;border:1px solid var(--line-2);border-radius:var(--r-2);background:var(--surface-0);color:var(--text-1);font:400 16px/1.6 var(--font-ui);resize:vertical}
+.qtext textarea.locked{background:var(--surface-2);color:var(--text-2)}
+.arow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 8px;margin:4px 0 8px;font:500 12px/1.4 var(--font-ui);color:var(--text-2)}
+.lockline{display:inline-flex;align-items:center;gap:4px;color:var(--text-1);font-weight:600}
+.lockline svg.ic{width:14px;height:14px}
+.abtns{display:flex;gap:6px;flex-wrap:wrap}
+.hintp,.modelp,.revp{margin-top:8px;padding:10px 12px;border-radius:var(--r-2);font:400 15px/1.65 var(--font-ui)}
+.hintp{background:var(--warn-soft)}
+.hintp p,.modelp p{margin:0}
+.hintp small{display:block;margin-top:4px;color:var(--text-2);font-size:12px}
+.modelp{background:var(--ok-soft)}
+.modelp h4,.revp h4{display:flex;align-items:center;gap:6px;margin:0 0 4px;font:800 13px/1.3 var(--font-ui)}
+.modelp mark{background:none;color:inherit;font-weight:800;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;text-decoration-color:var(--ok)}
+.revp{background:var(--accent-soft)}
+.revp .revnote{margin:0 0 6px;font-size:13px;color:var(--text-2)}
+.revp .cnt{display:block;margin-top:4px;font-size:12px;color:var(--text-2)}
+.quiz-end{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:20px 2px 12px}
+
+/* 서랍 · 모달 · 토스트 */
+dialog{color:var(--text-1)}
+.drawer{position:fixed;inset:0 0 0 auto;margin:0;height:100dvh;max-height:100dvh;width:clamp(360px,34vw,480px);max-width:100vw;padding:0;border:0;border-left:1px solid var(--line-1);background:var(--surface-1);box-shadow:var(--edge-hi),var(--shadow-3);flex-direction:column}
+.drawer[open]{display:flex}
+dialog::backdrop{background:var(--scrim)}
+dialog.sheet{opacity:0;transform:translateX(var(--lift));transition:opacity var(--dur-ui-out) var(--ease-in),transform var(--dur-ui-out) var(--ease-in),overlay var(--dur-ui-out) allow-discrete,display var(--dur-ui-out) allow-discrete}
+dialog.sheet[open]{opacity:1;transform:none;transition-duration:var(--dur-ui);transition-timing-function:var(--ease-out)}
+@starting-style{dialog.sheet[open]{opacity:0;transform:translateX(var(--lift))}}
+.modal.sheet{transform:translateY(var(--lift))}
+@starting-style{.modal.sheet[open]{opacity:0;transform:translateY(var(--lift))}}
+.dialog-head{display:flex;align-items:center;gap:8px;padding:14px 12px 12px 20px;border-bottom:1px solid var(--line-1)}
+.dialog-head h2{flex:1;font:800 18px/1.3 var(--font-ui)}
+.dialog-body{flex:1;overflow:auto;overscroll-behavior:contain;padding:16px 20px 32px}
+.card+.card{margin-top:28px;padding-top:24px;border-top:1px solid var(--line-1)}
+.card .k{font:700 12px/1 var(--font-ui);color:var(--accent);margin:0 0 6px}
+.card h3{font:800 18px/1.35 var(--font-ui);margin-bottom:12px}
+.card .fig{border-radius:var(--r-2);overflow:hidden;border:1px solid var(--line-1);margin-bottom:12px;background:var(--st-bg-1)}
+.card .fig svg{display:block;width:100%;height:auto}
+.card p{margin:0 0 8px;font:400 15px/1.7 var(--font-ui);max-width:44ch}
+.card .def{font-weight:600}
+.card ul{margin:0 0 8px;padding-left:1.1em;font-size:15px;line-height:1.65;max-width:44ch}
+.card .link-line{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border-radius:var(--r-2);background:var(--surface-2);font-size:13px;line-height:1.55;max-width:none}
+.card .link-line svg.ic{margin-top:2px;color:var(--accent)}
+.tf-bg{fill:var(--st-bg-1)}
+.tf-src{fill:var(--st-light)}
+.tf-ray{stroke:var(--st-light);stroke-width:1.5;opacity:.7}
+.tf-sq{fill:var(--st-light);stroke:var(--st-light);stroke-width:1.5}
+.tf-grid{fill:none;stroke:var(--st-grid-ink);stroke-width:1.4;opacity:.8}
+.tf-t{font:700 19px var(--font-ui);fill:var(--st-text-1);text-anchor:middle}
+.tf-v{font:800 19px var(--font-ui);fill:var(--st-accent);text-anchor:middle}
+.tf-s{font:600 16px var(--font-ui);fill:var(--st-text-2);text-anchor:middle}
+.tf-s.lab{fill:var(--st-text-1);paint-order:stroke;stroke:var(--st-bg-1);stroke-width:4;stroke-linejoin:round}
+.tf-star{fill:var(--sp-G)}
+.tf-glow{fill:var(--st-light)}
+.tf-glow.sp-A,.tf-glow.sp-M{fill:var(--c)}
+.tf-core{fill:var(--c)}
+.tf-arc,.tf-big{fill:none;stroke:var(--st-accent);stroke-width:2}
+.tf-ring{fill:none;stroke:var(--st-accent);stroke-width:2.5}
+.tf-ring-t{font:800 16px var(--font-ui);fill:var(--st-accent)}
+.tf-earth{fill:var(--st-earth-sea);stroke:var(--st-earth-hi)}
+.modal{width:min(640px,calc(100vw - 32px));max-height:min(86dvh,760px);padding:0;border:1px solid var(--line-1);border-radius:var(--r-3);background:var(--surface-1);box-shadow:var(--edge-hi),var(--shadow-3);flex-direction:column}
+.modal.narrow{width:min(460px,calc(100vw - 32px))}
+.modal[open]{display:flex}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:16px}
+.help-doc h3{font:800 15px/1.35 var(--font-ui);margin:20px 0 6px}
+.help-doc h3:first-child{margin-top:0}
+.help-doc ol,.help-doc ul{margin:0;padding-left:20px;font-size:15px;line-height:1.7}
+.help-doc li+li{margin-top:4px}
+.help-doc p{margin:0 0 6px;font-size:15px;line-height:1.7}
+.help-doc .keys{line-height:2.2}
+.wipe-list{margin:0 0 10px;padding-left:20px;line-height:1.7}
+.brandblock{margin-top:20px;padding:16px;border-radius:var(--r-2);background:var(--surface-2);font:500 13px/1.8 var(--font-ui)}
+.brandblock a{color:var(--text-1)}
+.ver-line{color:var(--text-2);font-size:13px!important;margin-top:12px!important}
+.toast{position:fixed;left:50%;top:calc(var(--top-h) + 10px);transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:10px;max-width:min(380px,calc(100vw - 32px));padding:10px 14px;border-radius:var(--r-2);background:var(--text-1);color:var(--surface-0);font:600 13px/1.5 var(--font-ui);box-shadow:var(--shadow-3)}
+.toast.error{background:var(--danger-soft);color:var(--text-1);border:1px solid var(--danger)}
+.toast-x{flex:none;width:30px;height:30px;display:grid;place-items:center;border:0;background:transparent;color:inherit;cursor:pointer}
+
+/* 반응형 */
+@media (max-width:1180px){.lab-head .goal{flex-basis:100%;order:3}.top-title .std{display:none}}
+@media (max-width:1040px){.qbody{grid-template-columns:minmax(0,1fr)}figure.mini{position:static}}
+@media (max-width:860px){
+  body{overflow:auto;height:auto;display:block}
+  .appbody{min-height:calc(100dvh - var(--top-h))}
+  .rail{position:sticky;top:0;height:calc(100dvh - var(--top-h))}
+  main{overflow:visible}
+  .lab{height:auto}
+  .lab-grid{grid-template-columns:minmax(0,1fr)}
+  .stage{flex:none;aspect-ratio:var(--ar,16/10)}
+  .lab-bench .stage{--ar:592/366}
+  .lab-cosmos .stage{--ar:1000/620}
+  .lab-bench .recs{display:block}.lab-bench .rec-wrap{max-height:300px}
+  .panel-scroll{overflow:visible;display:block}
+  .recs{display:block}.rec-wrap{max-height:280px}
+  .panel-foot{position:sticky;bottom:0;z-index:5;box-shadow:0 -8px 20px -14px hsl(var(--shadow-color) / .6)}
+  .quiz{height:auto;overflow:visible}
+  .head-seg{margin-left:0}
+}
+@media (max-width:600px){
+  :root{--top-h:52px}
+  .topbar{gap:6px;padding:0 6px 0 10px}
+  .brand{gap:5px}
+  .brandmark{width:24px;height:24px}
+  .word{font-size:12px}
+  .topbar>.vdiv,.top-title,.utilities .hsep,#helpBtn{display:none}
+  .social{width:34px;height:40px}
+  .social::before{inset:-2px 3px}
+  .social svg{width:19px;height:19px}
+  .icon-btn{width:36px;height:40px}
+  .icon-btn::before{inset:-2px 2px}
+  .appbody{display:block;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  .rail{position:fixed;top:auto;bottom:0;left:0;right:0;height:auto;z-index:25;flex-direction:row;gap:2px;padding:4px 4px calc(4px + env(safe-area-inset-bottom));border-right:0;border-top:1px solid var(--line-1)}
+  .rail button{flex:1;min-height:54px;gap:3px;padding:6px 0}
+  .rail button svg.ic{width:21px;height:21px}
+  .rail button .l{display:none}
+  .rail button .s{display:block}
+  .rail button[aria-current="page"]::after{left:24%;right:24%;top:-4px;bottom:auto;width:auto;height:3px;border-radius:0 0 3px 3px}
+  main{padding:10px 0 16px}
+  .lab{gap:8px}
+  .lab-head{padding:0 12px}
+  .bench,.panel{border-radius:0;border-left:0;border-right:0}
+  .lab-grid{gap:10px}
+  .tool.save span{display:none}
+  .tool.save{width:44px;height:44px;padding:0;justify-content:center}
+  .bench-head{align-items:flex-start}
+  .tool span{display:none}.tool.primary span{display:inline}
+  .bh-k,.bh-sep,.chip .u{display:none}
+  .chip{min-width:40px;padding:0 8px}
+  .status{font-size:15px;padding:10px 12px}
+  .panel-foot{bottom:calc(62px + env(safe-area-inset-bottom))}
+  .quiz{margin:-10px 0 -16px}
+  .quiz-in{padding:14px 0 32px}
+  .qz-head,.qdots,.policy,.quiz-end{margin-left:12px;margin-right:12px}
+  .qz-card{border-radius:0;border-left:0;border-right:0;padding:16px 14px}
+  .qcard{border-radius:0;border-left:0;border-right:0}
+  .qcard summary{flex-wrap:wrap;padding:10px 12px}
+  .badges{flex-basis:100%;justify-content:flex-start;order:3;margin-left:40px}
+  .qbody{padding:2px 0 14px}
+  figure.mini{border-radius:0;border-left:0;border-right:0}
+  .mini-stage{height:auto;aspect-ratio:446/316}.mini-stage.mini-bread{aspect-ratio:460/330}.mini-stage.mini-history{aspect-ratio:1000/600}
+  .qtext{padding:0 12px}
+  .drawer{inset:auto 0 0 0;width:100vw;height:86dvh;border-left:0;border-top:1px solid var(--line-1);border-radius:var(--r-3) var(--r-3) 0 0}
+  dialog.drawer.sheet{transform:translateY(var(--lift))}
+  dialog.drawer.sheet[open]{transform:none}
+  .toast{left:12px;right:12px;top:auto;transform:none;bottom:calc(76px + env(safe-area-inset-bottom));max-width:none}
+  .lab-bench .stage{--ar:378/356}
+  .seg button span{display:none}
+  .seg button svg.ic{margin-right:0}
+  .step-b{padding-left:14px}
+  .step:not(:last-child)::before{display:none}
+  .rng-inline{min-width:0;flex-basis:100%}
+}
+@media (max-width:380px){.word{font-size:12px}.social{width:32px}.icon-btn{width:34px}.topbar{gap:4px}.chip{min-width:40px;padding:0 7px}}
+/* 사용자 설정 */
+@media (prefers-reduced-motion:reduce){:root{--lift:0px}.chev{transition:none}.rec tr.fresh td{transition:none}}
+@media (prefers-contrast:more){:root[data-theme]{--line-1:var(--line-2);--text-3:var(--text-2)}}
+@media (prefers-reduced-transparency:reduce){.toast{box-shadow:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">실험 내용으로 건너뛰기</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0"><stop offset="0" style="stop-color:var(--ig-1)"/><stop offset=".35" style="stop-color:var(--ig-2)"/><stop offset=".65" style="stop-color:var(--ig-3)"/><stop offset="1" style="stop-color:var(--ig-4)"/></linearGradient></defs></svg>
+<header class="topbar">
+  <div class="brand">
+    <span class="brandmark" id="brandIc" aria-hidden="true"></span>
+    <span class="word">송쌤과학</span>
+    <span class="vdiv" aria-hidden="true"></span>
+    <a class="social" id="yt" href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener noreferrer" aria-label="송쌤과학 유튜브 채널 (새 창)" title="YouTube @songsamscience (새 창)"></a>
+    <a class="social" id="ig" href="https://www.instagram.com/songsamscience/" target="_blank" rel="noopener noreferrer" aria-label="송쌤과학 인스타그램 (새 창)" title="Instagram @songsamscience (새 창)"></a>
+  </div>
+  <span class="vdiv" aria-hidden="true"></span>
+  <div class="top-title"><span class="t">우주 팽창</span><span class="std">중2 · 별과 우주</span></div>
+  <div class="utilities">
+    <button class="icon-btn" id="bookBtn" aria-label="원리 카드 열기" title="원리 카드"></button>
+    <button class="icon-btn" id="helpBtn" aria-label="도움말 (H)" title="도움말 (H)"></button>
+    <span class="hsep" aria-hidden="true"></span>
+    <button class="icon-btn" id="fullBtn" aria-label="전체화면 (F)" title="전체화면 (F)"></button>
+    <button class="icon-btn" id="themeBtn" aria-label="라이트 모드로 전환 (D)" title="라이트 모드로 전환 (D)"></button>
+  </div>
+</header>
+<div class="appbody">
+  <nav class="rail" id="rail" aria-label="실험 화면"></nav>
+  <main id="main" tabindex="-1"></main>
+</div>
+<dialog id="modal" class="modal sheet" aria-labelledby="modalTitle">
+  <header class="dialog-head"><h2 id="modalTitle"></h2><button class="icon-btn" data-close aria-label="닫기 (Esc)" title="닫기 (Esc)"></button></header>
+  <div class="dialog-body" id="modalBody"></div>
+</dialog>
+<dialog id="drawer" class="drawer sheet" aria-labelledby="drawerTitle">
+  <header class="dialog-head"><h2 id="drawerTitle">원리 카드</h2><button class="btn small ghost" id="dHelp">도움말</button><button class="icon-btn" data-close aria-label="닫기 (Esc)" title="닫기 (Esc)"></button></header>
+  <div class="dialog-body" id="drawerBody"></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+<script>
+/* ───────────────────────── 과학 값 한 곳: 풍선 모형 · 우주 모형 · 표기 · 아이콘 ─────────────────────────
+   과학 진실층(§5.5.5): 이 파일의 값과 함수만 수치를 만든다. 장면·표·저장 이미지·간이 실험이 모두 여기서 값을 읽는다.
+   교육과정 [9과15-03] 해설대로 적색 편이·허블 법칙·가속 팽창은 다루지 않는다(식·용어를 화면에 쓰지 않는다). */
+const APP_VERSION = '1.0';
+const APP_DATE = '2026-09-26';
+const LAB_ID = 'expansion';
+const LAB_TITLE = '우주 팽창';
+const LAB_FILE = '우주팽창';
+
+/* ── 풍선 모형: 고무풍선 몸통은 구(지름 D). 풍선을 불면 모양은 그대로 크기만 커진다(닮은꼴 팽창) ──
+   붙임딱지는 몸통의 같은 방향(위도·경도)에 붙어 있고 크기가 변하지 않는다. 줄자는 표면을 따라(대원) 잰다. */
+const D_MIN = 100, D_MAX = 280;          // mm: 지름 10 ~ 28 cm (12인치 풍선이 터지지 않는 범위)
+const D_SMALL = 120, D_MID = 180, D_BIG = 240;
+const STICKER_D = 20;                    // 원형 붙임딱지 지름 mm
+const TAPE_W = 13;                       // 재봉 줄자 폭 mm
+const PUMP_STROKE = 90;                  // 펌프 손잡이가 움직이는 거리 mm
+const PUMP_VOL = 800e3;                  // 한 번 끝까지 밀 때 들어가는 공기 mm³(0.8 L) — 체험을 위해 실제 풍선 펌프보다 크게 잡음
+const volOf = D => Math.PI / 6 * D * D * D;
+const dOfVol = V => Math.cbrt(6 * V / Math.PI);
+/* 붙임딱지 방향: az = 정면에서 오른쪽(+)으로 돈 각, el = 위(+)로 든 각. ①–② 3.0 cm, ①–③ 8.0 cm, ②–③ 6.0 cm(지름 12 cm) */
+function dirOf(az, el) { const a = az * Math.PI / 180, e = el * Math.PI / 180; return [Math.sin(a) * Math.cos(e), Math.sin(e), Math.cos(a) * Math.cos(e)]; }
+const STICKERS = [
+  { n: 1, az: -34.54, el: 20.17 }, { n: 2, az: -12.26, el: 41.75 }, { n: 3, az: 45.7, el: 13.5 },
+  { n: 4, az: -3.0, el: 0.9 }, { n: 5, az: 29.6, el: 50.2 }, { n: 6, az: 23.4, el: -22.5 },
+].map(s => Object.assign(s, { u: dirOf(s.az, s.el) }));
+const STK = n => STICKERS[n - 1];
+const dot3 = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+const cross3 = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const norm3 = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+const angOf = (a, b) => Math.acos(Math.max(-1, Math.min(1, dot3(a, b))));
+function arcMM(D, i, j) { return D / 2 * angOf(STK(i).u, STK(j).u); }          // 표면을 따라 잰 거리(mm)
+function tapeRead(D, i, j) { return Math.round(arcMM(D, i, j)); }              // 줄자 읽기: 1 mm(0.1 cm) 단위
+const GRID_DEG = 20;                                                          // 마커 격자 한 칸 = 20°
+function gridCellMM(D) { return Math.round(D / 2 * GRID_DEG * Math.PI / 180); } // 적도에서 격자 한 칸의 폭(mm)
+const PAIRS = [[1, 2], [1, 3], [2, 3]];                                        // 교과서 표의 세 쌍
+
+/* ── 건포도 빵 모형(탐구 질문): 반죽이 k배로 부풀면 건포도 사이 거리도 k배, 건포도 크기는 그대로 ── */
+const RAISINS = [
+  { k: 'A', x: -22, y: 38 }, { k: 'B', x: -2, y: 38 }, { k: 'C', x: 28, y: 38 },
+  { k: '', x: -58, y: 20 }, { k: '', x: 55, y: 22 }, { k: '', x: -40, y: 62 }, { k: '', x: 12, y: 70 },
+  { k: '', x: 44, y: 58 }, { k: '', x: -8, y: 12 }, { k: '', x: 26, y: 14 }, { k: '', x: -26, y: 84 },
+];
+const RAISIN_BY = Object.fromEntries(RAISINS.filter(r => r.k).map(r => [r.k, r]));
+function raisinMM(k, a, b) { const p = RAISIN_BY[a], q = RAISIN_BY[b]; return Math.round(k * Math.hypot(p.x - q.x, p.y - q.y)); }
+
+/* ── 우주 모형 ──
+   은하는 ‘공동 좌표’(우주 공간에 붙은 자리)에 있고, 화면 위치 = 기준 은하와의 공동 좌표 차 × 크기 비율 a.
+   공동 좌표 상자는 가로·세로 3.0의 주기 경계(어느 은하를 기준으로 삼아도 둘레가 고르게 채워진다).
+   안드로메다은하는 우리은하와 가까워 예외: 우주 팽창을 따르지 않고 조금씩 다가온다. */
+const BOX = 3.0, HALF = BOX / 2;
+const wrap = v => { v = (v + HALF) % BOX; if (v < 0) v += BOX; return v - HALF; };
+function mulberry(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const GALAXIES = (() => {
+  const rnd = mulberry(20260926), out = [
+    { id: 'mw', x: 0, y: 0, type: 'bar', s: 1.7, rot: -20, tilt: .92, name: '우리은하' },
+    { id: 'm31', x: .17, y: -.12, type: 'sp', s: 1.45, rot: -38, tilt: .36, name: '안드로메다은하' },
+  ];
+  const dist = (a, b) => Math.hypot(wrap(a.x - b.x), wrap(a.y - b.y));
+  let tries = 0;
+  while (out.length < 118 && tries < 20000) {
+    tries++;
+    const c = { x: rnd() * BOX - HALF, y: rnd() * BOX - HALF };
+    if (out.some(g => dist(g, c) < (g.id === 'mw' || g.id === 'm31' ? .3 : .215))) continue;
+    const el = rnd() < .34;
+    out.push({ id: 'g' + out.length, x: c.x, y: c.y, type: el ? 'el' : 'sp', s: .72 + rnd() * .55, rot: rnd() * 360, tilt: el ? .6 + rnd() * .35 : .32 + rnd() * .66 });
+  }
+  // 기준으로 고르기 쉬운 이름 붙은 은하 A·B·C (우리은하에서 서로 다른 방향)
+  const pick = (tx, ty) => out.filter(g => !g.name).sort((a, b) => Math.hypot(a.x - tx, a.y - ty) - Math.hypot(b.x - tx, b.y - ty))[0];
+  [['A', -.62, .3], ['B', .58, .22], ['C', .12, -.55]].forEach(([k, x, y]) => { const g = pick(x, y); g.name = '은하 ' + k; g.key = k; g.type = 'sp'; g.s = 1.15; g.tilt = Math.max(g.tilt, .55); });
+  return out;
+})();
+const GX_BY = Object.fromEntries(GALAXIES.map(g => [g.id, g]));
+const REF_KEYS = [['mw', '우리은하'], [GALAXIES.find(g => g.key === 'A').id, '은하 A'], [GALAXIES.find(g => g.key === 'B').id, '은하 B'], [GALAXIES.find(g => g.key === 'C').id, '은하 C']];
+const M31_OFF = [GX_BY.m31.x - GX_BY.mw.x, GX_BY.m31.y - GX_BY.mw.y];
+const m31Off = a => 1 + 1.3 * (1 - a);                 // 안드로메다은하: 시간이 흐를수록 조금씩 가까워진다
+/* 기준 은하에서 본 은하 i의 위치(크기 비율 a일 때, 공동 좌표 단위) */
+function relPos(i, ref, a) {
+  const bi = i === 'm31' ? 'mw' : i, br = ref === 'm31' ? 'mw' : ref;
+  const gi = GX_BY[bi], gr = GX_BY[br];
+  let x = wrap(gi.x - gr.x) * a, y = wrap(gi.y - gr.y) * a;
+  const f = m31Off(a);
+  if (i === 'm31') { x += M31_OFF[0] * f; y += M31_OFF[1] * f; }
+  if (ref === 'm31') { x -= M31_OFF[0] * f; y -= M31_OFF[1] * f; }
+  return [x, y];
+}
+/* 우주의 역사: 현재 과학자들이 쓰는 표준 우주 모형(물질 31 %·암흑 에너지 69 %)의 크기 비율.
+   t는 대폭발 뒤 흐른 시간(억 년), 현재 T0 = 138억 년에서 a = 1. 화면에는 ‘은하 사이의 거리: 현재의 약 ○ %’로만 쓴다. */
+const T0 = 138;
+const XL = Math.asinh(Math.sqrt(.69 / .31));
+function scaleAt(t) { return t <= 0 ? 0 : Math.pow(Math.sinh(XL * t / T0) / Math.sinh(XL), 2 / 3); }
+const GX_FORM = [3, 10];                                 // 은하가 생기기 시작해 자리 잡는 시기(대폭발 뒤 억 년) — 표현용
+function gxShow(t) { return clamp((t - GX_FORM[0]) / (GX_FORM[1] - GX_FORM[0]), 0, 1); }
+/* 역사 그림 속 ‘우주의 한 부분’(원) 안의 은하: 원 안 공동 좌표(반지름 1) */
+const HIST_GX = (() => {
+  const rnd = mulberry(1380), out = [];
+  let tries = 0;
+  while (out.length < 34 && tries < 5000) {
+    tries++;
+    const r = Math.sqrt(rnd()) * .9, th = rnd() * Math.PI * 2, c = { x: r * Math.cos(th), y: r * Math.sin(th) };
+    if (out.some(g => Math.hypot(g.x - c.x, g.y - c.y) < .2)) continue;
+    out.push({ x: c.x, y: c.y, el: rnd() < .3, rot: rnd() * 360 });
+  }
+  return out;
+})();
+
+/* ── 표기 ── */
+const cm1 = mm => (Math.round(mm) / 10).toFixed(1);           // mm → "3.0"
+const NUMC = ['①', '②', '③', '④', '⑤', '⑥'];
+const nc = n => NUMC[n - 1];
+const pairName = (a, b) => `${nc(a)}–${nc(b)}`;
+/* 붙임딱지 번호 뒤 조사: 일·삼·육은 받침이 있고(일은 ㄹ받침이라 ‘로’), 이·사·오는 없다 */
+function jn(n, pair) { const [a, b] = pair.split('/'), bat = [1, 3, 6].includes(n); return pair === '으로/로' ? (n === 3 || n === 6 ? a : b) : bat ? a : b; }
+const nb = n => `<span class="nb" role="img" aria-label="붙임딱지 ${n}">${n}</span>`;           // 화면 글자 속 붙임딱지 번호(장면의 붙임딱지와 같은 모양)
+const pairH = (a, b) => `<span class="nbp">${nb(a)}–${nb(b)}</span>`;
+const nbText = h => String(h).replace(/([①-⑥])–([①-⑥])/g, (m, a, b) => pairH(NUMC.indexOf(a) + 1, NUMC.indexOf(b) + 1)).replace(/[①-⑥]/g, c => nb(NUMC.indexOf(c) + 1));   // 글 속 ①~⑥을 붙임딱지 배지로
+function fmtNum(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function pct(a) { return Math.round(a * 100); }
+function agoText(t) { const L = Math.round(T0 - t); return L <= 0 ? '현재' : t <= 0.001 ? '대폭발(약 138억 년 전)' : `약 ${L}억 년 전`; }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const easeInOut = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const easeOut = t => 1 - Math.pow(1 - t, 3);
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS = 'http://www.w3.org/2000/svg';
+const f1 = v => (Math.round(v * 10) / 10).toString();
+function pts(arr) { return arr.map(p => `${f1(p[0])},${f1(p[1])}`).join(' '); }
+function el(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+/* ── 아이콘 (한 계열 · stroke 1.9 · round) ── */
+const ICONS = {
+  flask: '<path d="M9 3h6m-5 0v6L4.5 19A2 2 0 0 0 6.3 22h11.4a2 2 0 0 0 1.8-3L14 9V3M7.5 15h9"/>',
+  book: '<path d="M12 6.6C10.4 5.1 7.9 4.5 3.5 4.5v14c4.4 0 6.9.6 8.5 2.1 1.6-1.5 4.1-2.1 8.5-2.1v-14c-4.4 0-6.9.6-8.5 2.1Z"/><path d="M12 6.6v14"/>',
+  help: '<circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.7.4-1.2 1-1.2 1.8v.5"/><path d="M12 17.2h.01"/>',
+  fsIn: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+  fsOut: '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>',
+  moon: '<path d="M20 14.6A8.2 8.2 0 1 1 9.4 4a6.6 6.6 0 0 0 10.6 10.6Z"/>',
+  sun: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>',
+  camera: '<path d="M3.5 8.5h3.2l1.8-3h7l1.8 3h3.2v11h-17Z"/><circle cx="12" cy="13.5" r="3.6"/>',
+  x: '<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>',
+  check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+  chev: '<path d="m9.5 6 6 6-6 6"/>',
+  chevL: '<path d="m14.5 6-6 6 6 6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  trash: '<path d="M5 7h14M10 7V4.5h4V7M7 7l1 13h8l1-13"/>',
+  reset: '<path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3L4.5 9"/><path d="M4.5 4.5V9H9"/>',
+  undo: '<path d="M9 8H5V4"/><path d="M5.3 8A8 8 0 1 1 5 15"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>',
+  bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.5 1.1-2.1A6 6 0 0 0 12 3Z"/>',
+  pen: '<path d="M4.5 19.5h4l10-10-4-4-10 10Z"/><path d="m13 7 4 4"/>',
+  play: '<path d="M7.5 5.5v13l11-6.5Z"/>',
+  grid: '<path d="M4 4.5c5 2 11 2 16 0M4 12c5 2 11 2 16 0M4 19.5c5-2 11-2 16 0M6.5 3.5c-1.5 5-1.5 12 0 17M12 3v18M17.5 3.5c1.5 5 1.5 12 0 17"/>',
+  tape: '<path d="M3.5 15.5 15.5 3.5l5 5-12 12Z"/><path d="m7 12 1.6 1.6M9.5 9.5l2.3 2.3M12 7l1.6 1.6"/>',
+  spoke: '<circle cx="12" cy="12" r="2.3"/><path d="M12 9.7V3.5M12 14.3v6.2M9.8 11.2 4 8.5M14.2 12.8l5.8 2.7M14.2 11.2 20 8.5M9.8 12.8 4 15.5"/>',
+  air: '<path d="M3.5 9h11a2.8 2.8 0 1 0-2.8-2.8"/><path d="M3.5 13.5h14.5a2.8 2.8 0 1 1-2.8 2.8"/><path d="M3.5 18h6"/>',
+  trail: '<circle cx="18" cy="6" r="2.2"/><path d="M4.5 19.5 16 8" stroke-dasharray="2.2 3"/>',
+  navBalloon: '<path d="M12 3.2c3.9 0 6.6 3 6.6 6.9 0 4.3-3.3 8-6.6 8s-6.6-3.7-6.6-8c0-3.9 2.7-6.9 6.6-6.9Z"/><path d="M10.6 18l-.8 1.8h4.4l-.8-1.8"/><circle cx="9.8" cy="9.4" r="1.1"/><circle cx="14" cy="8" r="1.1"/><circle cx="13.2" cy="12.8" r="1.1"/>',
+  navCosmos: '<circle cx="12" cy="12" r="2.2"/><path d="M12 7.2c2.8 0 4.6 1.9 4.6 4.3M12 16.8c-2.8 0-4.6-1.9-4.6-4.3"/><path d="M19 5l2-2M21 3h-2.6M21 3v2.6M5 19l-2 2M3 21h2.6M3 21v-2.6M19 19l2 2M21 21h-2.6M21 21v-2.6M5 5 3 3M3 3h2.6M3 3v2.6"/>',
+  navQuiz: '<path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="m3.6 6.5 1.4 1.4 2.4-2.8M3.6 12l1.4 1.4 2.4-2.8"/><circle cx="5.4" cy="17.5" r="1.5"/>',
+  navInq: '<path d="M4.5 19.5h4l10-10-4-4-10 10Z"/><path d="m13 7 4 4"/>',
+  yt: '<path class="yt-body" d="M21.6 7.2a2.6 2.6 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4a2.6 2.6 0 0 0-1.8 1.8A27 27 0 0 0 2 12a27 27 0 0 0 .4 4.8 2.6 2.6 0 0 0 1.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.6 2.6 0 0 0 1.8-1.8A27 27 0 0 0 22 12a27 27 0 0 0-.4-4.8Z"/><path class="yt-play" d="M10 15.3V8.7l5.6 3.3Z"/>',
+  ig: '<rect class="ig-line" x="3" y="3" width="18" height="18" rx="5.2"/><circle class="ig-line" cx="12" cy="12" r="4.1"/><circle class="ig-dot" cx="17.4" cy="6.6" r="1.2"/>',
+};
+function icon(name, cls = '') {
+  return `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[name]}</svg>`;
+}
+
+/* ───────────────────────── 풍선 실험대: 탁자 위 풍선 펌프 · 노즐에 끼운 고무풍선 · 붙임딱지 · 재봉 줄자 ─────────────────────────
+   1 SVG 유닛 = 1 mm (§7.2.3). 정사영 + 위에서 12° 내려다본 시점 → 공 모양 몸통은 화면에서도 원이다.
+   세계 좌표: x 오른쪽, y 위, z 보는 사람 쪽. 탁자 면 y = 0. 값은 전부 data.js(arcMM·tapeRead·volOf)에서 온다. 색은 CSS 토큰(클래스)으로만. */
+const TILT = 12 * Math.PI / 180, CT = Math.cos(TILT), ST = Math.sin(TILT);
+const Y0 = 372;                       // 화면에서 탁자 면(z = 0) 높이
+const X_NZ = 292, X_MOUTH = 278;      // 펌프 노즐 끝 · 풍선 입구(말린 테두리)
+const PUMP_R = 23, BARREL = [150, 270], GRIP_W = 16;
+const OUT_MIN = 8, OUT_MAX = OUT_MIN + PUMP_STROKE;
+function proj(x, y, z) { return [x, Y0 - (y * CT - z * ST)]; }
+const visOf = u => u[1] * ST + u[2] * CT;                               // 시선 쪽을 향한 정도(> 0이면 보임)
+function bodyCenter(D) { const R = D / 2; return [X_NZ + 44 + .9 * R, R, 0]; }   // 풍선은 탁자에 닿아 있다
+const sp = (S, R, u) => [S[0] + R * u[0], S[1] - R * (u[1] * CT - u[2] * ST)];   // 구 위 방향 u → 화면
+const sv = w => [w[0], -(w[1] * CT - w[2] * ST)];                                 // 세계 벡터 → 화면 벡터
+const F1 = v => (Math.round(v * 100) / 100).toString();
+
+/* 풍선 윤곽: 몸통 원 + 목으로 좁아지는 부분 + 목 관(펌프 노즐 또는 매듭) */
+function balloonOutline(S, R, neck, sc = 1) {
+  const n2 = a => { const l = Math.hypot(a[0], a[1]) || 1; return [a[0] / l, a[1] / l]; };
+  const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k];
+  const d = neck.type === 'pump' ? n2([neck.N[0] - S[0], neck.N[1] - S[1]]) : n2(neck.dir);
+  const phi = Math.atan2(d[1], d[0]), th = 36 * Math.PI / 180, w = 6.5 * sc;
+  const J1 = [S[0] + R * Math.cos(phi + th), S[1] + R * Math.sin(phi + th)], J2 = [S[0] + R * Math.cos(phi - th), S[1] + R * Math.sin(phi - th)];
+  const T1 = [Math.sin(phi + th), -Math.cos(phi + th)], T2 = [-Math.sin(phi - th), Math.cos(phi - th)];
+  const F = add(S, d, R * 1.08 + 9 * sc), pv = [-d[1], d[0]];
+  const Fa = add(F, pv, w), Fb = add(F, pv, -w);
+  const L1 = Math.hypot(Fa[0] - J1[0], Fa[1] - J1[1]), L2 = Math.hypot(Fb[0] - J2[0], Fb[1] - J2[1]);
+  // 목 관의 중심선
+  let line = [];
+  if (neck.type === 'pump') {
+    const N = neck.N, k = .42 * Math.hypot(N[0] - F[0], N[1] - F[1]);
+    const c1 = add(F, d, k), c2 = [N[0] + k, N[1]];
+    for (let i = 0; i <= 12; i++) {
+      const t = i / 12, u = 1 - t;
+      line.push([u * u * u * F[0] + 3 * u * u * t * c1[0] + 3 * u * t * t * c2[0] + t * t * t * N[0], u * u * u * F[1] + 3 * u * u * t * c1[1] + 3 * u * t * t * c2[1] + t * t * t * N[1]]);
+    }
+    line.push(neck.M);
+  } else {
+    for (let i = 0; i <= 4; i++) line.push(add(F, d, i / 4 * neck.len));
+  }
+  const side = (sgn) => line.map((p, i) => {
+    const a = line[Math.max(0, i - 1)], b = line[Math.min(line.length - 1, i + 1)], t = n2([b[0] - a[0], b[1] - a[1]]);
+    return [p[0] - t[1] * w * sgn, p[1] + t[0] * w * sgn];
+  });
+  const sA = side(1), sB = side(-1), P = v => `${F1(v[0])} ${F1(v[1])}`;
+  const c1a = add(J1, T1, .45 * L1), c1b = add(Fa, d, -.35 * L1), c2a = add(J2, T2, .45 * L2), c2b = add(Fb, d, -.35 * L2);
+  let s = `M${P(J1)}C${P(c1a)} ${P(c1b)} ${P(sA[0])}`;
+  for (let i = 1; i < sA.length; i++) s += `L${P(sA[i])}`;
+  for (let i = sB.length - 1; i >= 0; i--) s += `L${P(sB[i])}`;
+  s += `C${P(c2b)} ${P(c2a)} ${P(J2)}A${F1(R)} ${F1(R)} 0 1 0 ${P(J1)}Z`;
+  // 목 쪽 그늘(고무가 덜 늘어나 두껍고 어둡다)
+  const shade = `M${P(J1)}C${P(c1a)} ${P(c1b)} ${P(sA[0])}L${P(sB[0])}C${P(c2b)} ${P(c2a)} ${P(J2)}Z`;
+  return { d: s, shade, line, dir: d, end: line[line.length - 1], w, F, C0: add(S, d, R * Math.cos(th)) };
+}
+
+/* 마커 격자: 몸통에 고정된 위도·경도선(20°). 풍선과 함께 늘어나고 선 굵기도 굵어진다 */
+function gridPath(S, R) {
+  let d = '';
+  const run = (ptsU) => {
+    let open = false;
+    for (const u of ptsU) {
+      if (visOf(u) > .015) { const p = sp(S, R, u); d += `${open ? 'L' : 'M'}${F1(p[0])} ${F1(p[1])}`; open = true; } else open = false;
+    }
+  };
+  for (let lon = -180; lon < 180; lon += GRID_DEG) { const a = []; for (let lat = -84; lat <= 84; lat += 4) a.push(dirOf(lon, lat)); run(a); }
+  for (let lat = -80; lat <= 80; lat += GRID_DEG) { const a = []; for (let lon = -180; lon <= 180; lon += 4) a.push(dirOf(lon, lat)); run(a); }
+  return d;
+}
+
+/* 붙임딱지: 구의 접평면을 화면으로 옮기는 행렬로 그린다(가장자리로 갈수록 납작하게 보인다) */
+function stickerMatrix(S, R, u, sc) {
+  const p = sp(S, R, u), t1 = norm3([u[2], 0, -u[0]]), t2 = cross3(u, t1);
+  const a = sv(t1), c = sv([-t2[0], -t2[1], -t2[2]]);
+  return `matrix(${F1(a[0] * sc)} ${F1(a[1] * sc)} ${F1(c[0] * sc)} ${F1(c[1] * sc)} ${F1(p[0])} ${F1(p[1])})`;
+}
+function stickerSVG(S, R, st, sc, o = {}) {
+  const cls = ['stk', o.sel ? 'sel' : '', o.pend ? 'pend' : '', o.ref ? 'ref' : ''].join(' ');
+  return `<g class="${cls}" transform="${stickerMatrix(S, R, st.u, sc)}">
+    <circle class="stk-body" r="10"/><circle class="stk-rim" r="8.6"/><path class="stk-hi" d="M-6.6 -3.4A7.4 7.4 0 0 1 -1.8 -7.1"/>
+    <text class="stk-n" y="4.3">${st.n}</text>${o.sel || o.pend || o.ref ? '<circle class="stk-ring" r="13.6"/>' : ''}</g>`;
+}
+
+/* 줄자: 두 붙임딱지 중심을 잇는 대원(표면에서 가장 짧은 길)을 따라 옆에 나란히 댄 천 줄자. 0 눈금 = 앞 붙임딱지 중심 */
+function tapeSVG(S, R, Rmm, ia, ib, px, o = {}) {
+  const ua = STK(ia).u, ub = STK(ib).u, al = angOf(ua, ub), sa = Math.sin(al);
+  const g = th => { const k1 = Math.sin(al - th) / sa, k2 = Math.sin(th) / sa; return [ua[0] * k1 + ub[0] * k2, ua[1] * k1 + ub[1] * k2, ua[2] * k1 + ub[2] * k2]; };
+  let w = norm3(cross3(ua, ub));
+  const d1 = (STICKER_D / 2 + 2.5) / Rmm, d2 = d1 + TAPE_W / Rmm;
+  const h = (th, de) => { const q = g(th), c = Math.cos(de), s = Math.sin(de); return [q[0] * c + w[0] * s, q[1] * c + w[1] * s, q[2] * c + w[2] * s]; };
+  if (visOf(h(al / 2, (d1 + d2) / 2)) < visOf(h(al / 2, -(d1 + d2) / 2))) w = [-w[0], -w[1], -w[2]];
+  const P = (th, de) => sp(S, R, h(th, de)), Q = v => `${F1(v[0])} ${F1(v[1])}`;
+  const th0 = -6 / Rmm, th1 = al + 24 / Rmm, n = Math.max(8, Math.ceil((th1 - th0) * Rmm / 3));
+  const inner = [], outer = [];
+  for (let i = 0; i <= n; i++) { const th = th0 + (th1 - th0) * i / n; inner.push(P(th, d1)); outer.push(P(th, d2)); }
+  let s = `<path class="tape" d="M${inner.map(Q).join('L')}L${outer.reverse().map(Q).join('L')}Z"/>`;
+  const tip = [P(th0, d1), P(0, d1), P(0, d2), P(th0, d2)];
+  s += `<path class="tape-tip" d="M${tip.map(Q).join('L')}Z"/>`;
+  // 눈금: 5 mm마다(1 cm는 길게), 숫자는 1 cm(좁으면 2 cm)마다
+  const cmPx = 10 / px * (R / Rmm), every = cmPx >= 15 ? 1 : cmPx >= 8 ? 2 : 0;
+  let ticks = '', nums = '';
+  const fs = F1(Math.max(9, 10.5) * px);
+  for (let k = 0; k * 5 <= al * Rmm + 22; k++) {
+    const th = k * 5 / Rmm, major = k % 2 === 0, a = P(th, d1), b = P(th, d1 + (d2 - d1) * (major ? .56 : .34));
+    ticks += `M${Q(a)}L${Q(b)}`;
+    if (major && every && (k / 2) % every === 0 && k > 0) { const t = P(th, d1 + (d2 - d1) * .8); nums += `<text class="tape-num" x="${F1(t[0])}" y="${F1(t[1])}" style="font-size:${fs}px">${k / 2}</text>`; }
+  }
+  s += `<path class="tape-tick" d="${ticks}" style="stroke-width:${F1(Math.max(.7, .9 * px))}"/>${nums}`;
+  // 붙임딱지 중심에서 줄자까지 맞춘 선 · 읽는 자리
+  const lead = th => { const a = P(th, 10.6 / Rmm), b = P(th, d1); return `M${Q(a)}L${Q(b)}`; };
+  s += `<path class="tape-lead" d="${lead(0)}${lead(al)}" style="stroke-width:${F1(1.3 * px)}"/>`;
+  const r1 = P(al, d1 - 1.5 / Rmm), r2 = P(al, d2 + 1.5 / Rmm);
+  s += `<path class="tape-read" d="M${Q(r1)}L${Q(r2)}" style="stroke-width:${F1(2.6 * px)}"/>`;
+  if (o.tag !== false) {
+    const v = tapeRead(Rmm * 2, ia, ib), txt = `${pairName(ia, ib)} ${cm1(v)} cm`, sz = pillSize(txt, px);
+    const mid = P(al / 2, (d1 + d2) / 2), rib = P(al / 2, d2), c0 = P(al / 2, 0);
+    const out = [rib[0] - c0[0], rib[1] - c0[1]], ol = Math.hypot(out[0], out[1]) || 1;
+    const rad = [mid[0] - S[0], mid[1] - S[1]], rl = Math.hypot(rad[0], rad[1]) || 1;
+    const avoid = stickerDisks(S, R, Rmm, px);
+    const u0 = [out[0] / ol, out[1] / ol], start = [rib[0] + u0[0] * (Math.abs(u0[0]) * sz[0] + Math.abs(u0[1]) * sz[1]) / 2 + u0[0] * 5 * px, rib[1] + u0[1] * (Math.abs(u0[0]) * sz[0] + Math.abs(u0[1]) * sz[1]) / 2 + u0[1] * 5 * px];
+    const q = placePill(start, sz, avoid, [u0, [rad[0] / rl, rad[1] / rl], [0, -1], [1, 0], [-u0[0], -u0[1]], [-1, 0], [0, 1]], 10 * px, o.rects || [], o.bounds);
+    if (Math.hypot(q[0] - mid[0], q[1] - mid[1]) > sz[1] * 1.2) s += `<path class="tape-lead" d="M${Q(mid)}L${Q(q)}" style="stroke-width:${F1(1.2 * px)}"/>`;
+    s += '<!--PILLS-->' + pillSVG(q[0], q[1], txt, px, 'tag');
+  }
+  return s;
+}
+/* 화면에 나란한 알약 이름표 (글자 수로 폭을 잡는다) */
+function pillSize(text, px, fsPx = 14) {
+  const fs = fsPx * px, len = [...text].reduce((n, c) => n + (/[0-9.\s]/.test(c) ? .56 : /[a-z]/i.test(c) ? .6 : 1), 0);
+  return [fs * (len + 1.1), fs * 1.75];
+}
+/* 붙임딱지가 화면에서 차지하는 원(이름표가 피할 자리) */
+function stickerDisks(S, R, Rmm, px) { const k = R / Rmm; return STICKERS.filter(t => visOf(t.u) > 0).map(t => { const q = sp(S, R, t.u); return [q[0], q[1], 12 * k + 3 * px]; }); }
+function rectHitsDisk(x, y, w, h, d) { const cx = clamp(d[0], x - w / 2, x + w / 2), cy = clamp(d[1], y - h / 2, y + h / 2); return Math.hypot(cx - d[0], cy - d[1]) < d[2]; }
+/* 기준점 둘레에서 붙임딱지·다른 이름표와 겹치지 않는 자리를 고른다(방향 순서대로, 가까운 거리부터) */
+function placePill(anchor, sz, avoid, dirs, step, rects = [], bounds = null) {
+  const [w, h] = sz;
+  const cost = (x, y) => {
+    let c = 0;
+    if (bounds && !(x - w / 2 >= bounds[0] && x + w / 2 <= bounds[2] && y - h / 2 >= bounds[1] && y + h / 2 <= bounds[3])) c += 6;
+    for (const d of avoid) if (rectHitsDisk(x, y, w, h, d)) c += 3;
+    for (const r of rects) if (Math.abs(r[0] - x) < (r[2] + w) / 2 && Math.abs(r[1] - y) < (r[3] + h) / 2) c += 2;
+    return c;
+  };
+  if (!cost(anchor[0], anchor[1])) return anchor;
+  const all = dirs.concat([[1, 0], [-1, 0], [0, -1], [0, 1], [.71, .71], [-.71, .71], [.71, -.71], [-.71, -.71]]);
+  let best = anchor, bc = cost(anchor[0], anchor[1]) + 1e-3;
+  for (let k = 1; k <= 18; k++) for (const d of (k <= 9 ? dirs : all)) {
+    const reach = k * step + (Math.abs(d[0]) * w + Math.abs(d[1]) * h) / 2;
+    const x = anchor[0] + d[0] * reach, y = anchor[1] + d[1] * reach, c = cost(x, y);
+    if (!c) return [x, y];
+    if (c + k * .01 < bc) { bc = c + k * .01; best = [x, y]; }   // 끝내 빈자리가 없으면 가장 덜 겹치는 자리
+  }
+  return best;
+}
+function pillSVG(x, y, text, px, cls = '', fsPx = 14) {
+  const fs = fsPx * px, [w, h] = pillSize(text, px, fsPx);
+  return `<g class="spill ${cls}"><rect x="${F1(x - w / 2)}" y="${F1(y - h / 2)}" width="${F1(w)}" height="${F1(h)}" rx="${F1(h / 2)}"/><text x="${F1(x)}" y="${F1(y + fs * .36)}" style="font-size:${F1(fs)}px">${escapeHtml(text)}</text></g>`;
+}
+/* 한 붙임딱지에서 모두 재기: 기준에서 다른 붙임딱지까지 표면을 따라 잇는 선과 거리(cm) */
+function spokesSVG(S, R, Rmm, ref, px, targets, bounds = null, rects0 = null) {
+  let s = '';
+  const ids = (targets || STICKERS.map(t => t.n)).filter(n => n !== ref);
+  for (const j of ids) {
+    const ua = STK(ref).u, ub = STK(j).u, al = angOf(ua, ub), sa = Math.sin(al);
+    const g = th => { const k1 = Math.sin(al - th) / sa, k2 = Math.sin(th) / sa; return [ua[0] * k1 + ub[0] * k2, ua[1] * k1 + ub[1] * k2, ua[2] * k1 + ub[2] * k2]; };
+    const a0 = 11 / Rmm, a1 = al - 11 / Rmm, n = 18;
+    let d = '';
+    for (let i = 0; i <= n; i++) { const p = sp(S, R, g(a0 + (a1 - a0) * i / n)); d += `${i ? 'L' : 'M'}${F1(p[0])} ${F1(p[1])}`; }
+    s += `<path class="spoke" d="${d}" style="stroke-width:${F1(2 * px)};stroke-dasharray:${F1(6 * px)} ${F1(4 * px)}"/>`;
+  }
+  const avoid = stickerDisks(S, R, Rmm, px), rects = rects0 ? rects0.slice() : [];
+  let pills = '';
+  for (const j of ids) {
+    const ua = STK(ref).u, ub = STK(j).u, a = sp(S, R, ua), b = sp(S, R, ub);
+    const txt = cm1(tapeRead(Rmm * 2, ref, j)), sz = pillSize(txt, px, 13);
+    const tx = b[0] - a[0], ty = b[1] - a[1], tl = Math.hypot(tx, ty) || 1, ux = tx / tl, uy = ty / tl, nx = -uy, ny = ux;
+    const rx0 = b[0] - S[0], ry0 = b[1] - S[1], rl = Math.hypot(rx0, ry0) || 1, vx = rx0 / rl, vy = ry0 / rl;   // 풍선 중심에서 바깥쪽
+    const rr = 12 * R / Rmm + 3 * px, reach = rr + (Math.abs(vx) * sz[0] + Math.abs(vy) * sz[1]) / 2 + 1 * px;
+    const p = [b[0] + vx * reach, b[1] + vy * reach];
+    const q = placePill(p, sz, avoid, [[vx, vy], [ux, uy], [nx, ny], [-nx, -ny]], 4 * px, rects, bounds);
+    rects.push([q[0], q[1], sz[0], sz[1]]);
+    const far = Math.hypot(q[0] - b[0], q[1] - b[1]);
+    if (far > rr + Math.max(sz[0], sz[1]) * .75) { const k = rr / far; pills += `<path class="pill-lead" d="M${F1(b[0] + (q[0] - b[0]) * k)} ${F1(b[1] + (q[1] - b[1]) * k)}L${F1(q[0])} ${F1(q[1])}" style="stroke-width:${F1(1.2 * px)}"/>`; }
+    pills += pillSVG(q[0], q[1], txt, px, 'spk', 13);
+  }
+  return s + '<!--PILLS-->' + pills;
+}
+
+/* 풍선 한 개(몸통·격자·붙임딱지). 실험대·간이 실험·원리 카드·문항 그림이 모두 이 함수로 그린다 */
+function balloonSVG(p, o) {
+  const { S, R, Rmm, sc = 1, px = 1 } = o;
+  const out = balloonOutline(S, R, o.neck, sc);
+  const hx = S[0] - .36 * R, hy = S[1] - .42 * R;
+  const thin = clamp(.3 * (1 - Math.pow(60 / Rmm, 2)), 0, .3);             // 늘어날수록 고무가 얇아져 옅어진다
+  let s = `<defs><radialGradient id="${p}-rub" gradientUnits="userSpaceOnUse" cx="${F1(S[0] - .1 * R)}" cy="${F1(S[1] - .12 * R)}" r="${F1(R * 1.25)}" fx="${F1(hx)}" fy="${F1(hy)}">
+      <stop offset="0" class="st-rub-hi"/><stop offset=".42" class="st-rub"/><stop offset="1" class="st-rub-lo"/></radialGradient>
+    <radialGradient id="${p}-spec" cx=".5" cy=".5" r=".5"><stop offset="0" class="st-white" stop-opacity=".72"/><stop offset="1" class="st-white" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${p}-neck" gradientUnits="userSpaceOnUse" x1="${F1(out.F[0])}" y1="${F1(out.F[1])}" x2="${F1(out.C0[0])}" y2="${F1(out.C0[1])}"><stop offset="0" class="st-neck" stop-opacity=".6"/><stop offset="1" class="st-neck" stop-opacity="0"/></linearGradient></defs>`;
+  s += `<path class="rub" d="${out.d}" fill="url(#${p}-rub)"/>`;
+  s += `<path class="rub-thin" d="${out.d}" style="opacity:${thin.toFixed(3)}"/>`;
+  s += `<path class="rub-neck" d="${out.shade}" fill="url(#${p}-neck)"/>`;
+  if (o.neck.type === 'pump') s += `<rect class="rub-lip" x="${F1(out.end[0] - 5)}" y="${F1(out.end[1] - out.w - 2.4)}" width="8" height="${F1(out.w * 2 + 4.8)}" rx="3.5"/>`;
+  else { const k = [out.end[0] + out.dir[0] * 4 * sc, out.end[1] + out.dir[1] * 4 * sc]; s += `<ellipse class="rub-knot" cx="${F1(k[0])}" cy="${F1(k[1])}" rx="${F1(5 * sc)}" ry="${F1(4 * sc)}"/>`; }
+  if (o.grid) s += `<path class="mgrid" d="${gridPath(S, R)}" style="stroke-width:${F1(Math.max(.8 * px, 1.05 * Rmm / 60 * sc))}"/>`;
+  s += `<ellipse class="rub-spec" cx="${F1(hx)}" cy="${F1(hy)}" rx="${F1(.2 * R)}" ry="${F1(.12 * R)}" transform="rotate(-38 ${F1(hx)} ${F1(hy)})" fill="url(#${p}-spec)"/>`;
+  s += `<circle class="rub-rim" cx="${F1(S[0])}" cy="${F1(S[1])}" r="${F1(R - .6)}"/>`;
+  if (o.air) { const L = out.line, i0 = Math.floor(L.length * .45); for (let i = i0; i < L.length - 2; i += 3) { const a = L[i], b = L[i + 1], ang = Math.atan2(a[1] - b[1], a[0] - b[0]) * 180 / Math.PI; s += `<path class="air" d="M-3 -3L1 0L-3 3" transform="translate(${F1(a[0])} ${F1(a[1])}) rotate(${F1(ang)})"/>`; } }
+  if (o.under) s += o.under;
+  const shown = o.stickers || STICKERS.map(t => t.n);
+  const order = shown.map(n => STK(n)).filter(t => visOf(t.u) > 0).sort((a, b) => visOf(a.u) - visOf(b.u));
+  s += order.map(t => stickerSVG(S, R, t, sc, { sel: (o.sel || []).includes(t.n), pend: o.pend === t.n, ref: o.ref === t.n })).join('');
+  if (o.over) s += o.over;
+  return s;
+}
+
+/* 풍선 펌프(노란 플라스틱, T자 손잡이) — 손잡이만 움직인다 */
+function pumpStaticSVG(p) {
+  const ax = PUMP_R, [x0, x1] = BARREL, top = proj(0, ax, 0)[1] - PUMP_R, bot = top + PUMP_R * 2;
+  const cap = (x, w) => `<rect class="pump-cap" x="${x}" y="${F1(top - 1)}" width="${w}" height="${F1(PUMP_R * 2 + 2)}" rx="3"/>`;
+  const my = (top + bot) / 2;
+  return `<defs><linearGradient id="${p}-barrel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-pump-lo"/><stop offset=".18" class="st-pump-hi"/><stop offset=".45" class="st-pump"/><stop offset="1" class="st-pump-lo"/></linearGradient>
+      <linearGradient id="${p}-noz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-metal-mid"/><stop offset=".3" class="st-metal-hi"/><stop offset="1" class="st-metal-lo"/></linearGradient></defs>
+    <ellipse class="shadow" cx="${(x0 + x1) / 2 + 8}" cy="${Y0 + 3}" rx="${(x1 - x0) / 2 + 16}" ry="7"/>
+    <rect x="${x0}" y="${F1(top)}" width="${x1 - x0}" height="${PUMP_R * 2}" rx="6" fill="url(#${p}-barrel)"/>
+    ${cap(x0 - 2, 10)}${cap(x1 - 8, 10)}
+    <path class="pump-noz" d="M${x1} ${F1(my - 9)}L${X_NZ} ${F1(my - 5)}L${X_NZ} ${F1(my + 5)}L${x1} ${F1(my + 9)}Z" fill="url(#${p}-noz)"/>
+    <path class="pump-shine" d="M${x0 + 12} ${F1(top + 7)}H${x1 - 14}"/>
+    <text class="pump-lbl" x="${(x0 + x1) / 2}" y="${F1(bot - PUMP_R + 5)}">풍선 펌프</text>`;
+}
+function gripSVG(out) {
+  const my = proj(0, PUMP_R, 0)[1], x = BARREL[0] - out, top = my - 24;
+  return `<rect class="pump-rod" x="${F1(x)}" y="${F1(my - 4)}" width="${F1(out + 2)}" height="8" rx="2"/>
+    <rect class="pump-grip" x="${F1(x - GRIP_W)}" y="${F1(top)}" width="${GRIP_W}" height="48" rx="6"/>
+    <path class="pump-ridge" d="M${F1(x - GRIP_W + 4)} ${F1(top + 10)}h8M${F1(x - GRIP_W + 4)} ${F1(top + 18)}h8M${F1(x - GRIP_W + 4)} ${F1(top + 30)}h8M${F1(x - GRIP_W + 4)} ${F1(top + 38)}h8"/>
+    <rect class="focus-ring" x="${F1(x - GRIP_W - 6)}" y="${F1(top - 6)}" width="${GRIP_W + 12}" height="60" rx="9"/>
+    <rect class="hit" x="${F1(x - GRIP_W - 14)}" y="${F1(top - 14)}" width="${GRIP_W + 28 + out}" height="76"/>`;
+}
+
+class BalloonScene {
+  constructor(host, o = {}) {
+    this.host = host;
+    this.o = Object.assign({ mini: false, prefix: 'b' + Math.random().toString(36).slice(2, 6), legend: true, targets: null }, o);
+    this.s = o.state;
+    if (this.s.out == null) this.s.out = OUT_MIN;
+    this.onChange = o.onChange || (() => { });
+    this.px = 1; this.anim = null; this.airT = 0; this.maxWarned = false;
+  }
+  get vb() { return this.o.mini ? [196, 86, 446, 316] : this.port ? [262, 48, 378, 356] : [24, 44, 592, 366]; }
+  build() {
+    const [x, y, w, h] = this.vb, p = this.o.prefix;
+    this.host.innerHTML = '';
+    const svg = this.svg = el('svg', { viewBox: `${x} ${y} ${w} ${h}`, class: 'scene-svg balloon-svg' + (this.o.mini ? ' mini-svg' : '') + (this.port ? ' port' : ''), role: 'img', 'aria-label': '탁자 위에 놓인 풍선 펌프와, 노즐에 끼운 고무풍선. 풍선에는 번호를 쓴 붙임딱지 여섯 개가 붙어 있다' }, this.host);
+    svg.innerHTML = `<defs><linearGradient id="${p}-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-wall-0"/><stop offset="1" class="st-wall-1"/></linearGradient>
+        <linearGradient id="${p}-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-table-back"/><stop offset="1" class="st-table-top"/></linearGradient></defs>
+      <rect class="bg" x="-200" y="-200" width="1200" height="900" fill="url(#${p}-wall)"/>
+      <g class="l-table"></g><g class="l-pump"></g><g class="l-grip"><g class="grip-g" tabindex="0" role="slider" aria-label="펌프 손잡이 — 끌어서 밀면 풍선에 공기가 들어가요. Enter는 한 번 펌프질, ← → 키로 조금씩" aria-valuemin="${D_MIN / 10}" aria-valuemax="${D_MAX / 10}"></g></g>
+      <g class="l-shadow"></g><g class="l-balloon"></g><g class="l-hits"></g><g class="l-over"></g>`;
+    this.g = n => svg.querySelector('.l-' + n);
+    this.grip = svg.querySelector('.grip-g');
+    const T = this.g('table'), bk = proj(0, 0, -300)[1], fr = proj(0, 0, 110)[1];
+    T.innerHTML = `<rect class="tbl-top" x="-200" y="${F1(bk)}" width="1200" height="${F1(fr - bk)}" fill="url(#${p}-top)"/><rect class="tbl-front" x="-200" y="${F1(fr)}" width="1200" height="120"/><path class="tbl-edge" d="M-200 ${F1(fr)}H1000"/>`;
+    this.g('pump').innerHTML = pumpStaticSVG(p);
+    // 붙임딱지 누르는 자리(보이지 않는 원) — 한 번 만들고 자리만 옮긴다(포커스 유지)
+    const H = this.g('hits');
+    this.hits = STICKERS.map(t => {
+      const gg = el('g', { class: 'stk-hit', tabindex: '0', role: 'button', 'data-n': t.n }, H);
+      el('circle', { class: 'hit', r: 14 }, gg); el('circle', { class: 'focus-ring', r: 16 }, gg);
+      return gg;
+    });
+    this.render();
+    this.bind();
+    this.fitText();
+    if (window.ResizeObserver && !this.ro) { this.ro = new ResizeObserver(() => this.fitText()); this.ro.observe(this.host); }
+    return this;
+  }
+  fitText() {
+    const r = this.host.getBoundingClientRect(); if (!r.width) return;
+    const port = !this.o.mini && r.width < 560;
+    if (port !== !!this.port) { this.port = port; this.build(); return; }
+    const [, , w, h] = this.vb, px = Math.max(w / r.width, h / r.height) || 1;
+    if (Math.abs(px - this.px) > .01) { this.px = px; this.svg.style.setProperty('--px', px.toFixed(3)); this.render(); }
+  }
+  geom() {
+    const D = this.s.D, R = D / 2, C = bodyCenter(D), S = proj(C[0], C[1], C[2]);
+    return { D, R, C, S, N: proj(X_NZ, PUMP_R, 0), M: proj(X_MOUTH, PUMP_R, 0) };
+  }
+  render() {
+    const s = this.s, G = this.geom(), px = this.px, p = this.o.prefix;
+    this.g('grip').firstElementChild.innerHTML = gripSVG(s.out);
+    this.grip.setAttribute('aria-valuenow', (s.D / 10).toFixed(1));
+    this.grip.setAttribute('aria-valuetext', `풍선 지름 ${cm1(s.D)} cm`);
+    this.g('shadow').innerHTML = `<ellipse class="shadow" cx="${F1(G.C[0] + .12 * G.R)}" cy="${F1(Y0 + 2)}" rx="${F1(.74 * G.R)}" ry="${F1(.74 * G.R * ST + 3)}"/>`;
+    const sel = s.mode === 'tape' ? s.pair : [], targets = this.o.targets;
+    let over = '';
+    const vb = this.vb, bounds = [vb[0] + 4 * px, vb[1] + 4 * px, vb[0] + vb[2] - 4 * px, vb[1] + vb[3] - 4 * px];
+    const ylD = G.S[1] - G.R - 12 * px, dimRects = [[G.S[0], ylD - 14 * px, 150 * px, 24 * px], [G.S[0], ylD, G.R * 2 + 8 * px, 14 * px]];   // 지름 치수선·글자 자리
+    if (s.mode === 'tape') over = tapeSVG(G.S, G.R, G.R, s.pair[0], s.pair[1], px, { bounds, rects: dimRects });
+    else over = spokesSVG(G.S, G.R, G.R, s.ref, px, targets, bounds, dimRects);
+    const stickers = targets ? [s.ref, ...targets] : null;
+    // 줄자·거리선은 붙임딱지 아래 층(줄자는 붙임딱지 옆으로 비껴 댄다)
+    const [ovU, ovO = ''] = over.split('<!--PILLS-->');
+    let html = balloonSVG(p, { S: G.S, R: G.R, Rmm: G.R, px, neck: { type: 'pump', N: G.N, M: G.M }, grid: s.grid, sel, ref: s.mode === 'all' ? s.ref : null, pend: s.pend, stickers, air: performance.now() < this.airT, under: `<g class="l-tape">${ovU}</g>`, over: `<g class="l-pills">${ovO}</g>` });
+    // 지름 치수선
+    const top = G.S[1] - G.R, yl = top - 12 * px, x0 = G.S[0] - G.R, x1 = G.S[0] + G.R;
+    html += `<g class="dim"><path class="dim-l" d="M${F1(x0)} ${F1(yl)}H${F1(x1)}M${F1(x0)} ${F1(yl - 6 * px)}v${F1(12 * px)}M${F1(x1)} ${F1(yl - 6 * px)}v${F1(12 * px)}" style="stroke-width:${F1(1.4 * px)}"/>
+      <text class="dim-t" x="${F1(G.S[0])}" y="${F1(yl - 9 * px)}" style="font-size:${F1(15 * px)}px">풍선 지름 ${cm1(s.D)} cm</text></g>`;
+    this.g('balloon').innerHTML = html;
+    // 붙임딱지 누르는 자리
+    const hr = Math.max(13, 22 * px), shownSet = new Set(stickers || STICKERS.map(t => t.n));
+    this.hits.forEach((h, i) => {
+      const st = STICKERS[i], on = shownSet.has(st.n) && visOf(st.u) > 0, q = sp(G.S, G.R, st.u);
+      h.setAttribute('transform', `translate(${F1(q[0])} ${F1(q[1])})`);
+      h.firstElementChild.setAttribute('r', F1(hr)); h.lastElementChild.setAttribute('r', F1(hr + 2));
+      h.style.display = on ? '' : 'none';
+      h.setAttribute('aria-label', this.hitLabel(st.n));
+      h.setAttribute('aria-pressed', String(s.mode === 'tape' ? s.pair.includes(st.n) : s.ref === st.n));
+    });
+    this.renderOver(G);
+  }
+  hitLabel(n) {
+    const s = this.s;
+    if (this.o.targets) return `붙임딱지 ${nc(n)}`;
+    if (s.mode === 'all') return `붙임딱지 ${nc(n)} — 눌러서 기준으로 삼기`;
+    return s.pend ? `붙임딱지 ${nc(n)} — 눌러서 줄자의 끝으로 고르기` : `붙임딱지 ${nc(n)} — 눌러서 줄자로 잴 첫 번째 붙임딱지로 고르기`;
+  }
+  renderOver(G) {
+    if (this.o.mini || this.port) { this.g('over').innerHTML = this.coachSVG(); return; }
+    const px = this.px, x = this.vb[0] + 14, y0 = this.vb[1] + 20;
+    const fs = F1(14 * px), fs2 = F1(13 * px), lh = 21 * px;
+    let s = `<g class="legend" transform="translate(${x} ${F1(y0)})">`;
+    const row = (i, sym, t, t2) => `<g transform="translate(0 ${F1(i * lh * 2.05)})">${sym}<text class="lg-t" x="${F1(30 * px)}" y="${F1(5 * px)}" style="font-size:${fs}px">${t}</text><text class="lg-s" x="${F1(30 * px)}" y="${F1(5 * px + lh)}" style="font-size:${fs2}px">${t2}</text></g>`;
+    const k = px;
+    s += row(0, `<circle class="lg-stk" cx="${F1(11 * k)}" cy="0" r="${F1(9 * k)}"/><text class="lg-stk-n" x="${F1(11 * k)}" y="${F1(4 * k)}" style="font-size:${F1(11 * k)}px">1</text>`, '붙임딱지 = 은하', '지름 2 cm · 풍선을 불어도 그대로');
+    s += row(1, `<rect class="lg-tape" x="0" y="${F1(-5 * k)}" width="${F1(22 * k)}" height="${F1(10 * k)}" rx="${F1(1.5 * k)}"/><path class="lg-tick" d="M${F1(5 * k)} ${F1(-5 * k)}v${F1(5 * k)}M${F1(11 * k)} ${F1(-5 * k)}v${F1(3 * k)}M${F1(17 * k)} ${F1(-5 * k)}v${F1(5 * k)}"/>`, '줄자', '표면을 따라 붙임딱지 중심 사이를 재요');
+    if (this.s.grid) s += row(2, `<path class="lg-grid" d="M0 ${F1(-7 * k)}Q${F1(11 * k)} ${F1(-3 * k)} ${F1(22 * k)} ${F1(-7 * k)}M0 ${F1(5 * k)}Q${F1(11 * k)} ${F1(9 * k)} ${F1(22 * k)} ${F1(5 * k)}M${F1(7 * k)} ${F1(-9 * k)}V${F1(9 * k)}M${F1(16 * k)} ${F1(-9 * k)}V${F1(9 * k)}"/>`, '마커 격자 = 우주 공간', `한 칸 ${cm1(gridCellMM(this.s.D))} cm · 고무와 함께 늘어나요`);
+    s += '</g>';
+    this.g('over').innerHTML = s + this.coachSVG();
+  }
+  coachSVG() {
+    if (this.o.noCoach || this.s.pumped || this.port) return '';
+    const my = proj(0, PUMP_R, 0)[1], x = BARREL[0] - this.s.out - GRIP_W / 2, px = this.px;
+    const t = '밀어서 공기 넣기', fs = 14 * px, w = fs * (t.length + 2.4), h = fs * 1.9, y = my - 24 - 22 * px - h / 2;
+    const bx = Math.max(this.vb[0] + 6 * px, x - 10 * px);
+    return `<g class="coach" data-noexport="1"><rect x="${F1(bx)}" y="${F1(y - h / 2)}" width="${F1(w)}" height="${F1(h)}" rx="${F1(h / 2)}"/><text x="${F1(bx + fs * .9)}" y="${F1(y + fs * .36)}" style="font-size:${F1(fs)}px">${t} →</text></g>`;
+  }
+  /* ── 조작 ── */
+  inflate(dV) {
+    const s = this.s, V = volOf(s.D) + dV;
+    let D = dOfVol(V);
+    if (D >= D_MAX) { D = D_MAX; if (dV > 0 && !this.maxWarned) { this.maxWarned = true; this.onChange('max'); } }
+    else this.maxWarned = false;
+    if (D !== s.D) { s.D = D; this.airT = performance.now() + 220; }
+    return D;
+  }
+  setOut(out, inflate = true) {
+    const s = this.s, o2 = clamp(out, OUT_MIN, OUT_MAX), push = s.out - o2;
+    if (push > 0 && inflate) { this.inflate(push / PUMP_STROKE * PUMP_VOL); if (!s.pumped) { s.pumped = true; } }
+    s.out = o2;
+    this.render(); this.onChange('pump');
+  }
+  stroke() {   // 펌프질 한 번: 당겼다가(0.18 s) 끝까지 민다(0.36 s)
+    if (this.anim && this.anim.kind === 'stroke') return;
+    this.stop();
+    const s = this.s, o0 = s.out, t0 = performance.now(), T1 = REDUCED ? 60 : 180, T2 = REDUCED ? 120 : 360;
+    const step = now => {
+      const e = now - t0;
+      if (e < T1) { s.out = lerp(o0, OUT_MAX, easeOut(e / T1)); this.render(); }
+      else { const k = Math.min(1, (e - T1) / T2); this.setOut(lerp(OUT_MAX, OUT_MIN, easeInOut(k))); if (k >= 1) { this.anim = null; this.render(); this.onChange('pump-end'); return; } }
+      this.anim = { kind: 'stroke', id: requestAnimationFrame(step) };
+    };
+    this.anim = { kind: 'stroke', id: requestAnimationFrame(step) };
+  }
+  setD(D, animate) {
+    this.stop();
+    D = clamp(D, D_MIN, D_MAX);
+    const s = this.s, d0 = s.D;
+    if (!animate || REDUCED || Math.abs(D - d0) < 1) { s.D = D; this.render(); this.onChange('size'); return; }
+    const t0 = performance.now(), T = 900;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / T);
+      s.D = lerp(d0, D, easeInOut(k)); if (D > d0) this.airT = now + 200;
+      this.render(); this.onChange('size-anim');
+      if (k < 1) this.anim = { kind: 'size', id: requestAnimationFrame(step) }; else { this.anim = null; s.D = D; this.render(); this.onChange('size'); }
+    };
+    this.anim = { kind: 'size', id: requestAnimationFrame(step) };
+  }
+  stop() { if (this.anim) { cancelAnimationFrame(this.anim.id); this.anim = null; } }
+  pick(n) {
+    const s = this.s;
+    if (this.o.targets) return;
+    if (s.mode === 'all') { s.ref = n; s.pend = null; }
+    else if (s.pend == null) { s.pend = n; }
+    else if (s.pend === n) { s.pend = null; }
+    else { s.pair = [Math.min(s.pend, n), Math.max(s.pend, n)]; s.pend = null; }
+    this.render(); this.onChange('pick');
+    const h = this.hits[n - 1]; if (h && document.activeElement !== h && this.focusAfterPick) h.focus({ preventScroll: true });
+  }
+  toSvg(e) { const m = this.svg.getScreenCTM(); if (!m) return [0, 0]; const q = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse()); return [q.x, q.y]; }
+  bind() {
+    const gr = this.grip;
+    let drag = null;
+    gr.addEventListener('pointerdown', e => {
+      if (e.button !== 0) return;
+      e.preventDefault(); this.stop();
+      gr.setPointerCapture(e.pointerId); gr.classList.add('lift'); this.svg.classList.add('dragging');
+      drag = { x: this.toSvg(e)[0], out: this.s.out };
+      gr.focus({ preventScroll: true });
+    });
+    gr.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const x = this.toSvg(e)[0];
+      this.setOut(drag.out - (x - drag.x));
+      if (this.s.out === OUT_MIN || this.s.out === OUT_MAX) { drag.x = x; drag.out = this.s.out; }
+    });
+    const end = () => { if (!drag) return; drag = null; gr.classList.remove('lift'); this.svg.classList.remove('dragging'); this.onChange('pump-end'); };
+    gr.addEventListener('pointerup', end); gr.addEventListener('pointercancel', end); gr.addEventListener('lostpointercapture', end);
+    gr.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') { e.preventDefault(); this.setOut(this.s.out - PUMP_STROKE / 5); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') { e.preventDefault(); this.setOut(this.s.out + PUMP_STROKE / 5, false); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.stroke(); }
+    });
+    this.hits.forEach(h => {
+      h.addEventListener('click', () => { this.focusAfterPick = false; this.pick(+h.dataset.n); });
+      h.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.focusAfterPick = true; this.pick(+h.dataset.n); } });
+    });
+  }
+  destroy() { this.stop(); if (this.ro) this.ro.disconnect(); }
+  /* 저장 이미지·상태 문장 */
+  statusLines() {
+    const s = this.s;
+    const cond = `풍선 지름 ${cm1(s.D)} cm · ${s.mode === 'tape' ? `줄자로 ${pairName(...s.pair)} 사이 재기` : `기준 붙임딱지 ${nc(s.ref)}에서 모두 재기`}${s.grid ? ` · 마커 격자(한 칸 ${cm1(gridCellMM(s.D))} cm)` : ''}`;
+    const state = s.mode === 'tape' ? `${pairName(...s.pair)} 사이 ${cm1(tapeRead(s.D, ...s.pair))} cm` : `${nc(s.ref)}에서 ` + STICKERS.filter(t => t.n !== s.ref).map(t => `${nc(t.n)} ${cm1(tapeRead(s.D, s.ref, t.n))}`).join(' · ') + ' (cm)';
+    return { cond, state };
+  }
+}
+
+/* 정적 그림용 풍선(원리 카드·문항): 매듭으로 묶은 풍선을 화면 좌표에 바로 그린다 */
+function balloonFigSVG(p, cx, cy, Rmm, sc, o = {}) {
+  const R = Rmm * sc;
+  return balloonSVG(p, Object.assign({ S: [cx, cy], R, Rmm, sc, px: o.px || 1, neck: { type: 'knot', dir: [-.55, .83], len: 7 * sc } }, o));
+}
+
+/* ───────────────────────── 우주 모형: 은하 들판 · 풍선 모형과 우주 · 우주의 역사 · 건포도 빵 ─────────────────────────
+   은하 위치는 data.js의 relPos(공동 좌표 × 크기 비율)에서만 온다. 은하 그림의 크기는 우주가 팽창해도 변하지 않는다.
+   은하 그림은 모형이다(크기·거리는 실제 비율과 다르다). 색은 장면 토큰(테마와 무관)만 쓴다. */
+const CV = { W: 1000, H: 620, C: [500, 318], Z: 420 };
+
+/* 은하 그림(defs) — 문자열로 만들어 장면·원리 카드·문항 그림이 함께 쓴다 */
+function gxDefs(p) {
+  return `<radialGradient id="${p}-halo"><stop offset="0" class="st-gx-halo" stop-opacity=".62"/><stop offset=".5" class="st-gx-halo" stop-opacity=".18"/><stop offset="1" class="st-gx-halo" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${p}-core"><stop offset="0" class="st-gx-core"/><stop offset=".45" class="st-gx-core" stop-opacity=".75"/><stop offset="1" class="st-gx-core" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${p}-ell"><stop offset="0" class="st-gx-core"/><stop offset=".3" class="st-gx-ell" stop-opacity=".9"/><stop offset="1" class="st-gx-ell" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${p}-bang"><stop offset="0" class="st-white"/><stop offset=".25" class="st-bang" stop-opacity=".95"/><stop offset="1" class="st-bang-glow" stop-opacity="0"/></radialGradient>
+    <radialGradient id="${p}-hot"><stop offset="0" class="st-bang" stop-opacity=".9"/><stop offset=".7" class="st-bang-glow" stop-opacity=".55"/><stop offset="1" class="st-bang-glow" stop-opacity=".15"/></radialGradient>
+    <radialGradient id="${p}-disk"><stop offset="0" class="st-gx-core"/><stop offset=".3" class="st-gx-core" stop-opacity=".7"/><stop offset=".62" class="st-gx-arm" stop-opacity=".42"/><stop offset="1" class="st-gx-arm" stop-opacity="0"/></radialGradient>
+    <g id="${p}-sp"><circle r="12" fill="url(#${p}-halo)"/><ellipse rx="8.6" ry="7.6" fill="url(#${p}-disk)"/><path class="gx-arm" d="M1.4 .5C4.4-.4 6.8 2 6.1 5 5.3 8.2 1.2 9.8-2.8 9"/><path class="gx-arm" d="M-1.4-.5C-4.4.4-6.8-2-6.1-5-5.3-8.2-1.2-9.8 2.8-9"/><circle r="2.4" fill="url(#${p}-core)"/></g>
+    <g id="${p}-bar"><circle r="12.5" fill="url(#${p}-halo)"/><ellipse rx="9" ry="8" fill="url(#${p}-disk)"/><path class="gx-arm" d="M3.6 0C6.8 .4 7.6 4.2 5.4 7 3.2 9.6-1.8 10.2-4.8 8.6"/><path class="gx-arm" d="M-3.6 0C-6.8-.4-7.6-4.2-5.4-7-3.2-9.6 1.8-10.2 4.8-8.6"/><rect class="gx-bar" x="-4.2" y="-1.2" width="8.4" height="2.4" rx="1.2"/><circle r="2.4" fill="url(#${p}-core)"/></g>
+    <g id="${p}-el"><ellipse rx="8.4" ry="6.2" fill="url(#${p}-ell)"/></g>
+    <marker id="${p}-arw" viewBox="0 0 10 10" refX="8.6" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path class="trail-head" d="M0 1L10 5L0 9Z"/></marker>`;
+}
+function gxUse(p, g, x, y, k = 1.35, extra = '') {
+  const s = g.s * k;
+  return `<use href="#${p}-${g.type}" data-g="${g.id || ''}" transform="translate(${f1(x)} ${f1(y)}) rotate(${f1(g.rot)}) scale(${(s).toFixed(3)} ${(s * g.tilt).toFixed(3)})"${extra}/>`;
+}
+function pill(x, y, text, fs, cls = '') {
+  const len = [...text].reduce((n, c) => n + (/[0-9.%×\s]/.test(c) ? .56 : /[a-z]/i.test(c) ? .6 : 1), 0), w = fs * (len + 1.1), h = fs * 1.75;
+  return `<g class="spill ${cls}"><rect x="${f1(x - w / 2)}" y="${f1(y - h / 2)}" width="${f1(w)}" height="${f1(h)}" rx="${f1(h / 2)}"/><text x="${f1(x)}" y="${f1(y + fs * .36)}" style="font-size:${f1(fs)}px">${escapeHtml(text)}</text></g>`;
+}
+
+/* ── ① 은하 들판: 기준 은하가 가운데. pos = C + relPos × Z ── */
+function fieldSVG(p, st, o = {}) {
+  const { a, ref } = st, a0 = st.a0 == null ? a : st.a0, Z = o.Z || CV.Z, C = o.C || CV.C, W = o.W || CV.W, H = o.H || CV.H, fs = o.fs || 15;
+  const pan = st.panOff || [0, 0];
+  const pos = (id, aa) => { const r = relPos(id, ref, aa); return [C[0] + (r[0] + pan[0]) * Z, C[1] + (r[1] + pan[1]) * Z]; };
+  const inView = q => q[0] > -40 && q[0] < W + 40 && q[1] > -40 && q[1] < H + 40;
+  let grid = '', trails = '', gx = '', labels = '';
+  if (st.grid) {
+    const base = GX_BY[ref === 'm31' ? 'mw' : ref], f = m31Off(a);
+    const sx = ref === 'm31' ? M31_OFF[0] * f : 0, sy = ref === 'm31' ? M31_OFF[1] * f : 0;
+    for (let m = 0; m < BOX / .25; m++) {
+      const gxv = C[0] + (wrap(m * .25 - HALF - base.x) * a - sx + pan[0]) * Z, gyv = C[1] + (wrap(m * .25 - HALF - base.y) * a - sy + pan[1]) * Z;
+      grid += `M${f1(gxv)} -10V${H + 10}M-10 ${f1(gyv)}H${W + 10}`;
+    }
+  }
+  const showTrail = st.trails && a - a0 > .005;
+  const list = [];
+  for (const g of GALAXIES) {
+    const q = pos(g.id, a); if (!inView(q)) continue;
+    list.push([g, q]);
+    if (showTrail && g.id !== ref) {
+      const q0 = pos(g.id, a0), dx = q[0] - q0[0], dy = q[1] - q0[1], L = Math.hypot(dx, dy);
+      if (L > 5) { const k = Math.max(0, L - 11 * g.s) / L; trails += `<circle class="trail-o" cx="${f1(q0[0])}" cy="${f1(q0[1])}" r="3.2"/><path class="trail" d="M${f1(q0[0])} ${f1(q0[1])}L${f1(q0[0] + dx * k)} ${f1(q0[1] + dy * k)}" marker-end="url(#${p}-arw)"/>`; }
+    }
+  }
+  for (const [g, q] of list) gx += gxUse(p, g, q[0], q[1]);
+  // 기준 은하 표시
+  const qr = pos(ref, a);
+  const refName = GX_BY[ref].name || '이 은하';
+  let rings = `<circle class="ref-ring" cx="${f1(qr[0])}" cy="${f1(qr[1])}" r="${f1(22 * GX_BY[ref].s)}"/>`;
+  if (o.showRef !== false) labels += pill(qr[0], qr[1] - 22 * GX_BY[ref].s - fs * 1.2, `기준: ${refName}`, fs, 'ref');
+  // 이름표
+  const named = o.names || [];
+  for (const id of named) {
+    if (id === ref && o.showRef !== false) continue;
+    const g = GX_BY[id], q = pos(id, a); if (!inView(q)) continue;
+    let dy = id === 'm31' ? -(16 * g.s + fs) : 18 * g.s + fs * 1.1, x = q[0] + (id === 'm31' ? 34 : 0);
+    const hitsRead = y => o.avoid && x > o.avoid[0] - fs * 4 && x < o.avoid[2] + fs * 4 && y > o.avoid[1] - fs && y < o.avoid[3] + fs;
+    if (hitsRead(q[1] + dy)) dy = -dy;
+    if (hitsRead(q[1] + dy)) continue;
+    labels += pill(x, q[1] + dy, g.name, fs * .93, id === 'mw' ? 'mw' : 'nm');
+  }
+  if (st.tag && st.tag !== ref) {
+    const g = GX_BY[st.tag], q = pos(st.tag, a);
+    rings += `<circle class="tag-ring" cx="${f1(q[0])}" cy="${f1(q[1])}" r="${f1(18 * g.s)}"/>`;
+    labels += pill(q[0], q[1] + 18 * g.s + fs * 1.1, g.name && g.id === 'm31' ? '안드로메다은하 · 외부 은하' : g.name && g.id === 'mw' ? '우리은하' : '외부 은하', fs, 'tag');
+  }
+  return `<g class="grid-l"><path class="cgrid" d="${grid}"/></g><g class="trail-l">${trails}</g><g class="gx-l">${gx}</g><g class="ring-l">${rings}</g><g class="lab-l">${labels}</g>`;
+}
+
+/* ── ④ 풍선 모형과 우주: 같은 배율 k로 함께 부푼다. 우주 원 안 은하 ①~⑥은 붙임딱지와 같은 자리 ── */
+const MODEL_R0 = 60;              // 풍선 지름 12 cm에서 시작
+const MODEL_GX = (() => {
+  const S = [0, 0];
+  const six = STICKERS.map(t => { const q = sp(S, 1, t.u); return { n: t.n, x: q[0], y: q[1] }; });
+  const rnd = mulberry(4040), out = [];
+  let tries = 0;
+  while (out.length < 13 && tries < 4000) {
+    tries++;
+    const r = Math.sqrt(rnd()) * .9, th = rnd() * Math.PI * 2, c = { x: r * Math.cos(th), y: r * Math.sin(th) };
+    if ([...six, ...out].some(g => Math.hypot(g.x - c.x, g.y - c.y) < .24)) continue;
+    out.push(c);
+  }
+  return { six, fill: out };
+})();
+function modelSVG(p, k, o = {}) {
+  const sc = o.sc || 1.5, Rmm = MODEL_R0 * k, R = Rmm * sc, L = o.L || [248, 392], U = o.U || [752, 392], fs = o.fs || 15;
+  let s = balloonFigSVG(p + 'b', L[0], L[1], Rmm, sc, { grid: true, sel: [1, 3], px: o.px || 1 });
+  // 풍선의 ①–③ 사이(표면을 따라 잰 거리)
+  s += `<g class="l-tape">${spokesSVG(L, R, Rmm, 1, o.px || 1, [3]).split('<!--PILLS-->')[0]}</g>`;
+  const v13 = tapeRead(Rmm * 2, 1, 3);
+  s += pill(L[0], Math.min(L[1] + R + fs * 1.9, 604), `①–③ 사이 ${cm1(v13)} cm`, fs, 'val');
+  // 우주의 한 부분
+  s += `<defs><clipPath id="${p}-uc"><circle cx="${U[0]}" cy="${U[1]}" r="${f1(R)}"/></clipPath></defs>`;
+  s += `<circle class="uni-disc" cx="${U[0]}" cy="${U[1]}" r="${f1(R)}"/>`;
+  let grid = '';
+  const step = .35;   // 공동 좌표 격자(원 반지름 = 1)
+  for (let m = -3; m <= 3; m++) { const v = m * step * R; grid += `M${f1(U[0] + v)} ${f1(U[1] - R)}V${f1(U[1] + R)}M${f1(U[0] - R)} ${f1(U[1] + v)}H${f1(U[0] + R)}`; }
+  s += `<g clip-path="url(#${p}-uc)"><path class="cgrid" d="${grid}" style="stroke-width:${f1(1.1 * k)}"/>`;
+  MODEL_GX.fill.forEach((c, i) => { s += gxUse(p, { type: i % 3 ? 'sp' : 'el', s: .75, rot: i * 47, tilt: .55 + (i % 4) * .1 }, U[0] + c.x * R, U[1] + c.y * R, 1.2); });
+  const q = n => { const g = MODEL_GX.six[n - 1]; return [U[0] + g.x * R, U[1] + g.y * R]; };
+  const a1 = q(1), a3 = q(3);
+  s += `<path class="spoke" d="M${f1(a1[0])} ${f1(a1[1])}L${f1(a3[0])} ${f1(a3[1])}" style="stroke-width:2;stroke-dasharray:6 4"/>`;
+  MODEL_GX.six.forEach(g => { const c = q(g.n); s += gxUse(p, { type: 'sp', s: 1, rot: g.n * 61, tilt: .8 }, c[0], c[1], 1.25); s += `<text class="gx-n" x="${f1(c[0] + 14)}" y="${f1(c[1] - 11)}">${g.n}</text>`; });
+  s += `</g><circle class="uni-rim" cx="${U[0]}" cy="${U[1]}" r="${f1(R)}"/>`;
+  s += pill(U[0], Math.min(U[1] + R + fs * 1.9, 604), `은하 ①–③ 사이 ×${k.toFixed(2)}`, fs, 'val');
+  // 제목과 짝짓기
+  if (o.titles !== false) {
+    const ty = o.titleY || 58;
+    s += `<text class="fig-h" x="${L[0]}" y="${ty}">풍선 모형</text><text class="fig-h" x="${U[0]}" y="${ty}">우주</text>`;
+    const rows = [['풍선 표면', '우주 공간'], ['붙임딱지', '은하'], ['풍선이 부푼다', '우주가 팽창한다']];
+    rows.forEach((r, i) => {
+      const y = ty + 30 + i * 28;
+      s += `<text class="map-l" x="${f1(500 - 22)}" y="${y}">${r[0]}</text><path class="map-a" d="M${500 - 14} ${y - 5}H${500 + 14}M${500 + 8} ${y - 10}L${500 + 14} ${y - 5}L${500 + 8} ${y}M${500 - 8} ${y - 10}L${500 - 14} ${y - 5}L${500 - 8} ${y}"/><text class="map-r" x="${f1(500 + 22)}" y="${y}">${r[1]}</text>`;
+    });
+  }
+  return s;
+}
+
+/* ── ⑤ 우주의 역사: 시간 화살표 위 원(우주의 한 부분) 반지름 ∝ 크기 비율 a(t) ── */
+function histX(t, o) { const x0 = o.x0 || 92, x1 = o.x1 || 800; return x0 + (x1 - x0) * t / T0; }
+function historySVG(p, t, o = {}) {
+  const Rm = o.Rm || 168, cy = o.cy || 318, ay = o.ay || 560, fs = o.fs || 15, x0 = o.x0 || 92, x1 = o.x1 || 800;
+  let s = '';
+  // 시간 화살표
+  s += `<path class="t-axis" d="M${x0} ${ay}H${x1 + 110}"/><path class="t-head" d="M${x1 + 110} ${ay - 7}L${x1 + 124} ${ay}L${x1 + 110} ${ay + 7}Z"/><text class="t-cap" x="${x1 + 110}" y="${ay - 16}" text-anchor="end">시간의 흐름</text>`;
+  [[0, '대폭발'], [38, '100억 년 전'], [88, '50억 년 전'], [138, '현재']].forEach(([tt, lb]) => { const x = histX(tt, o); s += `<path class="t-tick" d="M${f1(x)} ${ay - 6}V${ay + 6}"/><text class="t-lab" x="${f1(x)}" y="${ay + 26}">${lb}</text>`; });
+  // 지난 모습(옅게)
+  for (const tt of o.ghosts || [38, 88, 138]) {
+    if (Math.abs(tt - t) < 3) continue;
+    const a = scaleAt(tt), r = Rm * a, x = histX(tt, o);
+    s += `<circle class="h-ghost" cx="${f1(x)}" cy="${cy}" r="${f1(r)}"/>`;
+    HIST_GX.forEach(g => { s += `<circle class="h-gdot" cx="${f1(x + g.x * r)}" cy="${f1(cy + g.y * r)}" r="1.8"/>`; });
+  }
+  // 대폭발 점
+  s += `<circle cx="${x0}" cy="${cy}" r="${t < 1 ? 26 : 16}" fill="url(#${p}-bang)"/>`;
+  // 지금 고른 때
+  const a = scaleAt(t), r = Rm * a, x = histX(t, o), show = gxShow(t), hot = clamp(1 - t / 1.2, 0, 1);
+  if (t > .01) {
+    s += `<circle class="h-now" cx="${f1(x)}" cy="${cy}" r="${f1(Math.max(r, 2))}"/>`;
+    if (hot > 0) s += `<circle cx="${f1(x)}" cy="${cy}" r="${f1(Math.max(r, 2))}" fill="url(#${p}-hot)" style="opacity:${hot.toFixed(2)}"/>`;
+    if (show > 0) HIST_GX.forEach(g => { s += `<use href="#${p}-${g.el ? 'el' : 'sp'}" transform="translate(${f1(x + g.x * r)} ${f1(cy + g.y * r)}) rotate(${f1(g.rot)}) scale(.56 ${g.el ? .44 : .4})" style="opacity:${show.toFixed(2)}"/>`; });
+    s += `<circle class="h-rim" cx="${f1(x)}" cy="${cy}" r="${f1(Math.max(r, 2))}"/>`;
+  }
+  s += `<path class="h-mark" d="M${f1(x)} ${ay - 16}L${f1(x - 7)} ${ay - 28}H${f1(x + 7)}Z"/>`;
+  // 읽는 값
+  if (o.readout !== false) {
+    const k = Math.max(1, (o.px || 1) * .62), rx = o.rx || 28, ry = (o.ry || 56) * k;
+    s += `<text class="h-big" x="${rx}" y="${f1(ry)}">${agoText(t)}</text>`;
+    s += `<text class="h-sub" x="${rx}" y="${f1(ry + 30 * k)}">${t < GX_FORM[0] ? (t <= .01 ? '온도와 밀도가 매우 높은 한 점에서 대폭발이 일어났어요' : '은하가 아직 만들어지지 않았어요') : `은하 사이의 거리: 현재의 약 ${pct(a)} %`}</text>`;
+  }
+  s += `<text class="fig-note" x="${o.noteX || 972}" y="${o.noteY || 48}" text-anchor="${o.noteX ? 'start' : 'end'}">원은 우주의 한 부분을 나타내요 · 은하 그림의 크기는 실제와 달라요</text>`;
+  return s;
+}
+
+/* ───────── 장면 클래스: 한 SVG 안에서 모드를 바꾼다 ───────── */
+class CosmosScene {
+  constructor(host, o = {}) {
+    this.host = host;
+    this.o = Object.assign({ prefix: 'c' + Math.random().toString(36).slice(2, 6), mini: false }, o);
+    this.s = o.state;
+    this.onChange = o.onChange || (() => { });
+    this.anim = null;
+  }
+  get vb() { if (this.o.vb) return this.o.vb; return this.port && this.s.mode === 'field' ? [170, 70, 660, 500] : [0, 0, 1000, 620]; }
+  fitText() {
+    const r = this.host.getBoundingClientRect(); if (!r.width) return;
+    const port = !this.o.mini && r.width < 560;
+    if (port !== !!this.port) { this.port = port; this.stop(); this.build(); return; }
+    const [, , w, h] = this.vb, px = Math.max(w / r.width, h / r.height) || 1;
+    if (Math.abs(px - (this.px || 0)) > .01) { this.px = px; this.svg.style.setProperty('--px', px.toFixed(3)); this.render(); }
+  }
+  build() {
+    const [x, y, w, h] = this.vb, p = this.o.prefix;
+    this.host.innerHTML = '';
+    const lab = { field: '은하들이 흩어져 있는 우주의 한 부분', model: '풍선 모형과 우주를 나란히 놓은 그림', history: '대폭발부터 현재까지 커지는 우주를 시간 화살표 위에 나타낸 그림' }[this.s.mode];
+    const svg = this.svg = el('svg', { viewBox: `${x} ${y} ${w} ${h}`, class: 'scene-svg cosmos-svg' + (this.o.mini ? ' mini-svg' : ''), role: 'img', 'aria-label': lab }, this.host);
+    svg.innerHTML = `<defs><radialGradient id="${p}-sky" cx=".5" cy=".42" r=".75"><stop offset="0" class="st-space-1"/><stop offset="1" class="st-space-0"/></radialGradient>${gxDefs(p)}</defs>
+      <rect class="bg" x="-50" y="-50" width="1100" height="720" fill="url(#${p}-sky)"/><g class="l-main"></g><g class="l-read"></g>`;
+    this.main = svg.querySelector('.l-main'); this.read = svg.querySelector('.l-read');
+    this.render();
+    if (!this.bound) this.bind();
+    if (window.ResizeObserver && !this.ro) { this.ro = new ResizeObserver(() => this.fitText()); this.ro.observe(this.host); }
+    this.fitText();
+    return this;
+  }
+  render() {
+    const s = this.s, p = this.o.prefix;
+    const px = this.px || 1, fs = Math.max(15, 13 * px), [vx, vy, vw, vh] = this.vb, rx = vx + 26 * Math.max(1, px * .8), ry = vy + 52 * Math.max(1, px * .62);
+    if (s.mode === 'field') {
+      const names = s.step === 0 ? ['mw', 'm31'] : s.step === 1 ? ['mw', 'm31'] : REF_KEYS.map(r => r[0]);
+      const ly0 = ry + 30 * Math.max(1, px * .62);
+      this.main.innerHTML = fieldSVG(p, s, { names, showRef: s.step !== 0, fs, avoid: [rx, ry - 30 * Math.max(1, px * .62), rx + 330 * Math.max(1, px * .62), ly0 + 8] });
+      let rd = '';
+      const ly = ry + 30 * Math.max(1, px * .62);
+      if (s.step === 0) rd = `<text class="h-big" x="${f1(rx)}" y="${f1(ry)}">우리은하 밖의 수많은 은하</text><text class="h-sub" x="${f1(rx)}" y="${f1(ly)}">은하를 눌러 보세요</text>`;
+      else { const k = s.a / (s.a0 == null ? s.a : s.a0); rd = `<text class="h-big" x="${f1(rx)}" y="${f1(ry)}">${s.step === 1 ? '우리은하에서 본 모습' : `${GX_BY[s.ref].name || '이 은하'}에서 본 모습`}</text><text class="h-sub" x="${f1(rx)}" y="${f1(ly)}">은하 사이의 거리: 처음의 ${k.toFixed(2)}배</text>`; }
+      this.read.innerHTML = rd + `<text class="fig-note" x="${f1(rx)}" y="${f1(vy + vh - 16 * Math.max(1, px * .7))}">은하의 크기와 거리는 실제 비율과 달라요</text>`;
+    } else if (s.mode === 'model') {
+      this.main.innerHTML = modelSVG(p, s.k, { px: 1, fs });
+      this.read.innerHTML = `<text class="h-big" x="${f1(rx)}" y="${f1(ry)}">×${s.k.toFixed(2)}</text><text class="h-sub" x="${f1(rx)}" y="${f1(ry + 30 * Math.max(1, px * .62))}">함께 부푼 정도</text>`;
+    } else {
+      this.main.innerHTML = historySVG(p, s.t, Object.assign({ px }, this.o.hist || {}));
+      this.read.innerHTML = '';
+    }
+  }
+  bind() {
+    this.bound = true;
+    this.host.addEventListener('click', e => {
+      const u = e.target.closest('[data-g]'); if (!u || this.s.mode !== 'field') return;
+      const id = u.dataset.g; if (!id) return;
+      this.onChange('tap', id);
+    });
+  }
+  /* 시간 흐르기: a0 → 1 */
+  play(from = .8) {
+    this.stop();
+    const s = this.s; s.a0 = from; s.a = from; s.trails = true;
+    if (REDUCED) { s.a = 1; this.render(); this.onChange('play-end'); return; }
+    const t0 = performance.now(), T = 2400;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / T);
+      s.a = lerp(from, 1, k); this.render(); this.onChange('play');
+      if (k < 1) this.anim = requestAnimationFrame(step); else { this.anim = null; this.onChange('play-end'); }
+    };
+    this.anim = requestAnimationFrame(step);
+  }
+  /* 기준 은하 바꾸기: 화면이 새 기준으로 미끄러진 뒤, 그 은하에서 본 지난 모습(자취)을 보여 준다 */
+  setRef(id) {
+    const s = this.s; if (s.ref === id) return;
+    this.stop();
+    const from = relPos(id, s.ref, s.a);
+    s.ref = id; s.tag = null;
+    const done = () => { s.panOff = null; s.a0 = .8; s.a = 1; s.trails = true; this.render(); this.onChange('ref'); };
+    if (REDUCED) { this.render(); done(); return; }
+    const t0 = performance.now(), T = 520;
+    s.trails = false;
+    const step = now => {
+      const k = Math.min(1, (now - t0) / T), e = 1 - easeInOut(k);
+      s.panOff = [from[0] * e, from[1] * e]; this.render(); this.onChange('pan');
+      if (k < 1) this.anim = requestAnimationFrame(step); else { this.anim = null; done(); }
+    };
+    this.anim = requestAnimationFrame(step);
+  }
+  stop() { if (this.anim) { cancelAnimationFrame(this.anim); this.anim = null; } }
+  destroy() { this.stop(); if (this.ro) this.ro.disconnect(); }
+}
+
+/* ───────── 건포도 빵(탐구 질문 간이 실험): 반죽 단면 · 1 유닛 = 1 mm ───────── */
+class BreadScene {
+  constructor(host, o = {}) { this.host = host; this.o = Object.assign({ prefix: 'r' + Math.random().toString(36).slice(2, 6) }, o); this.s = o.state; this.onChange = o.onChange || (() => { }); }
+  build() {
+    const p = this.o.prefix;
+    this.host.innerHTML = '';
+    const svg = this.svg = el('svg', { viewBox: '120 40 460 330', class: 'scene-svg bread-svg mini-svg', role: 'img', 'aria-label': '쟁반 위 건포도 빵 반죽의 자른 단면. 건포도 A, B, C 사이를 점선으로 이었다' }, this.host);
+    svg.innerHTML = `<defs><linearGradient id="${p}-wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="st-wall-0"/><stop offset="1" class="st-wall-1"/></linearGradient>
+      <radialGradient id="${p}-dough" cx=".42" cy=".3" r=".8"><stop offset="0" class="st-dough-hi"/><stop offset="1" class="st-dough"/></radialGradient></defs>
+      <rect class="bg" x="0" y="0" width="800" height="500" fill="url(#${p}-wall)"/><g class="l-main"></g>`;
+    this.main = svg.querySelector('.l-main');
+    this.render();
+    return this;
+  }
+  render() {
+    const k = this.s.k, p = this.o.prefix, B = [350, 322], W = 172 * k, H = 104 * k;
+    let s = `<rect class="tray-top" x="140" y="${B[1]}" width="420" height="7" rx="2"/><rect class="tray" x="150" y="${B[1] + 7}" width="400" height="10" rx="2"/>`;
+    s += `<ellipse class="shadow" cx="${B[0] + 6}" cy="${B[1] + 1}" rx="${f1(W / 2 + 6)}" ry="5"/>`;
+    s += `<path class="dough" d="M${f1(B[0] - W / 2)} ${B[1]}A${f1(W / 2)} ${f1(H)} 0 0 1 ${f1(B[0] + W / 2)} ${B[1]}Z" fill="url(#${p}-dough)"/>`;
+    s += `<path class="crust" d="M${f1(B[0] - W / 2)} ${B[1]}A${f1(W / 2)} ${f1(H)} 0 0 1 ${f1(B[0] + W / 2)} ${B[1]}"/>`;
+    const pos = r => [B[0] + k * r.x, B[1] - k * r.y];
+    const A = pos(RAISIN_BY.A), Bb = pos(RAISIN_BY.B), Cc = pos(RAISIN_BY.C);
+    RAISINS.forEach((r, i) => { const q = pos(r); s += `<ellipse class="raisin" cx="${f1(q[0])}" cy="${f1(q[1])}" rx="5.4" ry="3.6" transform="rotate(${(i * 53) % 180 - 60} ${f1(q[0])} ${f1(q[1])})"/><ellipse class="raisin-hi" cx="${f1(q[0] - 1.4)}" cy="${f1(q[1] - 1.2)}" rx="1.8" ry="1"/>`; });
+    s += `<path class="spoke dark" d="M${f1(A[0])} ${f1(A[1] + 9)}V${f1(A[1] + 30 * k)}M${f1(Bb[0])} ${f1(Bb[1] + 9)}V${f1(Bb[1] + 18 * k)}M${f1(Cc[0])} ${f1(Cc[1] + 9)}V${f1(Cc[1] + 30 * k)}"/>`;
+    const yAB = A[1] + 18 * k, yAC = A[1] + 30 * k;
+    s += `<path class="bm-line" d="M${f1(A[0])} ${f1(yAB)}H${f1(Bb[0])}M${f1(A[0])} ${f1(yAC)}H${f1(Cc[0])}"/>`;
+    s += pill((A[0] + Bb[0]) / 2, yAB - 11, cm1(raisinMM(k, 'A', 'B')), 13, 'spk');
+    s += pill((A[0] + Cc[0]) / 2 + 12, yAC + 13, cm1(raisinMM(k, 'A', 'C')) + ' cm', 13, 'spk');
+    ['A', 'B', 'C'].forEach(key => { const q = pos(RAISIN_BY[key]); s += `<text class="raisin-k" x="${f1(q[0])}" y="${f1(q[1] - 9)}">${key}</text>`; });
+    s += `<text class="h-big small" x="136" y="72">×${k.toFixed(2)}</text><text class="h-sub small" x="136" y="96">반죽이 부푼 정도</text>`;
+    s += `<text class="fig-note" x="136" y="362">빵 반죽을 자른 단면 · 건포도 크기는 그대로</text>`;
+    this.main.innerHTML = s;
+  }
+  setK(k, animate) {
+    this.stop();
+    k = clamp(k, 1, 1.6);
+    if (!animate || REDUCED) { this.s.k = k; this.render(); this.onChange(); return; }
+    const k0 = this.s.k, t0 = performance.now(), T = 1800;
+    const step = now => { const e = Math.min(1, (now - t0) / T); this.s.k = lerp(k0, k, easeInOut(e)); this.render(); this.onChange(); if (e < 1) this.anim = requestAnimationFrame(step); else this.anim = null; };
+    this.anim = requestAnimationFrame(step);
+  }
+  stop() { if (this.anim) { cancelAnimationFrame(this.anim); this.anim = null; } }
+  destroy() { this.stop(); }
+  fitText() { }
+}
+
+/* ───────────────────────── 문항: 객관식 12 · 탐구 질문 5 · 원리 카드 4 ─────────────────────────
+   교육과정 [9과15-03] 해설대로 적색 편이·허블 법칙·가속 팽창은 다루지 않는다. 문항 값은 실험대 모형(data.js)과 같다. */
+
+/* 표 그림(테마 토큰을 쓰는 DOM) */
+function figTable(rows, head, cap) {
+  return `<table class="qtable">${cap ? `<caption>${cap}</caption>` : ''}<thead><tr>${head.map(h => `<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map((c, i) => i ? `<td class="num">${c}</td>` : `<th scope="row">${c}</th>`).join('')}</tr>`).join('')}</tbody></table>`;
+}
+const REC_TABLE = () => figTable(PAIRS.map(([a, b]) => [pairH(a, b), cm1(tapeRead(D_SMALL, a, b)), cm1(tapeRead(D_BIG, a, b))]), ['두 붙임딱지', '조금 불었을 때', '많이 불었을 때'], '붙임딱지 사이의 거리 (단위: cm)');
+
+/* 장면 토큰을 쓰는 어두운 그림(문항·원리 카드) */
+function stageFig(vb, inner, label, cls = '') {
+  return `<svg class="stage-fig ${cls}" viewBox="${vb}" role="img" aria-label="${label}"><rect class="fig-bg" x="-100" y="-100" width="2000" height="1400"/>${inner}</svg>`;
+}
+/* (가) 풍선 표면 · (나) 붙임딱지 */
+function figBalloonParts() {
+  const S = [200, 150], Rmm = 70, sc = 1.35, R = Rmm * sc;
+  let s = `<defs>${gxDefs('qb')}</defs>` + balloonFigSVG('qb', S[0], S[1], Rmm, sc, { stickers: [1, 2, 3, 4, 5, 6] });
+  const st = sp(S, R, STK(3).u), su = sp(S, R, dirOf(-55, -30));
+  s += `<path class="lead" d="M${f1(st[0] + 12)} ${f1(st[1])}H420"/><text class="fig-t" x="428" y="${f1(st[1] + 6)}">(나)</text>`;
+  s += `<path class="lead" d="M${f1(su[0])} ${f1(su[1])}L${f1(su[0] - 40)} ${f1(su[1] + 40)}H40"/><text class="fig-t" x="8" y="${f1(su[1] + 46)}">(가)</text>`;
+  return stageFig('0 0 480 300', s, '붙임딱지를 붙인 고무풍선 그림. (가)는 풍선 표면, (나)는 붙임딱지를 가리킨다');
+}
+/* 우리은하에서 본 은하들의 이동(자취) */
+function figFromMW() {
+  const st = { a: 1, a0: .8, ref: 'mw', trails: true };
+  const inner = `<defs>${gxDefs('qm')}</defs>` + fieldSVG('qm', st, { W: 520, H: 300, C: [260, 150], Z: 250, fs: 15, names: [], showRef: true });
+  return stageFig('0 0 520 300', inner, '우리은하를 가운데 두고, 일정한 시간 동안 다른 은하들이 움직인 자취를 화살표로 나타낸 그림');
+}
+/* 펜으로 찍은 점과 붙임딱지 */
+function figDotSticker() {
+  const one = (cx, Rmm, sc) => {
+    const S = [cx, 190 - 0], R = Rmm * sc, u = dirOf(22, -8);
+    const dot = `<g transform="${stickerMatrix(S, R, u, sc * Rmm / 40)}"><circle class="pen-dot" r="5"/></g>`;
+    return balloonFigSVG('qd' + cx, S[0], S[1], Rmm, sc, { stickers: [2], over: dot });
+  };
+  let s = one(130, 40, 1.4) + one(390, 80, 1.4);
+  s += `<path class="map-a" d="M222 190H254M248 184L254 190L248 196"/><text class="fig-s" x="238" y="176">불기</text>`;
+  s += `<text class="fig-s" x="130" y="304">처음</text><text class="fig-s" x="390" y="324">크게 분 뒤</text>`;
+  return stageFig('0 40 520 300', s, '풍선을 불기 전과 뒤. 펜으로 찍은 점은 함께 커졌고 붙임딱지 ②의 크기는 그대로이다');
+}
+
+const MCQ = [
+  { id: 'm1', tag: '외부 은하', q: '우리은하 밖에 있는 은하를 무엇이라고 하는가?', opts: ['성단', '성운', '외부 은하', '은하수', '태양계'], a: 2, ex: '우리은하 밖에 있는 은하를 외부 은하라고 해요. 우주에는 우리은하 외에도 수많은 외부 은하가 있어요.' },
+  { id: 'm2', tag: '허블의 관측', q: '허블이 외부 은하들을 관측하여 알아낸 사실로 옳은 것은?', opts: ['우리은하가 우주의 중심이다.', '대부분의 외부 은하는 우리은하로부터 멀어지고 있다.', '모든 외부 은하는 우리은하로 다가오고 있다.', '외부 은하는 우주에 몇 개밖에 없다.', '외부 은하 사이의 거리는 변하지 않는다.'], a: 1, ex: '허블은 외부 은하들을 관측하여 대부분의 외부 은하가 우리은하로부터 멀어지고 있다는 사실을 알아냈어요. 이것이 우주가 팽창한다는 증거가 되었어요.' },
+  { id: 'm3', tag: '풍선 모형', q: '그림과 같이 붙임딱지를 붙인 풍선으로 우주 팽창을 설명할 때, (가) 풍선 표면과 (나) 붙임딱지가 뜻하는 것을 순서대로 옳게 짝 지은 것은?', fig: figBalloonParts, opts: ['우주 – 은하', '은하 – 우주', '우주 – 별', '태양계 – 행성', '은하 – 별'], a: 0, ex: '풍선 표면은 우주, 붙임딱지는 은하, 풍선 표면이 늘어나는 것은 우주 팽창에 해당해요.' },
+  { id: 'm4', tag: '실험 결과 해석', q: '표는 풍선을 조금 불었을 때와 많이 불었을 때 붙임딱지 사이의 거리를 표면을 따라 잰 결과이다. 이에 대한 설명으로 옳은 것은?', fig: REC_TABLE, opts: ['모든 붙임딱지 사이의 거리가 같은 길이만큼 늘어났다.', '처음에 멀리 떨어져 있던 붙임딱지 사이일수록 거리가 더 많이 늘어났다.', '붙임딱지 ①이 팽창의 중심이다.', '풍선을 불면 가까워지는 붙임딱지도 있다.', '②와 ③ 사이의 거리는 변하지 않았다.'], a: 1, ex: '세 거리가 모두 2배가 되었어요. 그래서 처음 거리가 3.0 cm였던 ①–②는 3.0 cm, 8.0 cm였던 ①–③은 8.0 cm 늘어났어요. 처음에 멀리 떨어져 있을수록 더 많이 늘어나요.' },
+  { id: 'm5', tag: '고르게 늘어나는 표면', q: '풍선을 불었더니 두 붙임딱지 사이의 거리가 2.0 cm에서 3.0 cm가 되었다. 같은 풍선에서 처음 거리가 6.0 cm였던 두 붙임딱지 사이의 거리는 몇 cm가 되었겠는가?', opts: ['6.0 cm', '7.0 cm', '8.0 cm', '9.0 cm', '12.0 cm'], a: 3, ex: '풍선 표면이 고르게 늘어나 모든 거리가 같은 배율(1.5배)로 늘어나요. 6.0 cm × 1.5 = 9.0 cm. 모든 거리가 같은 길이(1.0 cm)만큼 늘어나는 것이 아니에요.' },
+  { id: 'm6', tag: '붙임딱지가 멀어지는 까닭', q: '풍선을 불 때 붙임딱지 사이의 거리가 멀어지는 까닭으로 옳은 것은?', opts: ['붙임딱지가 풍선 위를 미끄러져 움직이기 때문', '붙임딱지가 점점 커지기 때문', '붙임딱지가 붙어 있는 풍선 표면이 늘어나기 때문', '풍선 속 공기가 붙임딱지를 밀어내기 때문', '펌프가 붙임딱지를 끌어당기기 때문'], a: 2, ex: '붙임딱지는 풍선 위의 제자리에 붙어 있어요. 붙임딱지가 붙어 있는 풍선 표면이 늘어나기 때문에 서로 멀어져요.' },
+  { id: 'm7', tag: '은하가 멀어지는 까닭', q: '외부 은하들이 서로 멀어지고 있는 까닭으로 옳은 것은?', opts: ['은하들이 스스로 빠르게 움직이기 때문', '우주 공간이 팽창하기 때문', '은하들이 점점 커지기 때문', '우리은하가 다른 은하들을 밀어내기 때문', '은하들이 서로 끌어당기기 때문'], a: 1, ex: '풍선 표면이 늘어나 붙임딱지가 멀어지듯, 은하들이 있는 우주 공간이 팽창하기 때문에 은하들이 서로 멀어져요.' },
+  { id: 'm8', tag: '팽창의 중심', q: '우주 팽창에 대한 설명으로 옳은 것은?', opts: ['우리은하가 팽창의 중심이다.', '안드로메다은하가 팽창의 중심이다.', '우주는 특별한 중심 없이 모든 방향으로 팽창한다.', '우주는 한쪽 방향으로만 팽창한다.', '우주의 팽창은 이미 멈추었다.'], a: 2, ex: '풍선 표면에 중심이 없듯이, 우주는 특별한 중심 없이 모든 방향으로 팽창하고 있어요.' },
+  { id: 'm9', tag: '다른 은하에서 본 우주', q: '그림은 우리은하에서 관측한 은하들의 움직임을 나타낸 것이다. 우리은하에서 멀리 떨어진 외부 은하 A에서 관측한다면 어떤 결과를 얻겠는가?', fig: figFromMW, opts: ['모든 은하가 은하 A로 다가온다.', '대부분의 은하가 은하 A로부터 멀어진다.', '우리은하만 은하 A로부터 멀어진다.', '은하들이 은하 A 주위를 돈다.', '은하 사이의 거리가 변하지 않는다.'], a: 1, ex: '우주는 특별한 중심 없이 팽창하므로 어느 은하에서 관측해도 대부분의 은하가 멀어지는 것으로 보여요. ‘우주 팽창’ 화면에서 은하 A를 기준으로 바꿔 확인할 수 있어요.' },
+  { id: 'm10', tag: '우주의 시작', q: '우주의 시작에 대한 설명으로 옳은 것은?', opts: ['약 46억 년 전 태양과 함께 우주가 생겼다.', '약 138억 년 전 온도와 밀도가 매우 높은 한 점에서 대폭발이 일어나 우주가 시작되었다.', '우주는 처음부터 지금과 같은 크기였다.', '약 138억 년 전 우리은하가 폭발하여 우주가 생겼다.', '우주는 약 1억 년 전에 시작되었다.'], a: 1, ex: '과학자들은 약 138억 년 전 온도와 밀도가 매우 높은 한 점에서 대폭발이 일어나 우주가 시작되었고, 그 뒤 계속 팽창해 지금의 우주가 되었다고 설명해요. 46억 년 전은 태양계가 생긴 때예요.' },
+  { id: 'm11', tag: '과거의 우주', q: '우주가 계속 팽창해 왔다고 할 때, 과거의 우주에 대한 설명으로 옳은 것은?', opts: ['은하 사이의 거리가 지금보다 멀었다.', '우주의 크기가 지금보다 컸다.', '은하 사이의 거리가 지금보다 가까웠다.', '우주의 밀도가 지금보다 낮았다.', '우주의 온도가 지금보다 낮았다.'], a: 2, ex: '팽창을 거꾸로 돌리면 과거로 갈수록 우주는 작고, 은하 사이의 거리는 가깝고, 밀도와 온도는 높았어요.' },
+  { id: 'm12', tag: '모형의 한계', q: '그림처럼 풍선에 펜으로 찍은 점은 풍선을 불면 함께 커지지만 붙임딱지는 크기가 변하지 않는다. 은하를 나타내기에 붙임딱지가 더 알맞은 까닭으로 옳은 것은?', fig: figDotSticker, opts: ['은하는 우주가 팽창해도 스스로의 크기가 커지지 않기 때문', '은하는 우주가 팽창할수록 작아지기 때문', '은하는 우주 공간에서 움직이지 않기 때문', '붙임딱지가 더 밝게 보이기 때문', '펜으로 찍은 점에는 번호를 쓸 수 없기 때문'], a: 0, ex: '우주 공간은 팽창하지만 은하 자체의 크기는 우주 팽창을 따라 커지지 않아요. 그래서 풍선과 함께 늘어나지 않는 붙임딱지로 은하를 나타내요.' },
+];
+
+const INQ = [
+  {
+    id: 'q1', short: '두 붙임딱지 사이 거리의 변화',
+    q: '풍선을 작게 분 다음 크게 불었을 때, 가까이 있던 두 붙임딱지(①–②)와 멀리 떨어져 있던 두 붙임딱지(①–③) 사이의 거리는 각각 어떻게 변하는지 비교하여 설명해 보자.',
+    src: '탐구 · 풍선으로 우주 팽창 알아보기 (과정 2·3)',
+    mini: { type: 'balloon', title: '가까운 쌍과 먼 쌍', how: '지름 단추나 손잡이로 풍선을 크게 불며 ①–②와 ①–③ 사이의 거리를 보세요.', state: { D: D_SMALL, mode: 'all', ref: 1, pair: [1, 2], grid: false }, targets: [2, 3], chips: [D_SMALL, D_MID, D_BIG] },
+    hint: '간이 실험에서 지름 단추를 12 cm → 24 cm로 바꾸며, 결과 줄에서 ①–②와 ①–③이 각각 몇 cm에서 몇 cm가 되었는지 보세요.',
+    model: '두 거리 모두 <mark>늘어나지만</mark>, 처음에 멀리 떨어져 있던 <mark>①–③ 사이의 거리가 더 많이 늘어난다</mark>. 풍선이 지름 12 cm에서 24 cm로 커지면 풍선 표면의 <mark>모든 거리가 2배</mark>가 되므로, ①–②는 3.0 cm에서 6.0 cm로 3.0 cm 늘고 ①–③은 8.0 cm에서 16.0 cm로 8.0 cm 는다. 즉 붙임딱지의 위치(처음 거리)에 따라 거리가 늘어난 값이 다르다.',
+  },
+  {
+    id: 'q2', short: '팽창의 중심이 있을까?',
+    q: '풍선을 불 때 어느 붙임딱지를 기준으로 삼아도 다른 붙임딱지들이 멀어지는지 확인해 보고, 이를 바탕으로 우주 팽창의 중심에 대해 설명해 보자.',
+    src: '정리하기 · 기준이 되는 지점이 있는지 이야기해 보자',
+    mini: { type: 'balloon', title: '기준 붙임딱지 바꾸기', how: '기준 붙임딱지를 고른 뒤 풍선을 크게 불어 보세요. 붙임딱지를 직접 눌러 기준으로 삼아도 돼요.', state: { D: D_SMALL, mode: 'all', ref: 1, pair: [1, 2], grid: false }, refs: [1, 4, 6], chips: [D_SMALL, D_BIG] },
+    hint: '간이 실험에서 ‘기준’을 ①, ④, ⑥으로 바꿔 가며 지름 24 cm로 불어 보고, 결과 줄에서 기준에서 다른 붙임딱지까지의 거리가 어떻게 변했는지 보세요.',
+    model: '어느 붙임딱지를 기준으로 삼아도 <mark>다른 모든 붙임딱지가 멀어진다</mark>. 따라서 풍선 표면에는 <mark>특별한 팽창의 중심이 없다</mark>. 우주도 마찬가지로 <mark>특별한 중심 없이 모든 방향으로 팽창</mark>하므로 어느 은하에서 관측해도 대부분의 은하가 멀어지는 것으로 보인다. 우리은하에서 은하들이 멀어지는 것으로 보인다고 해서 우리은하가 우주의 중심인 것은 아니다.',
+  },
+  {
+    id: 'q3', short: '은하들이 서로 멀어지는 까닭',
+    q: '풍선 표면에 붙인 붙임딱지는 스스로 움직이지 않는데도 풍선을 불면 서로 멀어진다. 풍선 모형을 우주에 비유하여 외부 은하들이 서로 멀어지는 까닭을 설명해 보자.',
+    src: '정리하기 · 우주에서 은하들이 서로 멀어지는 까닭 추리하기',
+    mini: { type: 'balloon', title: '붙임딱지와 마커 격자', how: '풍선을 불며 붙임딱지가 마커 격자의 어느 칸에 있는지, 격자 한 칸과 ①–③ 사이 거리가 어떻게 변하는지 보세요.', state: { D: D_SMALL, mode: 'tape', ref: 1, pair: [1, 3], grid: true }, chips: [D_SMALL, D_MID, D_BIG] },
+    hint: '간이 실험에서 풍선을 24 cm로 불었을 때 붙임딱지 ③이 처음과 같은 격자 칸에 있는지 보고, 결과 줄의 ‘격자 한 칸’과 ‘붙임딱지 지름’을 비교해 보세요.',
+    model: '풍선 표면은 <mark>우주</mark>, 붙임딱지는 <mark>은하</mark>, 풍선 표면이 늘어나는 것은 <mark>우주 팽창</mark>에 해당한다. 붙임딱지는 풍선 위의 제자리(같은 격자 칸)에 붙어 있지만 붙임딱지가 붙어 있는 <mark>풍선 표면이 늘어나기 때문에</mark> 서로 멀어진다. 마찬가지로 외부 은하들이 서로 멀어지는 것은 은하가 직접 움직이기 때문이 아니라 <mark>은하들이 있는 우주 공간이 팽창하기 때문</mark>이다.',
+  },
+  {
+    id: 'q4', short: '건포도 빵 모형으로 설명하기',
+    q: '건포도를 넣은 빵 반죽은 부풀면서 커진다. 이 모형으로 우주 팽창을 설명할 때 빵 반죽과 건포도는 각각 무엇에 해당하는지 쓰고, 반죽이 부풀 때 건포도 사이의 거리가 어떻게 변하는지 설명해 보자.',
+    src: '과학 창의성 · 우주 팽창에 비유할 수 있는 모형을 주변에서 찾아보자',
+    mini: { type: 'bread', title: '건포도 빵 굽기', how: '▶ 굽기를 누르거나 손잡이로 반죽이 부푼 정도를 바꾸며 건포도 A–B, A–C 사이의 거리를 보세요.' },
+    hint: '간이 실험에서 반죽을 1.5배로 부풀렸을 때 결과 줄의 A–B, A–C 거리가 처음과 비교해 얼마나 늘었는지, 건포도의 크기는 어떤지 보세요.',
+    model: '빵 반죽은 <mark>우주 공간</mark>, 건포도는 <mark>은하</mark>에 해당한다. 반죽이 부풀면 건포도는 반죽 속 제자리에 있지만 <mark>건포도 사이의 거리가 모두 멀어지고</mark>, 처음에 멀리 있던 건포도 사이일수록 더 많이 멀어진다(A–B 2.0 → 3.0 cm, A–C 5.0 → 7.5 cm). 어느 건포도에서 보아도 다른 건포도들이 멀어지고, 건포도 크기가 변하지 않는 것처럼 은하 자체의 크기도 커지지 않는다.',
+  },
+  {
+    id: 'q5', short: '팽창하는 우주의 과거 모습',
+    q: '우주가 지금까지 계속 팽창해 왔다면, 과거의 우주는 현재와 어떤 차이가 있었을지 은하 사이의 거리와 우주의 밀도를 이용하여 설명해 보자.',
+    src: '스스로 확인하기 · 팽창하는 우주의 과거 모습은 현재와 어떤 차이가 있을까',
+    mini: { type: 'history', title: '시간을 거슬러 가기', how: '시간 손잡이를 왼쪽(과거)으로 옮기며 원의 크기와 원 안 은하 사이의 거리를 보세요.', chips: [[0, '대폭발'], [38, '100억 년 전'], [88, '50억 년 전'], [138, '현재']] },
+    hint: '간이 실험에서 시간 손잡이를 ‘현재’에서 ‘100억 년 전’으로 옮기며 결과 줄의 ‘은하 사이의 거리: 현재의 약 ○ %’와 원 안 은하들이 모인 정도를 보세요.',
+    model: '과거로 갈수록 우주는 <mark>더 작았고</mark>, 은하 사이의 거리가 <mark>더 가까웠다</mark>(약 100억 년 전에는 현재의 약 37 %). 같은 양의 물질이 더 좁은 공간에 모여 있었으므로 <mark>밀도가 더 높았고 온도도 더 높았다</mark>. 거슬러 올라가면 약 <mark>138억 년 전</mark> 온도와 밀도가 매우 높은 한 점에서 <mark>대폭발</mark>이 일어나 우주가 팽창하기 시작하였다.',
+  },
+];
+
+/* 원리 카드 그림 */
+function theoryFig(kind) {
+  if (kind === 'outer') {
+    const st = { a: 1, ref: 'mw', tag: GALAXIES.find(g => g.key === 'B').id };
+    return stageFig('0 0 640 320', `<defs>${gxDefs('t1')}</defs>` + fieldSVG('t1', st, { W: 640, H: 320, C: [300, 160], Z: 300, fs: 19, names: ['mw', 'm31'], showRef: false }), '우리은하와 안드로메다은하, 그리고 그 밖의 외부 은하들');
+  }
+  if (kind === 'model') {
+    let s = balloonFigSVG('t2a', 150, 180, 50, 1.2, { grid: true, sel: [1, 3] }) + balloonFigSVG('t2b', 450, 180, 100, 1.2, { grid: true, sel: [1, 3] });
+    s += `<path class="map-a" d="M232 180H282M274 172L282 180L274 188"/><text class="fig-s" x="257" y="162">풍선을 불면</text>`;
+    s += `<text class="fig-s" x="150" y="314">붙임딱지 ①–③ ${cm1(tapeRead(100, 1, 3))} cm</text><text class="fig-s" x="450" y="314">①–③ ${cm1(tapeRead(200, 1, 3))} cm</text>`;
+    return stageFig('0 20 640 310', s, '마커 격자와 붙임딱지가 있는 풍선을 불기 전과 뒤. 격자는 함께 늘어나고 붙임딱지 크기는 그대로이다');
+  }
+  if (kind === 'center') {
+    const A = GALAXIES.find(g => g.key === 'A').id;
+    const panel = (x, ref, t) => `<svg x="${x}" y="0" width="310" height="300" viewBox="0 0 310 300">${fieldSVG('t3', { a: 1, a0: .8, ref, trails: true }, { W: 310, H: 300, C: [155, 158], Z: 190, fs: 17, names: [], showRef: true })}</svg><text class="fig-s" x="${x + 155}" y="326">${t}</text>`;
+    return stageFig('0 0 640 340', `<defs>${gxDefs('t3')}</defs>` + panel(0, 'mw', '우리은하에서 본 모습') + panel(330, A, '은하 A에서 본 모습') + '<path class="fig-div" d="M320 10V300"/>', '우리은하와 은하 A에서 각각 본 은하들의 움직임. 두 곳 모두에서 다른 은하들이 멀어진다');
+  }
+  return stageFig('30 120 975 510', `<defs>${gxDefs('t4')}</defs>` + historySVG('t4', 138, { readout: false, noteX: 60, noteY: 612 }), '대폭발부터 현재까지 우주의 한 부분이 커지는 모습', 'hist-fig');
+}
+const THEORY = [
+  { id: 'outer', k: '외부 은하', title: '우리은하 밖의 은하', fig: 'outer', def: '우리은하 밖에 있는 은하를 외부 은하라고 해요.', body: ['우주에는 우리은하 말고도 수많은 은하가 있어요.', '미국의 천문학자 허블(1889~1953)은 1923년 안드로메다은하가 우리은하 밖에 있다는 것을 밝혀냈어요.', '허블은 외부 은하들을 관측하여 대부분의 외부 은하가 우리은하로부터 멀어지고 있다는 사실을 알아냈어요.'], link: ['cosmos', 0] },
+  { id: 'model', k: '풍선 모형', title: '풍선 모형으로 보는 우주 팽창', fig: 'model', def: '풍선 표면은 우주, 붙임딱지는 은하, 풍선 표면이 늘어나는 것은 우주 팽창에 해당해요.', body: ['붙임딱지는 스스로 움직이지 않지만 붙어 있는 풍선 표면이 늘어나 서로 멀어져요.', '은하들이 서로 멀어지는 것도 은하가 직접 움직이는 것이 아니라 우주 공간이 팽창하기 때문이에요.', '모형의 한계: 우주에 해당하는 것은 풍선의 표면뿐이에요. 풍선 안쪽 공기나 풍선의 중심은 우주에 없는 자리예요. 은하 자체는 커지지 않아서 크기가 변하지 않는 붙임딱지로 나타내요.'], link: ['bench'] },
+  { id: 'center', k: '팽창의 중심', title: '중심이 없는 팽창', fig: 'center', def: '우주는 특별한 중심 없이 모든 방향으로 팽창해요.', body: ['어느 붙임딱지를 기준으로 삼아도 다른 붙임딱지들이 모두 멀어져요.', '그래서 어느 은하에서 관측해도 대부분의 은하가 멀어지는 것으로 보여요.', '우리은하에서 은하들이 멀어져 보인다고 해서 우리은하가 우주의 중심인 것은 아니에요.'], link: ['cosmos', 2] },
+  { id: 'bang', k: '대폭발', title: '대폭발과 팽창하는 우주', fig: 'history', def: '우주는 약 138억 년 전 온도와 밀도가 매우 높은 한 점에서 대폭발이 일어나 시작되었고, 지금도 팽창하고 있어요.', body: ['과거로 갈수록 우주는 작았고 은하 사이의 거리는 가까웠어요.', '같은 물질이 좁은 공간에 모여 있었으므로 밀도와 온도가 높았어요.', '처음 수억 년 동안에는 은하가 아직 만들어지지 않았어요.'], link: ['cosmos', 4] },
+];
+
+/* ───────────────────────── 앱: 화면 · 기록 · 문항 · 결과 저장 ───────────────────────── */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const CHANNELS = { yt: 'https://www.youtube.com/@songsamscience', ig: 'https://www.instagram.com/songsamscience/' };
+
+/* ── 저장: 학습 기록은 sessionStorage(탭을 닫으면 지워짐), 테마만 localStorage ── */
+const KEY = n => `ssv-${LAB_ID}-${n}`;
+const LEARN_KEYS = ['ui', 'bench', 'recs', 'cosmos', 'mcq', 'answers', 'revisions', 'locks', 'hints'];
+const store = {
+  get(n, d) { try { const v = sessionStorage.getItem(KEY(n)); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(n, v) { try { sessionStorage.setItem(KEY(n), JSON.stringify(v)); } catch (e) { } },
+  del(n) { try { sessionStorage.removeItem(KEY(n)); } catch (e) { } },
+};
+
+/* ── 상태 ── */
+const BENCH0 = () => ({ D: D_SMALL, pair: [1, 2], mode: 'tape', ref: 1, grid: false, out: OUT_MIN, pend: null, pumped: false });
+const COSMOS0 = () => ({ step: 0, ref: 'mw', k: 1, t: T0 });
+const S = Object.assign({ screen: 'bench' }, store.get('ui', {}));
+const B = Object.assign(BENCH0(), store.get('bench', {}));
+B.pend = null;
+const CZ = Object.assign(COSMOS0(), store.get('cosmos', {}));
+let recs = store.get('recs', []);
+let mcq = store.get('mcq', null);
+let answers = store.get('answers', {}), revisions = store.get('revisions', {}), locks = store.get('locks', {}), hints = store.get('hints', {});
+let cur = { scene: null };
+const minis = {};
+let freshKey = null, foundOnce = false;
+function saveUI() { store.set('ui', S); }
+function saveBench() { const { D, pair, mode, ref, grid, pumped } = B; store.set('bench', { D, pair, mode, ref, grid, pumped, out: OUT_MIN }); }
+function saveCosmos() { store.set('cosmos', { step: CZ.step, ref: CZ.ref, k: CZ.k, t: CZ.t }); }
+
+/* ── 작은 도구 ── */
+function announce(m) { const l = $('#live'); l.textContent = ''; requestAnimationFrame(() => { l.textContent = m; }); }
+let toastT = 0, toastLast = '', toastN = 1;
+function toast(msg, o = {}) {
+  const e = $('#toast');
+  if (msg === toastLast && !e.hidden) toastN++; else toastN = 1;
+  toastLast = msg;
+  e.innerHTML = `<span>${escapeHtml(msg)}${toastN > 1 ? ` <b class="num">×${toastN}</b>` : ''}</span>${o.error ? `<button class="toast-x" aria-label="알림 닫기">${icon('x')}</button>` : ''}`;
+  e.classList.toggle('error', !!o.error);
+  e.hidden = false;
+  const x = e.querySelector('.toast-x'); if (x) x.onclick = () => { e.hidden = true; };
+  clearTimeout(toastT);
+  toastT = setTimeout(() => { e.hidden = true; }, o.error ? 7000 : 2800);
+}
+function setHTML(sel, html) { const e = typeof sel === 'string' ? $(sel) : sel; if (e && e.innerHTML !== html) e.innerHTML = html; }
+function setText(sel, t) { const e = typeof sel === 'string' ? $(sel) : sel; if (e && e.textContent !== t) e.textContent = t; }
+
+/* ── 테마 (§11) ── */
+function applyTheme(t) {
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('ssv-theme', t); } catch (e) { }
+  const next = t === 'dark' ? '라이트' : '다크', b = $('#themeBtn');
+  b.setAttribute('aria-label', `${next} 모드로 전환 (D)`); b.setAttribute('title', `${next} 모드로 전환 (D)`);
+  b.innerHTML = icon(t === 'dark' ? 'moon' : 'sun');
+  const mt = $('#metaTheme'); if (mt) mt.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--surface-1').trim());
+}
+function toggleTheme() { applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'); }
+/* ── 전체화면 ── */
+function toggleFull() {
+  const d = document;
+  if (d.fullscreenElement) { d.exitFullscreen && d.exitFullscreen(); return; }
+  const r = d.documentElement;
+  if (!r.requestFullscreen || d.fullscreenEnabled === false) { toast('이 브라우저에서는 전체화면을 지원하지 않습니다. 브라우저의 화면 확대 기능을 써 주세요.', { error: true }); return; }
+  r.requestFullscreen().catch(() => toast('전체화면으로 바꾸지 못했어요. 다시 눌러 보세요.', { error: true }));
+}
+function syncFull() {
+  const on = !!document.fullscreenElement, b = $('#fullBtn');
+  document.body.classList.toggle('fs', on);
+  b.innerHTML = icon(on ? 'fsOut' : 'fsIn');
+  const l = on ? '전체화면 나가기 (F · Esc)' : '전체화면 (F)';
+  b.setAttribute('aria-label', l); b.setAttribute('title', l);
+}
+
+/* ── 내비게이션 ── */
+const SCREENS = [
+  { id: 'bench', label: '풍선 실험', short: '실험', icon: 'navBalloon', title: '풍선으로 알아보는 우주 팽창', goal: '펌프로 풍선을 불면서 붙임딱지 사이의 거리를 줄자로 재고 기록해요' },
+  { id: 'cosmos', label: '우주 팽창', short: '우주', icon: 'navCosmos', title: '우주 팽창 알아보기', goal: '' },
+  { id: 'quiz', label: '객관식 문제', short: '문제', icon: 'navQuiz', title: '객관식 문제' },
+  { id: 'inq', label: '탐구 질문', short: '질문', icon: 'navInq', title: '탐구 질문' },
+];
+const SCREEN_BY = Object.fromEntries(SCREENS.map(s => [s.id, s]));
+function renderRail() {
+  $('#rail').innerHTML = SCREENS.map(s => `<button data-go="${s.id}" ${S.screen === s.id ? 'aria-current="page"' : ''} title="${s.label}">${icon(s.icon)}<span class="l">${s.label}</span><span class="s">${s.short}</span></button>`).join('');
+}
+function go(id, o = {}) {
+  if (!SCREEN_BY[id]) id = 'bench';
+  if (cur.scene && cur.scene.destroy) cur.scene.destroy();
+  Object.values(minis).forEach(m => m.scene && m.scene.destroy && m.scene.destroy());
+  for (const k in minis) delete minis[k];
+  clearAir();
+  S.screen = id; saveUI();
+  renderRail();
+  cur = { scene: null };
+  if (id === 'cosmos' && o.step != null) { CZ.step = o.step; saveCosmos(); }
+  ({ bench: buildBench, cosmos: buildCosmos, quiz: buildQuiz, inq: buildInq })[id](o);
+  $('#main').scrollTop = 0;
+}
+function isLab() { return ['bench', 'cosmos'].includes(S.screen); }
+function labShell(id, o) {
+  const sc = SCREEN_BY[id];
+  return `<section class="lab lab-${id}">
+    <header class="lab-head"><h1>${o.title || sc.title}</h1><p class="goal" id="goal">${o.goal || sc.goal}</p></header>
+    <div class="lab-grid">
+      <div class="bench">
+        <div class="bench-head"><div class="bh-tools" id="bhTools">${o.tools || ''}</div>
+          <button class="tool save" id="saveBtn" aria-label="실험 결과를 PNG 이미지로 저장 (C)" title="실험 결과를 PNG 이미지로 저장 (C)">${icon('camera')}<span>결과 저장</span></button></div>
+        <div class="stage" id="stage"></div>
+        <p class="status" id="status" aria-live="polite"></p>
+      </div>
+      <aside class="panel" aria-label="${o.panelLabel || '측정과 기록'}"><div class="panel-scroll" id="panelScroll">${o.panel}</div>${o.foot ? `<div class="panel-foot" id="panelFoot">${o.foot}</div>` : ''}</aside>
+    </div></section>`;
+}
+function seg(id, items, val, label) {
+  return `<div class="seg" id="${id}" role="group" aria-label="${label}">${items.map(([v, t]) => `<button data-v="${v}" aria-pressed="${String(v) === String(val)}">${t}</button>`).join('')}</div>`;
+}
+function syncSeg(id, val) { $$(`#${id} button`).forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === String(val)))); }
+
+/* ═════════════ ① 풍선 실험 ═════════════ */
+function buildBench() {
+  const tools = `<span class="bh-k">보기</span>${seg('modeSeg', [['tape', `${icon('tape')}<span>줄자 한 개</span>`], ['all', `${icon('spoke')}<span>한 붙임딱지에서 모두</span>`]], B.mode, '재는 방법')}
+    <span class="bh-sep" aria-hidden="true"></span><button class="mini-tog" id="gridTog" aria-pressed="${B.grid}">${icon('grid')}<span>마커 격자</span></button>`;
+  const panel = `<section class="pg">
+      <div class="meas">
+        <div class="read"><span class="read-k">풍선 지름</span><span class="read-big"><b class="num" id="rdD"></b><span class="read-u">cm</span></span></div>
+        <div class="read" id="rdPair"><span class="read-k" id="rdPK"></span><span class="read-big"><b class="num" id="rdV"></b><span class="read-u">cm</span></span></div>
+        <button class="btn primary" id="recBtn">${icon('plus')}기록하기</button>
+      </div>
+      <p class="all-list num" id="allList" hidden></p>
+    </section>
+    <section class="pg">
+      <div class="pg-row"><h2 class="pg-title">풍선 크기</h2><div class="chips" id="sizeChips">${[[D_SMALL, '조금 분 풍선'], [D_BIG, '많이 분 풍선']].map(([d, t]) => `<button class="chip wide" data-size="${d}" aria-pressed="false">${t}<span class="u">${d / 10} cm</span></button>`).join('')}</div></div>
+      <div class="rng-row"><input type="range" id="dRng" min="${D_MIN}" max="${D_MAX}" step="5" value="${Math.round(B.D)}" aria-label="풍선 지름 (cm)"><button class="btn small" id="airBtn" title="누르고 있으면 계속 펌프질해요">${icon('air')}공기 넣기</button></div>
+    </section>
+    <section class="pg">
+      <div class="pg-row"><h2 class="pg-title" id="pairT"></h2></div>
+      <div class="chips" id="pairChips"></div>
+      <p class="help" id="pairHelp"></p>
+    </section>
+    <section class="pg recs">
+      <div class="pg-row"><h2 class="pg-title">기록표 <span class="count num" id="recN">0</span></h2><button class="linkbtn" id="undoRec">${icon('undo')}마지막 기록 지우기</button></div>
+      <ol class="proc" id="proc"></ol>
+      <div class="rec-wrap" id="recWrap"></div>
+      <p class="found" id="found"></p>
+    </section>`;
+  const foot = `<button class="btn ghost small" id="resetBench">${icon('reset')}처음 조건으로</button><button class="btn ghost small" id="clearRec">${icon('trash')}기록 모두 지우기</button>`;
+  $('#main').innerHTML = labShell('bench', { tools, panel, foot });
+  cur.scene = new BalloonScene($('#stage'), { state: B, prefix: 'bn', onChange: why => onBench(why) }).build();
+  syncBench();
+  renderRecs();
+}
+function onBench(why) {
+  if (why === 'max') toast('풍선이 터지지 않도록 지름 28 cm까지만 불어요.');
+  if (why === 'size-anim' || why === 'pump') { syncBench(true); return; }
+  syncBench();
+  if (why === 'size' || why === 'pump-end') renderRecs();
+  if (why === 'pick') announce(B.mode === 'all' ? `기준 붙임딱지를 ${nc(B.ref)}${jn(B.ref, '으로/로')} 바꿨어요.` : B.pend ? `붙임딱지 ${nc(B.pend)}${jn(B.pend, '을/를')} 골랐어요. 줄자 끝이 될 붙임딱지를 누르세요.` : `줄자로 ${pairName(...B.pair)} 사이를 재요: ${cm1(tapeRead(B.D, ...B.pair))} cm`);
+  saveBench();
+}
+function syncBench(light) {
+  const D = B.D, v = tapeRead(D, ...B.pair);
+  setText('#rdD', cm1(D));
+  const rng = $('#dRng'); if (rng && document.activeElement !== rng) rng.value = Math.round(D / 5) * 5;
+  $$('#sizeChips .chip').forEach(c => c.setAttribute('aria-pressed', String(Math.abs(+c.dataset.size - D) < .5)));
+  const all = B.mode === 'all';
+  $('#rdPair').hidden = all;
+  setHTML('#rdPK', `줄자 ${pairH(...B.pair)} 사이`);
+  setText('#rdV', cm1(v));
+  const al = $('#allList'); al.hidden = !all;
+  if (all) al.innerHTML = `<span class="k">기준 ${nb(B.ref)}에서</span> ` + STICKERS.filter(t => t.n !== B.ref).map(t => `<span class="it">${nb(t.n)} <b>${cm1(tapeRead(D, B.ref, t.n))}</b></span>`).join('') + '<span class="u">cm</span>';
+  $('#recBtn').innerHTML = `${icon('plus')}${all ? '모두 기록하기' : '기록하기'}`;
+  if (light) { setStatusBench(); return; }
+  syncSeg('modeSeg', B.mode);
+  $('#gridTog').setAttribute('aria-pressed', String(B.grid));
+  setText('#pairT', all ? '기준 붙임딱지' : '줄자로 잴 두 붙임딱지');
+  const chips = all ? STICKERS.map(t => [String(t.n), nb(t.n), B.ref === t.n, nc(t.n)]) : [...PAIRS, ...(PAIRS.some(p => p[0] === B.pair[0] && p[1] === B.pair[1]) ? [] : [B.pair])].map(p => [p.join('-'), pairH(...p), p[0] === B.pair[0] && p[1] === B.pair[1], pairName(...p)]);
+  setHTML('#pairChips', chips.map(([v, t, on, lab]) => `<button class="chip nbchip" data-${all ? 'ref' : 'pair'}="${v}" aria-pressed="${on}" aria-label="${all ? `기준 ${lab}` : `${lab} 사이 재기`}">${t}</button>`).join(''));
+  setText('#pairHelp', all ? '풍선의 붙임딱지를 눌러도 기준이 바뀌어요.' : '풍선의 붙임딱지 두 개를 차례로 눌러 다른 쌍도 잴 수 있어요.');
+  setStatusBench();
+}
+function setStatusBench() {
+  let t;
+  const D = B.D;
+  if (!B.pumped && !recs.length) t = '펌프 손잡이를 오른쪽으로 밀거나 ‘공기 넣기’를 눌러 풍선을 불어 보세요. 먼저 지금 크기에서 거리를 기록해도 좋아요.';
+  else if (D >= D_MAX) t = `풍선이 터지지 않도록 <b>지름 ${cm1(D_MAX)} cm</b>까지만 불어요. 이 크기에서 거리를 기록해 보세요.`;
+  else if (B.mode === 'tape' && B.pend) t = `붙임딱지 ${nb(B.pend)}${jn(B.pend, '을/를')} 골랐어요 — 줄자 끝이 될 붙임딱지를 누르세요.`;
+  else if (B.mode === 'tape') t = `지름 <b class="num">${cm1(D)} cm</b> 풍선 · 줄자로 잰 ${pairH(...B.pair)} 사이 <b class="num">${cm1(tapeRead(D, ...B.pair))} cm</b> <span class="sub">— 기록한 뒤 풍선을 더 불어 같은 쌍을 다시 재 보세요.</span>`;
+  else t = `지름 <b class="num">${cm1(D)} cm</b> 풍선 · 기준 ${nb(B.ref)}에서 다른 붙임딱지까지 표면을 따라 잰 거리 <span class="sub">— 풍선을 불면 모두 멀어지는지 보세요.</span>`;
+  setHTML('#status', t);
+}
+/* 기록: 같은 풍선 크기(1 mm)는 한 열 */
+function recKey(a, b) { return `${Math.min(a, b)}-${Math.max(a, b)}`; }
+function record() {
+  const D = Math.round(B.D), list = B.mode === 'all' ? STICKERS.filter(t => t.n !== B.ref).map(t => [B.ref, t.n]) : [B.pair];
+  const t = Date.now();
+  list.forEach(([a, b], i) => {
+    const k = recKey(a, b);
+    recs = recs.filter(r => !(r.k === k && r.D === D));
+    recs.push({ id: `${t}-${i}`, k, a: Math.min(a, b), b: Math.max(a, b), D, v: tapeRead(D, a, b) });
+  });
+  freshKey = list.map(([a, b]) => `${recKey(a, b)}@${D}`);
+  store.set('recs', recs);
+  renderRecs();
+  announce(B.mode === 'all' ? `지름 ${cm1(D)} cm에서 기준 ${nc(B.ref)}의 거리 ${list.length}개를 기록했어요.` : `지름 ${cm1(D)} cm · ${pairName(...B.pair)} ${cm1(tapeRead(D, ...B.pair))} cm를 기록했어요.`);
+}
+function recModel() {
+  const sizes = [...new Set(recs.map(r => r.D))].sort((a, b) => a - b);
+  const rows = [];
+  recs.forEach(r => { if (!rows.includes(r.k)) rows.push(r.k); });
+  const val = (k, D) => { const r = recs.filter(x => x.k === k && x.D === D).pop(); return r ? r.v : null; };
+  const change = k => { const ds = sizes.filter(D => val(k, D) != null); if (ds.length < 2) return null; const v0 = val(k, ds[0]), v1 = val(k, ds[ds.length - 1]); return { v0, v1, d0: ds[0], d1: ds[ds.length - 1], dv: v1 - v0, x: v1 / v0 }; };
+  return { sizes, rows, val, change };
+}
+function renderRecs() {
+  const M = recModel();
+  setText('#recN', String(recs.length));
+  $('#undoRec').disabled = !recs.length;
+  // 순서
+  const minD = recs.length ? Math.min(...recs.map(r => r.D)) : null, maxD = recs.length ? Math.max(...recs.map(r => r.D)) : null;
+  const s1 = recs.some(r => r.D <= 150), s2 = minD != null && Math.max(maxD, B.D) >= minD * 1.5, s3 = M.rows.some(k => { const c = M.change(k); return c && c.d1 >= c.d0 * 1.2; });
+  const items = [[s1, '조금 분 풍선(지름 15 cm 이하)에서 거리를 재어 기록하기'], [s2, '풍선을 처음의 1.5배 이상으로 크게 불기'], [s3, '같은 붙임딱지 사이를 다시 재어 기록하기']];
+  setHTML('#proc', s1 && s2 && s3 ? `<li class="ok"><span class="pk">${icon('check')}</span>세 과정을 모두 했어요 — 표의 ‘늘어난 길이’를 비교해 보세요</li>` : items.map(([ok, t], i) => `<li class="${ok ? 'ok' : ''}"><span class="pk">${ok ? icon('check') : i + 1}</span>${t}</li>`).join(''));
+  // 표
+  if (!recs.length) { setHTML('#recWrap', '<p class="empty">아직 기록이 없어요. 줄자 값을 확인하고 <b>기록하기</b>를 누르면 여기에 풍선 크기별로 쌓여요.</p>'); setHTML('#found', ''); return; }
+  const head = `<tr><th scope="col">두 붙임딱지</th>${M.sizes.map(D => `<th scope="col" class="num">지름 ${cm1(D)}</th>`).join('')}<th scope="col" class="num">늘어난 길이</th></tr>`;
+  const body = M.rows.map(k => {
+    const [a, b] = k.split('-').map(Number), c = M.change(k);
+    return `<tr><th scope="row">${pairH(a, b)}</th>${M.sizes.map(D => { const v = M.val(k, D); return `<td class="num${freshKey && freshKey.includes(`${k}@${D}`) ? ' fresh' : ''}">${v == null ? '<span class="muted">–</span>' : cm1(v)}</td>`; }).join('')}<td class="num chg">${c ? `<b>+${cm1(c.dv)}</b> <small>(${c.x.toFixed(1)}배)</small>` : '<span class="muted">–</span>'}</td></tr>`;
+  }).join('');
+  setHTML('#recWrap', `<table class="rec"><caption class="sr-only">풍선 크기별 붙임딱지 사이의 거리 기록</caption><thead>${head}</thead><tbody>${body}</tbody></table><p class="unit-note">단위: cm · 거리는 붙임딱지 중심 사이를 표면을 따라 잰 값</p>`);
+  if (freshKey) { freshKey = null; setTimeout(() => { $$('#recWrap td.fresh').forEach(td => td.classList.remove('fresh')); }, 1300); }
+  // 발견(관찰만)
+  const ch = M.rows.map(k => ({ k, c: M.change(k) })).filter(x => x.c && x.c.d1 >= x.c.d0 * 1.2);
+  let f = '';
+  if (ch.length >= 2) {
+    const most = ch.slice().sort((p, q) => q.c.dv - p.c.dv)[0], [a, b] = most.k.split('-').map(Number);
+    f = `${icon('bulb')}<span><b>모든 거리가 늘었어요.</b> 처음에 ${cm1(most.c.v0)} cm로 가장 멀었던 쪽인 ${pairH(a, b)}${jn(b, '이/가')} <b>+${cm1(most.c.dv)} cm</b>로 가장 많이 늘었어요. <span class="sub">이번엔 ‘한 붙임딱지에서 모두’로 기준을 바꿔 볼까요?</span></span>`;
+    if (!foundOnce) { foundOnce = true; requestAnimationFrame(() => { const e = $('#found'); if (e) { e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); } }); }
+  } else if (ch.length === 1) {
+    const [a, b] = ch[0].k.split('-').map(Number), c = ch[0].c;
+    f = `${icon('bulb')}<span>${pairH(a, b)} 사이가 ${cm1(c.v0)} cm에서 <b>${cm1(c.v1)} cm</b>로 늘었어요. <span class="sub">처음 거리가 다른 쌍도 두 크기에서 재어 비교해 볼까요?</span></span>`;
+  }
+  setHTML('#found', f);
+}
+
+/* ═════════════ ② 우주 팽창 알아보기 (단계형) ═════════════ */
+const STEPS = [
+  { id: 'outer', t: '외부 은하', goal: '은하를 눌러 우리은하와 외부 은하를 찾아보세요', body: ['우주에는 우리은하 말고도 수많은 은하가 있어요. 이처럼 <b>우리은하 밖에 있는 은하</b>를 <b>외부 은하</b>라고 해요.', '미국의 천문학자 <b>허블</b>(1889~1953)은 1923년, 우리은하에 속한다고 생각했던 안드로메다은하가 우리은하 밖에 있다는 것을 처음으로 밝혀냈어요.'], key: '외부 은하 = 우리은하 밖에 있는 은하' },
+  { id: 'recede', t: '멀어지는 외부 은하', goal: '▶를 눌러 시간이 흐르게 하고 은하들의 자취를 보세요', body: ['허블은 외부 은하들을 관측하여 <b>대부분의 외부 은하가 우리은하로부터 멀어지고 있다</b>는 사실을 알아냈어요.', '▶를 누르면 시간이 흐르는 동안 은하들이 움직인 자취가 화살표로 남아요. 안드로메다은하처럼 아주 가까운 몇몇 은하는 예외예요.'], ask: '그렇다면 우리은하가 우주의 중심일까요?', key: '대부분의 외부 은하가 우리은하에서 멀어져요' },
+  { id: 'center', t: '팽창의 중심은 없어요', goal: '다른 은하를 눌러 그 은하에서 본 모습으로 바꿔 보세요', body: ['은하를 누르거나 위의 ‘기준’ 단추로 기준 은하를 바꿔 보세요. <b>어느 은하에서 보아도</b> 대부분의 은하가 멀어져요.', '그래서 우주는 <b>특별한 중심 없이 모든 방향으로 팽창</b>한다고 해요. 풍선에서 어느 붙임딱지를 기준으로 삼아도 다른 붙임딱지가 멀어진 것과 같아요.'], key: '우주 팽창에는 특별한 중심이 없어요' },
+  { id: 'model', t: '풍선 모형과 우주', goal: '손잡이를 밀어 풍선과 우주를 함께 부풀려 보세요', body: ['<b>풍선 표면 = 우주 공간</b>, <b>붙임딱지 = 은하</b>, <b>풍선이 부푸는 것 = 우주 팽창</b>이에요.', '붙임딱지는 풍선 위 제자리에, 은하는 우주 공간의 제자리에 있어요. <b>공간(격자)이 늘어나기 때문에</b> 서로 멀어지고, 붙임딱지와 은하의 크기는 그대로예요.'], key: '은하가 멀어지는 까닭 = 우주 공간이 팽창하기 때문' },
+  { id: 'history', t: '팽창하는 우주의 과거', goal: '시간 손잡이를 왼쪽(과거)으로 옮겨 보세요', body: ['우주가 계속 팽창해 왔다면 과거의 우주는 지금보다 <b>작고</b>, 은하 사이의 거리가 <b>가까웠어요</b>. 그만큼 밀도와 온도가 높았어요.', '과학자들은 약 <b>138억 년 전</b> 온도와 밀도가 매우 높은 한 점에서 <b>대폭발</b>이 일어나 우주가 시작된 뒤, 계속 팽창해 지금과 같은 우주가 되었다고 설명해요.'], key: '약 138억 년 전 대폭발 → 계속 팽창해 지금의 우주' },
+];
+const HIST_CHIPS = [[0, '대폭발'], [38, '100억 년 전'], [88, '50억 년 전'], [T0, '현재']];
+function cosmosState(step) {
+  if (step <= 2) return { mode: 'field', step, ref: step === 2 ? CZ.ref : 'mw', a: step === 1 ? .8 : 1, a0: step === 2 ? .8 : step === 1 ? .8 : null, trails: step === 2, grid: step >= 1, tag: null };
+  if (step === 3) return { mode: 'model', k: CZ.k };
+  return { mode: 'history', t: CZ.t };
+}
+function cosmosTools(step) {
+  const grid = `<button class="mini-tog" id="cgGrid" aria-pressed="${step >= 1}">${icon('grid')}<span>공간 격자</span></button>`;
+  if (step === 0) return grid;
+  if (step === 1) return `<button class="tool primary" id="cPlay">${icon('play')}<span>시간 흐르게 하기</span></button><button class="tool ghost" id="cBack">${icon('reset')}<span>처음으로</span></button><span class="bh-sep" aria-hidden="true"></span>${grid}`;
+  if (step === 2) return `<span class="bh-k">기준</span>${seg('refSeg', REF_KEYS, CZ.ref, '기준 은하')}<button class="tool ghost" id="cPlay">${icon('play')}<span>다시 보기</span></button><span class="bh-sep" aria-hidden="true"></span>${grid}`;
+  if (step === 3) return `<label class="rng-inline"><span class="bh-k">함께 부풀리기</span><input type="range" id="kRng" min="1" max="2" step=".05" value="${CZ.k}" aria-label="풍선과 우주가 함께 부푼 정도"><output class="num" id="kOut">×${CZ.k.toFixed(2)}</output></label>`;
+  return `<label class="rng-inline wide"><span class="bh-k">시간</span><input type="range" id="tRng" min="0" max="${T0}" step="1" value="${CZ.t}" aria-label="대폭발 뒤 흐른 시간 (억 년)"><output class="num" id="tOut">${agoText(CZ.t)}</output></label>`;
+}
+function buildCosmos() {
+  const st = STEPS[CZ.step];
+  const panel = `<ol class="steps" id="steps">${STEPS.map((x, i) => `<li class="step${i === CZ.step ? ' cur' : ''}${i < CZ.step ? ' done' : ''}">
+      <button class="step-h" data-step="${i}" ${i === CZ.step ? 'aria-current="step"' : ''}><span class="sn">${i < CZ.step ? icon('check') : i + 1}</span><span class="st">${x.t}</span></button>
+      ${i === CZ.step ? `<div class="step-b">${x.body.map(b => `<p>${b}</p>`).join('')}${x.ask ? `<p class="ask">${x.ask}</p>` : ''}${i === 4 ? `<div class="chips" id="histChips">${HIST_CHIPS.map(([t, l]) => `<button class="chip" data-t="${t}" aria-pressed="${CZ.t === t}">${l}</button>`).join('')}</div>` : ''}<p class="keypt">${icon('check')}<span>${x.key}</span></p></div>` : ''}</li>`).join('')}</ol>`;
+  const foot = `<button class="btn ghost small" id="stPrev" ${CZ.step === 0 ? 'disabled' : ''}>${icon('chevL')}이전 단계</button><span class="grow"></span>${CZ.step < STEPS.length - 1 ? `<button class="btn primary" id="stNext">다음 단계 ${icon('chev')}</button>` : `<button class="btn primary" data-go="quiz">객관식 문제 풀기 ${icon('chev')}</button>`}`;
+  $('#main').innerHTML = labShell('cosmos', { tools: cosmosTools(CZ.step), panel, foot, goal: `${CZ.step + 1}/${STEPS.length} · ${st.goal}`, panelLabel: '우주 팽창 단계' });
+  const state = cosmosState(CZ.step);
+  cur.scene = new CosmosScene($('#stage'), { state, prefix: 'cs', onChange: (why, id) => onCosmos(why, id) }).build();
+  syncCosmos();
+}
+function onCosmos(why, id) {
+  const s = cur.scene.s;
+  if (why === 'tap') {
+    if (s.step === 2) { cur.scene.setRef(id); CZ.ref = id; saveCosmos(); syncSeg('refSeg', REF_KEYS.some(r => r[0] === id) ? id : ''); announce(`${GX_BY[id].name || '고른 은하'}를 기준으로 바꿨어요.`); }
+    else { s.tag = id; cur.scene.render(); }
+  }
+  if (why === 'play' || why === 'pan') return;
+  syncCosmos();
+}
+function syncCosmos() {
+  const s = cur.scene.s;
+  let t = '';
+  if (s.mode === 'field') {
+    if (s.step === 0) t = s.tag ? (s.tag === 'mw' ? '<b>우리은하</b> — 태양계가 속한, 우리가 사는 은하예요.' : s.tag === 'm31' ? '<b>안드로메다은하</b> — 우리은하 밖에 있는 <b>외부 은하</b>예요. 맨눈으로 보이는 가장 먼 천체 중 하나예요.' : '이 은하는 우리은하 밖에 있는 <b>외부 은하</b>예요. 다른 은하도 눌러 보세요.') : '가운데가 <b>우리은하</b>예요. 둘레의 은하를 눌러 보세요.';
+    else if (s.step === 1) t = s.trails && s.a > .99 ? '대부분의 은하가 <b>우리은하에서 멀어졌어요</b>. 멀리 있던 은하일수록 자취가 길어요. <span class="sub">안드로메다은하는 예외로 조금 가까워졌어요.</span>' : '<b>시간 흐르게 하기</b>를 누르면 은하들이 어떻게 움직이는지 볼 수 있어요.';
+    else t = `기준: <b>${GX_BY[s.ref].name || '고른 은하'}</b> — 이 은하에서 보아도 대부분의 은하가 <b>멀어졌어요</b>. <span class="sub">다른 은하를 눌러 기준을 또 바꿔 보세요.</span>`;
+  } else if (s.mode === 'model') {
+    t = `함께 부푼 정도 <b class="num">×${s.k.toFixed(2)}</b> · 풍선 ${pairH(1, 3)} <b class="num">${cm1(tapeRead(MODEL_R0 * 2 * s.k, 1, 3))} cm</b>, 은하 ${pairH(1, 3)} 사이도 <b class="num">×${s.k.toFixed(2)}</b> · <span class="sub">붙임딱지와 은하의 크기는 그대로예요.</span>`;
+    setText('#kOut', `×${s.k.toFixed(2)}`);
+  } else {
+    const a = scaleAt(s.t);
+    t = s.t <= .01 ? '약 138억 년 전, 온도와 밀도가 매우 높은 한 점에서 <b>대폭발</b>이 일어났어요.' : s.t < GX_FORM[0] ? `${agoText(s.t)} — 우주는 아주 작고 뜨거웠고, 은하는 아직 없었어요.` : `${agoText(s.t)} · 은하 사이의 거리: 현재의 약 <b class="num">${pct(a)} %</b> <span class="sub">— 과거일수록 은하들이 더 가까이 모여 있었어요.</span>`;
+    setText('#tOut', agoText(s.t));
+    $$('#histChips .chip').forEach(c => c.setAttribute('aria-pressed', String(+c.dataset.t === Math.round(s.t))));
+  }
+  setHTML('#status', t);
+}
+function cosmosStatusLines() {
+  const s = cur.scene.s, st = STEPS[CZ.step];
+  const plain = h => h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  return { cond: `${CZ.step + 1}단계 · ${st.t}`, state: plain($('#status').innerHTML) };
+}
+
+/* ═════════════ ③ 객관식 문제 ═════════════ */
+function newMcq(shuffle) {
+  const perm = {};
+  MCQ.forEach(q => { const p = [0, 1, 2, 3, 4]; if (shuffle) for (let i = 4; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [p[i], p[j]] = [p[j], p[i]]; } perm[q.id] = p; });
+  return { order: MCQ.map(q => q.id), perm, cur: 0, ans: {}, done: false, round: (mcq && mcq.round || 0) + 1 };
+}
+if (!mcq || !mcq.order || mcq.order.some(id => !MCQ.find(q => q.id === id))) mcq = newMcq(false);
+function buildQuiz() {
+  const total = mcq.order.length, right = mcq.order.filter(id => mcq.ans[id] != null && mcq.ans[id] === MCQ.find(q => q.id === id).a).length;
+  const dots = mcq.order.map((id, i) => { const q = MCQ.find(x => x.id === id), a = mcq.ans[id]; const st = a == null ? '' : a === q.a ? 'ok' : 'bad'; return `<button class="qdot ${st}${i === mcq.cur && !mcq.done ? ' cur' : ''}" data-jump="${i}" aria-label="${i + 1}번 문제${st === 'ok' ? ' · 맞음' : st === 'bad' ? ' · 틀림' : ''}">${i + 1}</button>`; }).join('');
+  const head = `<header class="qz-head"><div><h1>객관식 문제</h1><p>풍선 실험과 우주 팽창을 ${total}문제로 확인해요. 숫자 키 <kbd>1</kbd>~<kbd>5</kbd>로도 고를 수 있어요.</p></div>
+    <div class="qz-score"><span>맞힌 문제</span><b class="num">${right}</b><span class="num">/ ${total}</span></div></header><nav class="qdots" aria-label="문제 번호">${dots}</nav>`;
+  let body;
+  if (mcq.done) {
+    const wrong = mcq.order.map((id, i) => ({ id, i })).filter(({ id }) => mcq.ans[id] !== MCQ.find(q => q.id === id).a);
+    body = `<section class="qz-card result"><p class="qz-k">결과</p><h2 class="res-big"><span class="num">${total}</span>문제 중 <span class="num">${right}</span>문제를 맞혔어요</h2>
+      <p class="res-line">${right === total ? '모든 문제를 맞혔어요. 탐구 질문에서 까닭을 내 문장으로 써 볼까요?' : right >= total * 0.7 ? '잘했어요! 틀린 문제의 해설을 한 번 더 읽어 보세요.' : '풍선 실험과 우주 팽창 화면에서 직접 확인하고 다시 도전해 보세요.'}</p>
+      ${wrong.length ? `<p class="qz-k">다시 볼 문제</p><div class="wrong-list">${wrong.map(({ id, i }) => `<button class="btn small" data-jump="${i}">${i + 1}번 · ${MCQ.find(q => q.id === id).tag}</button>`).join('')}</div>` : ''}
+      <div class="qz-acts"><button class="btn primary" id="mcqRetry">${icon('reset')}다시 도전하기</button>${wrong.length ? `<button class="btn" id="mcqWrong">틀린 문제만 다시 풀기</button>` : ''}<button class="btn ghost" data-go="inq">탐구 질문으로</button></div>
+      <p class="qz-foot"><a class="textlink" href="${CHANNELS.yt}" target="_blank" rel="noopener noreferrer" aria-label="송쌤과학 유튜브 채널 (새 창)"><svg class="ic yt-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS.yt}</svg>유튜브에서 더 보기</a></p></section>`;
+  } else {
+    const i = mcq.cur, id = mcq.order[i], q = MCQ.find(x => x.id === id), a = mcq.ans[id], answered = a != null, perm = mcq.perm[id];
+    const opts = perm.map((oi, k) => {
+      const isA = oi === q.a, chosen = a === oi;
+      const st = !answered ? '' : isA ? ' right' : chosen ? ' wrong' : ' dim';
+      return `<li><button class="opt${st}" data-opt="${oi}" ${answered ? 'aria-disabled="true"' : ''}><span class="on" aria-label="${k + 1}번">${k + 1}</span><span class="ot">${nbText(escapeHtml(q.opts[oi]))}</span>${answered && isA ? `<span class="om">${icon('check')}정답</span>` : answered && chosen ? `<span class="om">${icon('x')}내 답</span>` : ''}</button></li>`;
+    }).join('');
+    const fb = answered ? `<div class="qz-fb ${a === q.a ? 'ok' : 'bad'}" role="status"><p class="fb-h">${a === q.a ? '맞았어요!' : `아깝네요 — 정답은 ${perm.indexOf(q.a) + 1}번이에요.`}</p><p>${nbText(q.ex)}</p></div>` : '';
+    body = `<section class="qz-card"><p class="qz-k"><span class="qtag">${q.tag}</span> ${i + 1} / ${total}</p><h2 class="qz-q">${nbText(escapeHtml(q.q))}</h2>${q.fig ? `<div class="qz-fig">${q.fig()}</div>` : ''}
+      <ol class="opts" aria-label="보기">${opts}</ol>${fb}
+      <div class="qz-acts">${i > 0 ? `<button class="btn ghost" id="mcqPrev">이전 문제</button>` : ''}<span class="grow"></span>${answered ? (i < total - 1 ? `<button class="btn primary" id="mcqNext">다음 문제 ${icon('chev')}</button>` : `<button class="btn primary" id="mcqEnd">결과 보기 ${icon('chev')}</button>`) : `<span class="muted small">보기를 누르면 바로 채점해요</span>`}</div></section>`;
+  }
+  $('#main').innerHTML = `<section class="quiz"><div class="quiz-in narrow">${head}${body}</div></section>`;
+}
+function pickOpt(oi) {
+  if (mcq.done) return;
+  const id = mcq.order[mcq.cur]; if (mcq.ans[id] != null) return;
+  mcq.ans[id] = oi; store.set('mcq', mcq);
+  const q = MCQ.find(x => x.id === id);
+  announce(oi === q.a ? '맞았어요.' : '틀렸어요. 해설을 확인해 보세요.');
+  buildQuiz();
+  const nb = $('#mcqNext') || $('#mcqEnd'); if (nb) nb.focus({ preventScroll: true });
+}
+function mcqGo(i) { mcq.cur = clamp(i, 0, mcq.order.length - 1); mcq.done = false; store.set('mcq', mcq); buildQuiz(); $('#main').scrollTop = 0; }
+
+/* ═════════════ ④ 탐구 질문 (정식 §9 규칙) ═════════════ */
+const MIN_CHARS = 20;
+function buildInq() {
+  const done = INQ.filter(q => (answers[q.id] || '').trim().length > 0).length;
+  const cards = INQ.map((q, i) => `<details class="qcard" data-q="${q.id}" ${i === 0 ? 'open' : ''}>
+    <summary><span class="qn">${i + 1}</span><span class="qt">${q.short}</span><span class="badges" id="bd-${q.id}"></span>${icon('chev', 'chev')}</summary>
+    <div class="qbody">
+      <figure class="mini" id="mini-${q.id}"></figure>
+      <div class="qtext">
+        <p class="qq">${nbText(q.q)}</p><p class="qsrc">${q.src}</p>
+        <label class="alabel" for="ans-${q.id}">내 답안</label>
+        <textarea id="ans-${q.id}" data-ans="${q.id}" rows="4" placeholder="관찰한 내용을 바탕으로 내 문장으로 설명해 보세요. (두세 문장이면 충분해요)"></textarea>
+        <div class="arow"><span class="cnt" id="cnt-${q.id}"></span><span class="lockline" id="lk-${q.id}" hidden>${icon('lock')}처음 답안은 그대로 남겨 두었어요. 아래 다시 쓰기 칸에 새로 정리해 보세요.</span></div>
+        <div class="abtns"><button class="btn small" data-hint="${q.id}" aria-expanded="false">${icon('bulb')}힌트 보기</button><button class="btn small" data-model="${q.id}">${icon('book')}모범 답안 보기</button></div>
+        <div class="hintp" id="hint-${q.id}" hidden><p>${nbText(q.hint)}</p><small>힌트는 답안을 잠그지 않아요.</small></div>
+        <div class="modelp" id="model-${q.id}" hidden><h4>모범 답안 · 이렇게 쓰면 좋아요</h4><p>${nbText(q.model)}</p></div>
+        <div class="revp" id="rev-${q.id}" hidden><h4>${icon('pen')}모범 답안을 보고 다시 쓰기</h4><p class="revnote">처음 쓴 답안은 그대로 남습니다. 모범 답안과 견주어 빠뜨린 내용을 채워 내 문장으로 다시 정리해 보세요.</p>
+          <label class="sr-only" for="rv-${q.id}">다시 쓴 답안</label><textarea id="rv-${q.id}" data-rev="${q.id}" rows="4" placeholder="모범 답안에서 새로 알게 된 내용을 넣어 다시 써 보세요."></textarea><span class="cnt" id="rcnt-${q.id}"></span></div>
+      </div>
+    </div></details>`).join('');
+  $('#main').innerHTML = `<section class="quiz"><div class="quiz-in">
+    <header class="qz-head"><div><h1>탐구 질문</h1><p>간이 실험으로 상황을 확인하고, 내 문장으로 설명해 보세요.</p></div><div class="prog"><span id="progT">${done} / ${INQ.length} 작성</span><span class="dots" id="progD">${INQ.map(q => `<i class="${(answers[q.id] || '').trim() ? 'done' : ''}"></i>`).join('')}</span></div></header>
+    <div class="policy"><p>모범 답안을 열면 처음 쓴 답안은 그대로 잠기고, 그 아래에 <b>다시 쓰기</b> 칸이 열려요. 처음 답안을 고쳐 덮어쓰지 않으니 마음 편히 먼저 써 보세요.</p><p class="save-note">답안은 이 탭에서만 자동 저장돼요(탭을 닫으면 지워져요). 모범 답안은 ${MIN_CHARS}자 이상 쓴 뒤 열 수 있어요.</p></div>
+    <div class="qlist">${cards}</div>
+    <div class="quiz-end"><a class="textlink" href="${CHANNELS.yt}" target="_blank" rel="noopener noreferrer" aria-label="송쌤과학 유튜브 채널 (새 창)"><svg class="ic yt-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS.yt}</svg>유튜브에서 더 보기</a></div>
+  </div></section>`;
+  INQ.forEach(q => {
+    $(`#ans-${q.id}`).value = answers[q.id] || '';
+    $(`#rv-${q.id}`).value = revisions[q.id] || '';
+    syncCard(q.id);
+  });
+  openMini(INQ[0].id);
+}
+function syncCard(qid) {
+  const a = (answers[qid] || ''), n = a.trim().length, locked = !!locks[qid];
+  const ta = $(`#ans-${qid}`); if (!ta) return;
+  ta.readOnly = locked; ta.classList.toggle('locked', locked);
+  setText(`#cnt-${qid}`, `${n}자${!locked && n < MIN_CHARS ? ` · 모범 답안은 ${MIN_CHARS}자부터` : ''}`);
+  $(`#lk-${qid}`).hidden = !locked;
+  const mb = $(`[data-model="${qid}"]`);
+  mb.disabled = !locked && n < MIN_CHARS;
+  mb.title = mb.disabled ? `${MIN_CHARS}자 이상 쓰면 열 수 있어요` : '';
+  mb.innerHTML = locked ? `${icon('book')}모범 답안 ${$(`#model-${qid}`).hidden ? '보기' : '접기'}` : `${icon('book')}모범 답안 보기`;
+  if (locked) { $(`#rev-${qid}`).hidden = false; }
+  const rn = (revisions[qid] || '').trim().length; setText(`#rcnt-${qid}`, `${rn}자`);
+  const hb = $(`[data-hint="${qid}"]`); hb.setAttribute('aria-expanded', String(!$(`#hint-${qid}`).hidden));
+  setHTML(`#bd-${qid}`, [n ? '<span class="badge ok">작성함</span>' : '', locked ? `<span class="badge lock">${icon('lock')}처음 답안 잠김</span>` : '', rn ? `<span class="badge rev">${icon('pen')}다시 씀</span>` : '', hints[qid] ? '<span class="badge hint">힌트 봄</span>' : ''].join(''));
+  const done = INQ.filter(q => (answers[q.id] || '').trim().length > 0).length;
+  setText('#progT', `${done} / ${INQ.length} 작성`);
+  setHTML('#progD', INQ.map(q => `<i class="${(answers[q.id] || '').trim() ? 'done' : ''}"></i>`).join(''));
+}
+function askModel(qid) {
+  if (locks[qid]) { const m = $(`#model-${qid}`); m.hidden = !m.hidden; syncCard(qid); return; }
+  openModal('모범 답안을 볼까요?', `<p>모범 답안을 보면 지금까지 쓴 이 문항의 답안은 더 이상 고칠 수 없어요. 대신 모범 답안 아래에 <b>다시 쓰기</b> 칸이 열려요. 처음 답안과 다시 쓴 답안이 모두 이 화면에 남아요.</p>
+    <div class="dialog-actions"><button class="btn" data-close>조금 더 써 볼게요</button><button class="btn primary" id="modelYes">모범 답안 보기</button></div>`, {
+    narrow: true, onOpen: () => {
+      $('#modelYes').onclick = () => {
+        locks[qid] = true; store.set('locks', locks);
+        closeModal();
+        $(`#model-${qid}`).hidden = false; $(`#rev-${qid}`).hidden = false; syncCard(qid);
+        toast('모범 답안을 열었어요. 아래 ‘다시 쓰기’ 칸에 새로 정리해 보세요');
+        const r = $(`#rv-${qid}`); r.scrollIntoView({ block: 'center', behavior: REDUCED ? 'auto' : 'smooth' }); setTimeout(() => r.focus({ preventScroll: true }), 300);
+      };
+    },
+  });
+}
+/* 간이 실험: 실험대·우주 모형과 같은 클래스, 같은 모형. 실험대 상태(B·CZ)는 건드리지 않는다 */
+function openMini(qid) {
+  if (minis[qid]) return;
+  const q = INQ.find(x => x.id === qid), fig = $(`#mini-${qid}`); if (!fig) return;
+  const M = q.mini, m = minis[qid] = { q };
+  const ctl = [];
+  if (M.type === 'balloon') {
+    if (M.refs) ctl.push(`<span class="mk">기준</span>` + seg(`mref-${qid}`, M.refs.map(n => [n, nb(n)]), M.state.ref, '기준 붙임딱지'));
+    ctl.push(`<div class="chips" role="group" aria-label="풍선 지름">${M.chips.map(d => `<button class="chip" data-md="${d}" data-q="${qid}" aria-pressed="${d === M.state.D}">${d / 10}<span class="u">cm</span></button>`).join('')}</div>`);
+    ctl.push(`<input type="range" class="mrng" data-mrng="${qid}" min="${D_MIN}" max="${D_BIG}" step="5" value="${M.state.D}" aria-label="풍선 지름 (cm)">`);
+  } else if (M.type === 'bread') {
+    ctl.push(`<button class="btn small" data-mplay="${qid}">${icon('play')}굽기</button><input type="range" class="mrng" data-mk="${qid}" min="1" max="1.6" step=".05" value="1" aria-label="반죽이 부푼 정도">`);
+  } else {
+    ctl.push(`<div class="chips" role="group" aria-label="때">${M.chips.map(([t, l]) => `<button class="chip" data-mt="${t}" data-q="${qid}" aria-pressed="${t === T0}">${l}</button>`).join('')}</div><input type="range" class="mrng" data-mtr="${qid}" min="0" max="${T0}" step="1" value="${T0}" aria-label="대폭발 뒤 흐른 시간 (억 년)">`);
+  }
+  ctl.push(`<button class="btn small ghost" data-mreset="${qid}">${icon('reset')}처음으로</button>`);
+  fig.innerHTML = `<figcaption><span class="tag">간이 실험</span><b>${M.title}</b><span class="how">${nbText(M.how)}</span></figcaption>
+    <div class="mini-stage mini-${M.type}" id="ms-${qid}"></div><p class="mini-result" id="mr-${qid}" aria-live="polite"></p><div class="mini-ctl">${ctl.join('')}</div>`;
+  const host = $(`#ms-${qid}`), upd = () => miniResult(qid);
+  if (M.type === 'balloon') { m.state = Object.assign({ out: OUT_MIN, pend: null, pumped: true }, JSON.parse(JSON.stringify(M.state))); m.scene = new BalloonScene(host, { state: m.state, mini: true, noCoach: true, targets: M.targets || null, prefix: 'm' + qid, onChange: upd }); }
+  else if (M.type === 'bread') { m.state = { k: 1 }; m.scene = new BreadScene(host, { state: m.state, prefix: 'm' + qid, onChange: upd }); }
+  else { m.state = { mode: 'history', t: T0 }; m.scene = new CosmosScene(host, { state: m.state, prefix: 'm' + qid, mini: true, vb: [0, 20, 1000, 600] }); }
+  m.scene.build();
+  miniResult(qid);
+}
+function miniResult(qid) {
+  const m = minis[qid]; if (!m) return;
+  const M = m.q.mini, s = m.state;
+  let t = '';
+  if (M.type === 'balloon') {
+    const D = s.D;
+    if (M.targets) t = `지름 <b class="num">${cm1(D)} cm</b> · ` + M.targets.map(j => `${pairH(s.ref, j)} <b class="num">${cm1(tapeRead(D, s.ref, j))} cm</b> <span class="sub">(12 cm일 때 ${cm1(tapeRead(D_SMALL, s.ref, j))} cm)</span>`).join(' · ');
+    else if (s.mode === 'all') { const others = STICKERS.filter(x => x.n !== s.ref); t = `기준 ${nb(s.ref)} · 지름 <b class="num">${cm1(D)} cm</b> · ` + others.map(x => `${nb(x.n)} <b class="num">${cm1(tapeRead(D, s.ref, x.n))}</b>`).join(' · ') + ' cm' + (Math.abs(D - D_SMALL) > 2 ? ` <span class="sub">(12 cm일 때보다 ${others.length}개 모두 ${(D / D_SMALL).toFixed(1)}배)</span>` : ''); }
+    else t = `지름 <b class="num">${cm1(D)} cm</b> · 격자 한 칸 <b class="num">${cm1(gridCellMM(D))} cm</b> · 붙임딱지 지름 <b class="num">2.0 cm</b> · ${pairH(...s.pair)} <b class="num">${cm1(tapeRead(D, ...s.pair))} cm</b>`;
+    $$(`[data-md][data-q="${qid}"]`).forEach(c => c.setAttribute('aria-pressed', String(Math.abs(+c.dataset.md - D) < .5)));
+    const r = $(`[data-mrng="${qid}"]`); if (r && document.activeElement !== r) r.value = Math.round(D / 5) * 5;
+    if (M.refs) syncSeg(`mref-${qid}`, s.ref);
+  } else if (M.type === 'bread') {
+    t = `반죽이 <b class="num">×${s.k.toFixed(2)}</b> 부풀었어요 · 건포도 A–B <b class="num">${cm1(raisinMM(s.k, 'A', 'B'))} cm</b> · A–C <b class="num">${cm1(raisinMM(s.k, 'A', 'C'))} cm</b> · 건포도 크기는 그대로`;
+    const r = $(`[data-mk="${qid}"]`); if (r && document.activeElement !== r) r.value = s.k;
+  } else {
+    t = s.t <= .01 ? '대폭발 — 온도와 밀도가 매우 높은 한 점' : s.t < GX_FORM[0] ? `${agoText(s.t)} · 은하가 아직 없어요` : `${agoText(s.t)} · 은하 사이의 거리: 현재의 약 <b class="num">${pct(scaleAt(s.t))} %</b>`;
+    $$(`[data-mt][data-q="${qid}"]`).forEach(c => c.setAttribute('aria-pressed', String(+c.dataset.mt === Math.round(s.t))));
+    const r = $(`[data-mtr="${qid}"]`); if (r && document.activeElement !== r) r.value = Math.round(s.t);
+  }
+  setHTML(`#mr-${qid}`, t);
+}
+function miniAct(el) {
+  const qid = el.dataset.q || el.closest('figure.mini').id.replace('mini-', ''), m = minis[qid]; if (!m) return;
+  if (el.dataset.md) { m.scene.setD(+el.dataset.md, true); return; }
+  if (el.dataset.mt != null && el.dataset.mt !== '') { m.state.t = +el.dataset.mt; m.scene.render(); miniResult(qid); return; }
+  if (el.dataset.mplay) { m.scene.setK(m.state.k >= 1.45 ? 1 : 1.5, true); return; }
+  if (el.dataset.mreset != null) {
+    const M = m.q.mini;
+    if (M.type === 'balloon') { m.scene.stop(); Object.assign(m.state, JSON.parse(JSON.stringify(M.state)), { pend: null }); m.scene.render(); }
+    else if (M.type === 'bread') m.scene.setK(1, false);
+    else { m.state.t = T0; m.scene.render(); }
+    miniResult(qid); return;
+  }
+}
+
+/* ═════════════ 원리 카드 · 도움말 · 모달 ═════════════ */
+let modalReturn = null, drawerReturn = null;
+function openModal(title, body, o = {}) {
+  const d = $('#modal');
+  modalReturn = document.activeElement;
+  $('#modalTitle').textContent = title; $('#modalBody').innerHTML = body;
+  d.classList.toggle('narrow', !!o.narrow);
+  if (!d.open) d.showModal();
+  o.onOpen && o.onOpen();
+}
+function closeModal() { const d = $('#modal'); if (d.open) d.close(); }
+function theoryLink(c) {
+  if (c.id === 'model') {
+    const M = recModel(), ch = M.change('1-3');
+    if (ch && ch.d1 > ch.d0) return `내 기록에서도 ①–③이 지름 ${cm1(ch.d0)} cm일 때 ${cm1(ch.v0)} cm에서 지름 ${cm1(ch.d1)} cm일 때 ${cm1(ch.v1)} cm가 되었어요.`;
+    return `풍선 실험에서 지름 12 cm → 24 cm로 불면 ①–③이 ${cm1(tapeRead(D_SMALL, 1, 3))} cm에서 ${cm1(tapeRead(D_BIG, 1, 3))} cm가 돼요. 붙임딱지 지름은 2.0 cm 그대로예요.`;
+  }
+  if (c.id === 'outer') return '‘우주 팽창’ 화면 1단계에서 은하를 눌러 우리은하와 외부 은하를 찾아볼 수 있어요.';
+  if (c.id === 'center') return '풍선 실험에서 ‘한 붙임딱지에서 모두’를 켜고 기준을 바꿔도 다른 붙임딱지까지의 거리가 모두 늘어나요.';
+  return `‘우주 팽창’ 화면 5단계에서 시간을 100억 년 전으로 옮기면 은하 사이의 거리가 현재의 약 ${pct(scaleAt(38))} %예요.`;
+}
+function openTheory(focusId) {
+  const d = $('#drawer');
+  drawerReturn = document.activeElement;
+  $('#drawerBody').innerHTML = THEORY.map(c => `<article class="card" id="tc-${c.id}"><p class="k">${c.k}</p><h3>${c.title}</h3><div class="fig">${theoryFig(c.fig)}</div>
+    <p class="def">${c.def}</p><ul>${c.body.map(b => `<li>${nbText(b)}</li>`).join('')}</ul><p class="link-line">${icon('flask')}<span>${nbText(theoryLink(c))}</span></p>
+    <button class="btn small" data-go="${c.link[0]}" ${c.link[1] != null ? `data-step="${c.link[1]}"` : ''}>관련 화면으로 가기 ${icon('chev')}</button></article>`).join('');
+  if (!d.open) d.showModal();
+  if (focusId) { const t = $('#tc-' + focusId); if (t) t.scrollIntoView({ block: 'start' }); }
+}
+function openHelp() {
+  openModal('도움말', `<div class="help-doc">
+    <h3>이렇게 해 보세요</h3>
+    <ol><li><b>풍선 실험</b> — 펌프 손잡이를 끌어 오른쪽으로 밀거나 <b>공기 넣기</b>(누르고 있으면 계속)를 눌러 풍선을 불어요. 줄자로 두 붙임딱지 사이를 재고 <b>기록하기</b>. 조금 분 풍선과 많이 분 풍선에서 같은 쌍을 재어 기록표의 ‘늘어난 길이’를 비교해요. <b>한 붙임딱지에서 모두</b>로 바꾸면 기준에서 모든 붙임딱지까지 한꺼번에 재요.</li>
+      <li><b>우주 팽창</b> — 다섯 단계(외부 은하 → 멀어지는 외부 은하 → 중심이 없는 팽창 → 풍선 모형과 우주 → 팽창하는 우주의 과거)를 차례로 조작하며 읽어요.</li>
+      <li><b>객관식 문제</b> ${MCQ.length}문제와 <b>탐구 질문</b> ${INQ.length}문항으로 정리해요.</li></ol>
+    <h3>단축키</h3>
+    <p class="keys"><kbd>F</kbd> 전체화면 · <kbd>D</kbd> 다크/라이트 · <kbd>H</kbd> 도움말 · <kbd>C</kbd> 결과 저장(실험·우주 팽창 화면) · <kbd>Esc</kbd> 창 닫기·전체화면 나가기<br>펌프 손잡이에 포커스를 두고 <kbd>Enter</kbd>(펌프질 한 번) · <kbd>→</kbd>(조금 밀기) · <kbd>←</kbd>(당기기) · 붙임딱지에 포커스를 두고 <kbd>Enter</kbd>(고르기) · 객관식 <kbd>1</kbd>~<kbd>5</kbd></p>
+    <h3>결과 저장</h3>
+    <p>화면 오른쪽 위 <b>결과 저장</b>(또는 <kbd>C</kbd>)을 누르면 지금 장면과 조건·값이 담긴 PNG 한 장이 기기의 다운로드 폴더에 저장돼요(iPad는 저장 확인 창).</p>
+    <h3>모형의 조건과 한계</h3>
+    <ul><li>풍선 몸통은 공 모양으로 보고, 불면 모양은 그대로 크기만 커진다고 가정했어요. 그래서 표면의 모든 거리가 같은 배율로 늘어나요. 실제 풍선은 목 쪽이 덜 늘어나는 등 조금 다를 수 있어요.</li>
+      <li>거리는 붙임딱지 중심 사이를 풍선 표면을 따라(가장 짧은 길) 잰 값이고, 줄자는 0.1 cm(1 mm) 단위로 읽어요. 붙임딱지는 지름 2 cm로 크기가 변하지 않아요.</li>
+      <li>펌프 한 번에 들어가는 공기(0.8 L)는 체험을 위해 실제 풍선 펌프보다 크게 잡았어요. 풍선은 지름 ${cm1(D_MAX)} cm까지만 불어요.</li>
+      <li>마커 격자는 풍선에 펜으로 그린 선이라고 가정했어요. 고무와 함께 늘어나므로 우주 공간을 나타내는 데 써요.</li>
+      <li>은하 그림의 크기와 거리는 실제 비율과 달라요. 안드로메다은하처럼 아주 가까운 은하는 우주 팽창을 따르지 않아 예외로 그렸어요.</li>
+      <li>‘팽창하는 우주의 과거’의 크기 변화는 현재 과학자들이 쓰는 우주 모형 값으로 그렸어요. 원은 우주 전체가 아니라 우주의 한 부분을 나타내요.</li>
+      <li>성취기준 해설에 따라 적색 편이·허블 법칙·가속 팽창 같은 심화 내용은 다루지 않아요.</li></ul>
+    <h3>출처와 제작</h3>
+    <p>2022 개정 중학교 과학 ‘별과 우주’ 단원 여러 교과서의 탐구(풍선 모형으로 알아보는 우주 팽창, 풍선으로 우주 팽창 알아보기, 풍선 팽창으로 우주 팽창 설명하기)를 참고해 새로 구성했어요. 성취기준 [9과15-03] 모형을 이용하여 우주가 팽창하고 있음을 설명할 수 있다.</p>
+    <h3>기록 지우기</h3>
+    <p>기록표·객관식·탐구 질문 답안은 이 탭에만 저장되고, 탭을 닫으면 지워져요.</p>
+    <button class="btn" id="wipeBtn">${icon('trash')}이 탭의 모든 기록 지우기</button>
+    <div class="brandblock">🧪 송쌤과학 (Song Ssaem Science)<br>ⓒ 2026 송세호 | 아주중학교<br>📺 YouTube: <a href="${CHANNELS.yt}" target="_blank" rel="noopener noreferrer">@songsamscience</a> 📷 Instagram: <a href="${CHANNELS.ig}" target="_blank" rel="noopener noreferrer">@songsamscience</a><br>⚠ 무단 복제·상업적 이용 금지</div>
+    <p class="ver-line">v${APP_VERSION} · ${APP_DATE}</p></div>`, {
+    onOpen: () => {
+      $('#wipeBtn').onclick = () => openModal('모든 기록을 지울까요?', `<p>이 탭에 남은 다음 기록이 모두 지워져요.</p><ul class="wipe-list"><li>풍선 실험 기록표와 풍선 상태</li><li>우주 팽창 화면의 단계와 설정</li><li>객관식 답과 탐구 질문 답안(처음 답안 잠금·다시 쓴 답안 포함)</li></ul><p class="muted">테마 설정은 남아요.</p>
+        <div class="dialog-actions"><button class="btn" data-close>그대로 두기</button><button class="btn primary" id="wipeYes">모두 지우기</button></div>`, {
+        narrow: true, onOpen: () => {
+          $('#wipeYes').onclick = () => {
+            LEARN_KEYS.forEach(k => store.del(k));
+            recs = []; answers = {}; revisions = {}; locks = {}; hints = {}; foundOnce = false;
+            Object.assign(B, BENCH0()); Object.assign(CZ, COSMOS0());
+            mcq = null; mcq = newMcq(false);
+            closeModal(); go(S.screen); toast('이 탭의 기록을 모두 지웠어요.');
+          };
+        },
+      });
+    },
+  });
+}
+
+/* ═════════════ 결과 저장 (PNG) ═════════════ */
+const INLINE_PROPS = ['fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width', 'stroke-opacity', 'stroke-dasharray', 'stroke-dashoffset', 'stroke-linecap', 'stroke-linejoin', 'opacity', 'font-family', 'font-size', 'font-weight', 'text-anchor', 'dominant-baseline', 'paint-order', 'stop-color', 'stop-opacity', 'display', 'visibility', 'letter-spacing', 'font-variant-numeric', 'mix-blend-mode'];
+function inlineTree(src, dst) {
+  const cs = getComputedStyle(src);
+  let st = '';
+  for (const p of INLINE_PROPS) { const v = cs.getPropertyValue(p); if (v !== '' && v !== 'normal' || p === 'fill') st += `${p}:${v};`; }
+  dst.setAttribute('style', st); dst.removeAttribute('class');
+  const a = src.children, b = dst.children;
+  for (let i = 0; i < a.length && i < b.length; i++) inlineTree(a[i], b[i]);
+}
+function svgToImage(svg, outW) {
+  const clone = svg.cloneNode(true);
+  inlineTree(svg, clone);
+  clone.querySelectorAll('.focus-ring,[data-noexport]').forEach(e => e.remove());
+  clone.querySelectorAll('[tabindex]').forEach(e => e.removeAttribute('tabindex'));
+  const vb = svg.viewBox.baseVal, outH = Math.round(outW * vb.height / vb.width);
+  clone.setAttribute('width', outW); clone.setAttribute('height', outH); clone.setAttribute('xmlns', NS);
+  clone.style.removeProperty('--px');
+  const data = new XMLSerializer().serializeToString(clone);
+  const url = URL.createObjectURL(new Blob([data], { type: 'image/svg+xml;charset=utf-8' }));
+  return new Promise((ok, no) => { const img = new Image(); img.onload = () => { URL.revokeObjectURL(url); ok({ img, w: outW, h: outH }); }; img.onerror = e => { URL.revokeObjectURL(url); no(e); }; img.src = url; });
+}
+function wrapText(ctx, text, maxW) {
+  const words = text.split(' '), lines = []; let line = '';
+  for (const w of words) { const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > maxW && line) { lines.push(line); line = w; } else line = t; }
+  if (line) lines.push(line);
+  return lines;
+}
+async function capture() {
+  if (!isLab()) return;
+  const btn = $('#saveBtn'); if (!btn || btn.getAttribute('aria-busy') === 'true') return;
+  btn.setAttribute('aria-busy', 'true');
+  const slow = setTimeout(() => toast('결과 이미지를 만드는 중이에요…'), 700);
+  try {
+    const css = getComputedStyle(document.documentElement), tok = n => css.getPropertyValue(n).trim();
+    const sc = SCREEN_BY[S.screen];
+    const svg = cur.scene && cur.scene.svg; if (!svg) throw new Error('noscene');
+    let lines;
+    if (S.screen === 'bench') {
+      lines = cur.scene.statusLines();
+      const M = recModel();
+      if (recs.length) lines.state += ' · 기록: ' + M.rows.map(k => { const [a, b] = k.split('-').map(Number); return `${pairName(a, b)} ` + M.sizes.filter(D => M.val(k, D) != null).map(D => `${cm1(M.val(k, D))}(지름 ${cm1(D)})`).join('→'); }).join(', ') + ' cm';
+    } else lines = cosmosStatusLines();
+    const r = svg.getBoundingClientRect(), vb = svg.viewBox.baseVal, fit = Math.min(r.width / vb.width, r.height / vb.height);
+    const outW = Math.round(Math.min(2400, Math.max(1200, vb.width * fit * 2)));
+    const g = await svgToImage(svg, outW);
+    await band(outW, g.h, [{ img: g.img, x: 0, y: 0, w: g.w, h: g.h }], lines, sc, tok);
+    if (!REDUCED) { const f = document.createElement('div'); f.className = 'shutter'; $('#stage').appendChild(f); setTimeout(() => f.remove(), 340); }
+  } catch (e) {
+    toast('이미지로 저장하지 못했어요. 기기의 화면 캡처를 이용해 주세요.', { error: true });
+  } finally { clearTimeout(slow); btn.removeAttribute('aria-busy'); }
+}
+async function band(outW, outH, parts, lines, sc, tok) {
+  const cv = document.createElement('canvas'), ctx = cv.getContext('2d');
+  const k = outW / 1200, pad = 28 * k, font = n => `${n}px 'Pretendard Variable', Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif`;
+  ctx.font = `500 ${font(17 * k)}`;
+  const rightW = 330 * k, textW = outW - pad * 3 - rightW;
+  const condL = wrapText(ctx, lines.cond, textW), stateL = wrapText(ctx, lines.state, textW);
+  const bandH = pad * 2 + 48 * k + (condL.length + stateL.length) * 26 * k;
+  cv.width = outW; cv.height = Math.round(outH + bandH);
+  ctx.fillStyle = tok('--surface-1'); ctx.fillRect(0, 0, cv.width, cv.height);
+  for (const p of parts) ctx.drawImage(p.img, p.x, p.y, p.w, p.h);
+  ctx.fillStyle = tok('--line-2'); ctx.fillRect(0, outH, outW, Math.max(1, k));
+  let y = outH + pad + 14 * k;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = tok('--text-2'); ctx.font = `600 ${font(14 * k)}`; ctx.fillText('실험 결과 · 송쌤과학 가상실험실', pad, y);
+  y += 30 * k; ctx.fillStyle = tok('--text-1'); ctx.font = `800 ${font(22 * k)}`; ctx.fillText(`${LAB_TITLE} — ${sc.title}`, pad, y);
+  ctx.font = `500 ${font(17 * k)}`; ctx.fillStyle = tok('--text-1');
+  for (const l of condL) { y += 26 * k; ctx.fillText(l, pad, y); }
+  ctx.fillStyle = tok('--text-2');
+  for (const l of stateL) { y += 26 * k; ctx.fillText(l, pad, y); }
+  const now = new Date(), p2 = n => String(n).padStart(2, '0');
+  ctx.textAlign = 'right'; let ry = outH + pad + 30 * k; const rx = outW - pad;
+  ctx.fillStyle = tok('--text-2'); ctx.font = `500 ${font(15 * k)}`;
+  ctx.fillText(`${now.getFullYear()}-${p2(now.getMonth() + 1)}-${p2(now.getDate())} ${p2(now.getHours())}:${p2(now.getMinutes())}`, rx, ry); ry += 26 * k;
+  ctx.fillText('© 송쌤과학 · @songsamscience', rx, ry);
+  ctx.textAlign = 'left';
+  const blob = await new Promise(ok => cv.toBlob(ok, 'image/png'));
+  if (!blob) throw new Error('blob');
+  const fname = `${LAB_FILE}_실험결과_${now.getFullYear()}${p2(now.getMonth() + 1)}${p2(now.getDate())}-${p2(now.getHours())}${p2(now.getMinutes())}.png`.replace(/[\\/:*?"<>|\s]/g, '');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  window.__lastCapture = { name: fname, w: cv.width, h: cv.height, url: cv.toDataURL('image/png') };
+  toast(`실험 결과를 PNG로 저장했어요 — ${fname}`);
+}
+
+/* ═════════════ 공기 넣기(누르고 있으면 계속) ═════════════ */
+let airTimer = 0;
+function clearAir() { clearInterval(airTimer); airTimer = 0; }
+function airStart() {
+  if (!cur.scene || S.screen !== 'bench') return;
+  cur.scene.stroke();
+  clearAir();
+  airTimer = setInterval(() => { if (!cur.scene || S.screen !== 'bench') return clearAir(); cur.scene.stroke(); }, REDUCED ? 260 : 600);
+}
+
+/* ═════════════ 이벤트 ═════════════ */
+function bind() {
+  document.addEventListener('click', e => {
+    const t = e.target.closest('button,a,[data-go]'); if (!t) return;
+    if (t.matches('[data-close]')) { const d = t.closest('dialog'); if (d) d.close(); return; }
+    if (t.dataset.go) { if ($('#drawer').open) $('#drawer').close(); go(t.dataset.go, { step: t.dataset.step != null ? +t.dataset.step : null }); return; }
+    const id = t.id;
+    if (id === 'themeBtn') return toggleTheme();
+    if (id === 'fullBtn') return toggleFull();
+    if (id === 'helpBtn' || id === 'dHelp') { if ($('#drawer').open) $('#drawer').close(); return openHelp(); }
+    if (id === 'bookBtn') return openTheory();
+    if (id === 'saveBtn') return capture();
+    // 풍선 실험
+    if (S.screen === 'bench' && cur.scene) {
+      if (t.dataset.size) { cur.scene.setD(+t.dataset.size, true); B.pumped = true; return; }
+      if (t.closest('#modeSeg')) { B.mode = t.dataset.v; B.pend = null; cur.scene.render(); syncBench(); saveBench(); return; }
+      if (id === 'gridTog') { B.grid = !B.grid; cur.scene.render(); syncBench(); saveBench(); return; }
+      if (t.dataset.pair) { B.pair = t.dataset.pair.split('-').map(Number); B.pend = null; cur.scene.render(); syncBench(); saveBench(); return; }
+      if (t.dataset.ref) { B.ref = +t.dataset.ref; cur.scene.render(); syncBench(); saveBench(); return; }
+      if (id === 'recBtn') return record();
+      if (id === 'airBtn') { if (e.detail === 0) cur.scene.stroke(); B.pumped = true; return; }
+      if (id === 'undoRec') { if (!recs.length) return; const last = recs[recs.length - 1].id.split('-')[0]; recs = recs.filter(r => r.id.split('-')[0] !== last); store.set('recs', recs); renderRecs(); announce('마지막 기록을 지웠어요.'); return; }
+      if (id === 'clearRec') { if (!recs.length) return; const n = recs.length; recs = []; foundOnce = false; store.set('recs', recs); renderRecs(); toast(`기록 ${n}개를 지웠어요.`); return; }
+      if (id === 'resetBench') { cur.scene.stop(); Object.assign(B, BENCH0(), { pumped: B.pumped }); cur.scene.render(); syncBench(); renderRecs(); saveBench(); announce('처음 조건(지름 12 cm, 줄자 ①–②)으로 돌렸어요. 기록은 그대로예요.'); return; }
+    }
+    // 우주 팽창
+    if (S.screen === 'cosmos' && cur.scene) {
+      if (t.dataset.step != null && t.closest('#steps')) { CZ.step = +t.dataset.step; saveCosmos(); buildCosmos(); return; }
+      if (id === 'stNext') { CZ.step = Math.min(STEPS.length - 1, CZ.step + 1); saveCosmos(); buildCosmos(); $('#stNext') ? $('#stNext').focus({ preventScroll: true }) : 0; return; }
+      if (id === 'stPrev') { CZ.step = Math.max(0, CZ.step - 1); saveCosmos(); buildCosmos(); return; }
+      if (id === 'cPlay') { cur.scene.play(.8); return; }
+      if (id === 'cBack') { cur.scene.stop(); Object.assign(cur.scene.s, { a: .8, a0: .8, trails: false }); cur.scene.render(); syncCosmos(); return; }
+      if (id === 'cgGrid') { const s = cur.scene.s; s.grid = !s.grid; t.setAttribute('aria-pressed', String(s.grid)); cur.scene.render(); return; }
+      if (t.closest('#refSeg')) { CZ.ref = t.dataset.v; saveCosmos(); syncSeg('refSeg', CZ.ref); cur.scene.setRef(CZ.ref); return; }
+      if (t.dataset.t != null && t.closest('#histChips')) { CZ.t = +t.dataset.t; saveCosmos(); cur.scene.s.t = CZ.t; cur.scene.render(); $('#tRng').value = CZ.t; syncCosmos(); return; }
+    }
+    // 객관식
+    if (t.dataset.opt != null && t.closest('.opts')) return pickOpt(+t.dataset.opt);
+    if (id === 'mcqNext') return mcqGo(mcq.cur + 1);
+    if (id === 'mcqPrev') return mcqGo(mcq.cur - 1);
+    if (id === 'mcqEnd') { mcq.done = true; store.set('mcq', mcq); buildQuiz(); return; }
+    if (t.dataset.jump != null) return mcqGo(+t.dataset.jump);
+    if (id === 'mcqRetry') { mcq = newMcq(true); store.set('mcq', mcq); buildQuiz(); toast('보기 순서를 섞었어요. 다시 도전!'); return; }
+    if (id === 'mcqWrong') { const wrong = mcq.order.filter(qid => mcq.ans[qid] !== MCQ.find(q => q.id === qid).a); const n = newMcq(true); n.order = wrong; mcq = n; store.set('mcq', mcq); buildQuiz(); return; }
+    // 탐구 질문
+    if (t.dataset.hint) { const h = $(`#hint-${t.dataset.hint}`); h.hidden = !h.hidden; if (!h.hidden) { hints[t.dataset.hint] = true; store.set('hints', hints); } syncCard(t.dataset.hint); return; }
+    if (t.dataset.model) return askModel(t.dataset.model);
+    if (t.dataset.md || t.dataset.mt != null || t.dataset.mplay || t.dataset.mreset != null) return miniAct(t);
+    const fig = t.closest('figure.mini');
+    if (fig && t.closest('.seg')) {
+      const qid = fig.id.replace('mini-', ''), m = minis[qid]; if (!m) return;
+      if (t.closest('.seg').id.startsWith('mref')) { m.state.ref = +t.dataset.v; m.scene.render(); }
+      miniResult(qid);
+    }
+  });
+  // 공기 넣기: 누르고 있으면 계속 펌프질
+  document.addEventListener('pointerdown', e => { const b = e.target.closest('#airBtn'); if (!b || e.button !== 0) return; airStart(); B.pumped = true; });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => document.addEventListener(ev, e => { if (airTimer && (ev !== 'pointerleave' || e.target.closest && e.target.closest('#airBtn'))) clearAir(); }, true));
+  document.addEventListener('input', e => {
+    const t = e.target;
+    if (t.dataset.ans) { if (locks[t.dataset.ans]) return; answers[t.dataset.ans] = t.value; store.set('answers', answers); syncCard(t.dataset.ans); return; }
+    if (t.dataset.rev) { revisions[t.dataset.rev] = t.value; store.set('revisions', revisions); syncCard(t.dataset.rev); return; }
+    if (t.id === 'dRng' && cur.scene) { cur.scene.setD(+t.value, false); B.pumped = true; return; }
+    if (t.id === 'kRng' && cur.scene) { CZ.k = +t.value; cur.scene.s.k = CZ.k; cur.scene.render(); syncCosmos(); saveCosmos(); return; }
+    if (t.id === 'tRng' && cur.scene) { CZ.t = +t.value; cur.scene.s.t = CZ.t; cur.scene.render(); syncCosmos(); saveCosmos(); return; }
+    if (t.dataset.mrng) { const m = minis[t.dataset.mrng]; if (m) m.scene.setD(+t.value, false); return; }
+    if (t.dataset.mk) { const m = minis[t.dataset.mk]; if (m) m.scene.setK(+t.value, false); return; }
+    if (t.dataset.mtr) { const m = minis[t.dataset.mtr]; if (m) { m.state.t = +t.value; m.scene.render(); miniResult(t.dataset.mtr); } return; }
+  });
+  document.addEventListener('toggle', e => { const d = e.target; if (d.matches && d.matches('details.qcard') && d.open) openMini(d.dataset.q); }, true);
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t.closest && t.closest('textarea,select,[contenteditable="true"],input:not([type=range]):not([type=checkbox]):not([type=radio])')) return;
+    if ($('#modal').open && !['Escape'].includes(e.key)) { if (!['f', 'd', 'F', 'D'].includes(e.key)) return; }
+    const k = e.key.toLowerCase();
+    if (k === 'f') { e.preventDefault(); toggleFull(); }
+    else if (k === 'd') { e.preventDefault(); toggleTheme(); }
+    else if (k === 'h') { e.preventDefault(); openHelp(); }
+    else if (k === 'c' && isLab()) { e.preventDefault(); capture(); }
+    else if (S.screen === 'quiz' && /^[1-5]$/.test(e.key) && !mcq.done) {
+      const id = mcq.order[mcq.cur]; if (mcq.ans[id] == null) { e.preventDefault(); pickOpt(mcq.perm[id][+e.key - 1]); }
+    }
+  });
+  $$('dialog').forEach(d => d.addEventListener('close', () => {
+    const r = d.id === 'drawer' ? drawerReturn : modalReturn;
+    if (r && r.isConnected) r.focus({ preventScroll: true });
+  }));
+  $$('dialog').forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+  document.addEventListener('fullscreenchange', syncFull);
+  let rt = 0;
+  addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { if (cur.scene && cur.scene.fitText) cur.scene.fitText(); Object.values(minis).forEach(m => m.scene && m.scene.fitText && m.scene.fitText()); }, 120); });
+}
+
+/* ═════════════ 시작 ═════════════ */
+function init() {
+  $('#yt').innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS.yt}</svg>`;
+  $('#ig').innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS.ig}</svg>`;
+  $('#brandIc').innerHTML = icon('flask');
+  $('#bookBtn').innerHTML = icon('book'); $('#helpBtn').innerHTML = icon('help');
+  $$('[data-close]').forEach(b => { if (!b.innerHTML.trim()) b.innerHTML = icon('x'); });
+  applyTheme(document.documentElement.dataset.theme || 'dark');
+  syncFull();
+  bind();
+  go(S.screen);
+}
+init();
+
+</script>
+</body>
+</html>
