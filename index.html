@@ -1559,7 +1559,7 @@ function modelSVG(p, k, o = {}) {
     s += `<text class="fig-h" x="${L[0]}" y="${ty}">풍선 모형</text><text class="fig-h" x="${U[0]}" y="${ty}">우주</text>`;
     const rows = [['풍선 표면', '우주 공간'], ['붙임딱지', '은하'], ['풍선이 부푼다', '우주가 팽창한다']];
     rows.forEach((r, i) => {
-      const y = ty + 30 + i * 28;
+      const y = ty + Math.max(30, fs * 1.25) + i * Math.max(28, fs * 1.1);
       s += `<text class="map-l" x="${f1(500 - 22)}" y="${y}">${r[0]}</text><path class="map-a" d="M${500 - 14} ${y - 5}H${500 + 14}M${500 + 8} ${y - 10}L${500 + 14} ${y - 5}L${500 + 8} ${y}M${500 - 8} ${y - 10}L${500 - 14} ${y - 5}L${500 - 8} ${y}"/><text class="map-r" x="${f1(500 + 22)}" y="${y}">${r[1]}</text>`;
     });
   }
@@ -1885,7 +1885,7 @@ const store = {
 };
 
 /* ── 상태 ── */
-const BENCH0 = () => ({ D: D_SMALL, pair: [1, 2], mode: 'tape', ref: 1, grid: false, ghost: false, ghostD: D_SMALL, out: OUT_MIN, pend: null, pumped: false });
+const BENCH0 = () => ({ D: D_SMALL, pair: [1, 2], mode: 'tape', ref: 1, grid: false, ghost: false, ghostD: D_SMALL, out: OUT_MAX, pend: null, pumped: false });
 const COSMOS0 = () => ({ step: 0, ref: 'mw', k: 1, t: T0 });
 const S = Object.assign({ screen: 'bench' }, store.get('ui', {}));
 const B = Object.assign(BENCH0(), store.get('bench', {}));
@@ -1898,7 +1898,7 @@ let cur = { scene: null };
 const minis = {};
 let freshKey = null, foundOnce = false;
 function saveUI() { store.set('ui', S); }
-function saveBench() { const { D, pair, mode, ref, grid, ghost, pumped } = B; store.set('bench', { D, pair, mode, ref, grid, ghost, pumped, out: OUT_MIN }); }
+function saveBench() { const { D, pair, mode, ref, grid, ghost, pumped } = B; store.set('bench', { D, pair, mode, ref, grid, ghost, pumped, out: OUT_MAX }); }
 /* 처음 크기 겹쳐 보기의 기준: 기록 중 가장 작은 지름, 기록이 없으면 12 cm */
 function ghostD() { return recs.length ? Math.min(...recs.map(r => r.D)) : D_SMALL; }
 function saveCosmos() { store.set('cosmos', { step: CZ.step, ref: CZ.ref, k: CZ.k, t: CZ.t }); }
@@ -2106,8 +2106,13 @@ function renderRecs() {
   }).join('');
   setHTML('#recWrap', `<table class="rec"><caption class="sr-only">풍선 크기별 붙임딱지 사이의 거리 기록</caption><thead>${head}</thead><tbody>${body}</tbody></table><p class="unit-note">단위: cm · 거리는 붙임딱지 중심 사이를 표면을 따라 잰 값</p>`);
   if (freshKey) { freshKey = null; setTimeout(() => { $$('#recWrap td.fresh').forEach(td => td.classList.remove('fresh')); }, 1300); }
-  // 발견(관찰만)
-  const ch = M.rows.map(k => ({ k, c: M.change(k) })).filter(x => x.c && x.c.d1 >= x.c.d0 * 1.2);
+  // 발견(관찰만): 같은 두 지름에서 잰 쌍끼리만 견준다(지름 범위가 다르면 늘어난 길이를 비교할 수 없다)
+  let ch = [];
+  M.sizes.forEach(d0 => M.sizes.forEach(d1 => {
+    if (d1 < d0 * 1.2) return;
+    const c = M.rows.filter(k => M.val(k, d0) != null && M.val(k, d1) != null).map(k => { const v0 = M.val(k, d0), v1 = M.val(k, d1); return { k, c: { v0, v1, d0, d1, dv: v1 - v0, x: v1 / v0 } }; });
+    if (c.length > ch.length || (c.length && c.length === ch.length && d1 / d0 > ch[0].c.d1 / ch[0].c.d0)) ch = c;
+  }));
   let f = '';
   if (ch.length >= 2) {
     const most = ch.slice().sort((p, q) => q.c.dv - p.c.dv)[0], [a, b] = most.k.split('-').map(Number);
@@ -2115,7 +2120,7 @@ function renderRecs() {
     if (!foundOnce) { foundOnce = true; requestAnimationFrame(() => { const e = $('#found'); if (e) { e.classList.remove('pop'); void e.offsetWidth; e.classList.add('pop'); } }); }
   } else if (ch.length === 1) {
     const [a, b] = ch[0].k.split('-').map(Number), c = ch[0].c;
-    f = `${icon('bulb')}<span>${pairH(a, b)} 사이가 ${cm1(c.v0)} cm에서 <b>${cm1(c.v1)} cm</b>로 늘었어요. <span class="sub">처음 거리가 다른 쌍도 두 크기에서 재어 비교해 볼까요?</span></span>`;
+    f = `${icon('bulb')}<span>${pairH(a, b)} 사이가 ${cm1(c.v0)} cm에서 <b>${cm1(c.v1)} cm</b>로 늘었어요. <span class="sub">처음 거리가 다른 쌍도 같은 두 크기에서 재어 비교해 볼까요?</span></span>`;
   }
   setHTML('#found', f);
 }
